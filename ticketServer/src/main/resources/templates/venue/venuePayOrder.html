@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>现场购票付款</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script src="/appjs/orders/venuePayOrder.js"></script>
+</head>
+<body>
+<div id="venuePayOrderVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/venues/postEvent.html"><span>发布活动</span></a></li>
+                <li><a href="/pages/venues/postHistory.html"><span>发布历史</span></a></li>
+
+                <li><a href="/pages/venues/sceneTickets.html"><span>现场购票</span></a></li>
+                <li><a href="/pages/venues/checkTickets.html"><span>检票入场</span></a></li>
+                <li><a href="/pages/venues/venueStatistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{venueName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/tickets/venueHome">场馆信息</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/venues">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="venuePayOrderError">{{errorMsg}}</div>
+    <div class="alert alert-success" role="alert" style="display: none" id="venuePayOrderSuccess">收款成功！三秒后返回现场购票界面.<a href="/pages/venues/sceneTickets.html">返回</a></div>
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">订单号：{{orderId}}</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">订单时间：{{orderTime | time}}</div>
+                    <div class="col-sm-3">订单金额：{{orderPrice}}</div>
+                    <div class="col-sm-3">座位数量：{{orderQuantity}}</div>
+
+                    <div class="col-sm-1"></div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">座位号：{{seats}}</div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <span style="color: red">请在{{orderDeadline | time}}前支付，否则订单将取消！</span>
+                </div>
+
+                <div class="col-xs-offset-5">该订单原价：{{originPrice | currency}}</div>
+                <div id="showVipPrice" class="col-xs-offset-5" style="display: none">会员折后价：{{vipPrice | currency}}</div>
+
+                <hr/>
+                <div class="form-group">
+                    <div class="col-sm-10 col-lg-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">会员账号</span>
+                            <input type="text" class="form-control" placeholder="example@example.com" v-model="vipId"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" v-on:click="searchVip">查询会员</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+
+            </div>
+            <div class="panel-footer">
+                <button type="button" class="btn btn-warning col-xs-offset-8" v-on:click="venuePay">已收款</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

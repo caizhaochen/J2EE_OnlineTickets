@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pay Order</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script src="/appjs/orders/payOrder.js"></script>
+</head>
+<body>
+<div id="payOrderVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/showTickets"><span>订票业务</span></a></li>
+                <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{username}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a>会员等级:{{userlevel}}</a></li>
+                        <li><a href="/tickets/home">个人信息</a></li>
+                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/">退出登录</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="payOrderError">{{errorMsg}}</div>
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">订单号：{{orderId}}</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">订单时间：{{orderTime | time}}</div>
+                    <div class="col-sm-3">订单金额：{{orderPrice}}</div>
+                    <div class="col-sm-3">座位数量：{{orderQuantity}}</div>
+
+                    <div class="col-sm-1"></div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">座位号：{{seats}}</div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <span style="color: red">请在{{orderDeadline | time}}前支付，否则订单将取消！</span>
+                </div>
+
+                <div class="col-xs-offset-5">该订单原价：{{originPrice | currency}}</div>
+                <div class="col-xs-offset-5">会员折后价：{{orderPrice | currency}}</div>
+
+                <span v-if="hasCoupon">
+                <hr/>
+                    <span>使用折扣券</span>
+                    <div v-for="coupon in coupons">
+                        <label class="radio-inline col-xs-offset-1">
+                            <input type="radio" name="optionsCoupon" v-model="reducePrice" v-bind:value="coupon.price"/> {{coupon.price}}元折扣券
+                        </label>
+                    </div>
+                </span>
+                <hr/>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">银行账户</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="" class="form-control" v-model="accountId"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">密码</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="password" placeholder="" class="form-control" v-model="accountPass"/>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="button" class="btn btn-warning col-xs-offset-8" v-on:click="pay">结算</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

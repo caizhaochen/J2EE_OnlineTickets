@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <title>结算</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+
+    <script type="text/javascript" src="/appjs/managers/countForVenues.js"></script>
+
+
+</head>
+<body>
+<div id="countForVenuesVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/managers/managerHome.html"><span>首页</span></a></li>
+                <li><a href="/pages/managers/checkVenue.html"><span>审核场馆</span></a></li>
+                <li><a href="/pages/managers/balanceAccount.html"><span>结算</span></a></li>
+                <li><a href="/pages/managers/statistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">admin<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/admin">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="alert alert-warning" role="alert" style="display: none" id="countForVenuesError">{{errorMsg}}</div>
+        <div class="alert alert-warning" role="alert" style="display: none" id="countForVenuesSuccess">{{successMsg}}
+        </div>
+        <div v-if="hasUnCount">
+            <div v-for="count in unCountInfo">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-2">演出ID：{{count.showId}}</div>
+                            <div class="col-sm-2">演出名称：{{count.showName}}</div>
+                            <div class="col-sm-2">场馆名字：{{count.venueName}}</div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-3">发布时间：{{count.showPostTime | time}}</div>
+                            <div class="col-sm-3">演出时间：{{count.showTime | time}}</div>
+                            <div class="col-sm-3">演出类型：{{count.showType}}</div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">演出描述：{{count.showDescribe}}</div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-1">（95%/5%）</div>
+                            <div class="col-sm-3">获得收入：{{count.originMoney | currency}}</div>
+                            <div class="col-sm-3">场馆所得：{{count.venueGet | currency}}</div>
+                            <div class="col-sm-3">平台所得：{{count.adminGet | currency}}</div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-5"></div>
+                            <!--<div class="col-sm-3"><a type="button" class="btn btn-danger col-xs-offset-8" data-toggle="modal" data-target="#notPassModal"  v-on:click="refuse(f.venueid)">不通过</a></div>-->
+                            <div class="col-sm-3"><a type="button" class="btn btn-info col-xs-offset-8"
+                                                     v-on:click="payForVenue(count.showId,count.venueGet,count.adminGet)">结算</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div v-else>
+            <div class="jumbotron">
+                <div class="container">
+                    <p>暂时没有可以结算的演出</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>撤销失败</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script src="/appjs/orders/backTimeNotPermit.js"></script>
+</head>
+<body>
+<div id="backTimeNotPermitVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/showTickets"><span>订票业务</span></a></li>
+                <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{username}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a>会员等级:{{userlevel}}</a></li>
+                        <li><a href="/tickets/home">个人信息</a></li>
+                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/">退出登录</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container register-form">
+        <div class="jumbotron">
+            <h2 style="align-items: center">撤销失败！</h2>
+            <h2 style="align-items: center">活动开始前1小时之内不得撤销订单</h2>
+            <p><a class="btn btn-success btn-lg" href="/pages/users/myOrders.html" role="button">查看我的订单</a></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

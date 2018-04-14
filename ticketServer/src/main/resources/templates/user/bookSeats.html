@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Seats</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
+    <script type="text/javascript" src="/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/appjs/shows/bookSeats.js"></script>
+</head>
+<body>
+<div id="bookSeatsVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/showTickets"><span>订票业务</span></a></li>
+                <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{username}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a>会员等级:{{userlevel}}</a></li>
+                        <li><a href="/tickets/home">个人信息</a></li>
+                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/">退出登录</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="bookSeatsError">{{errorMsg}}</div>
+
+    <div class="wrapper">
+        <div class="container">
+            <h2>{{showname}}</h2>
+            <div class="well">
+                <div class="row">
+                    <div class="col-xs-1">时间</div>
+                    <div class="col-xs-3">{{showtime |time}}</div>
+                </div>
+            </div>
+            <div id="seat-map">
+                <div id="seat-maps"></div>
+            </div>
+            <div class="booking-details">
+                <ul id="selected-seats">
+                </ul>
+                <span class="col-xs-offset-2">票价总计：￥{{totalPrice | currency }}</span>
+                <p class="col-xs-offset-2"><button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button></p>
+                <div id="legend"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

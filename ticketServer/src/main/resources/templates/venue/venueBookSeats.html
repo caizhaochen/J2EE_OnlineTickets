@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>现场选座购票</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
+    <script type="text/javascript" src="/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/appjs/shows/venueBookSeats.js"></script>
+</head>
+<body>
+<div id="venueBookSeatsVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/venues/postEvent.html"><span>发布活动</span></a></li>
+                <li><a href="/pages/venues/postHistory.html"><span>发布历史</span></a></li>
+                <li><a href="/pages/venues/sceneTickets.html"><span>现场购票</span></a></li>
+                <li><a href="/pages/venues/checkTickets.html"><span>检票入场</span></a></li>
+                <li><a href="/pages/venues/venueStatistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{venueName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/tickets/venueHome">场馆信息</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/venues">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="venueBookSeatsError">{{errorMsg}}</div>
+
+    <div class="wrapper">
+        <div class="container">
+            <h2>{{showname}}</h2>
+            <div class="well">
+                <div class="row">
+                    <div class="col-xs-1">时间</div>
+                    <div class="col-xs-3">{{showtime |time}}</div>
+                </div>
+            </div>
+            <div id="seat-map">
+                <div id="seat-maps"></div>
+            </div>
+            <div class="booking-details">
+                <ul id="selected-seats">
+                </ul>
+                <span class="col-xs-offset-2">票价总计：￥{{totalPrice | currency }}</span>
+                <p class="col-xs-offset-2"><button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button></p>
+                <div id="legend"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

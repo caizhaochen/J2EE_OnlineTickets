@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <title>信息统计</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/echarts.js"></script>
+
+    <!--<script type="text/javascript" src="/js/echarts.min.js"></script>-->
+
+    <script src="/appjs/managers/statistics.js"></script>
+
+
+</head>
+<body>
+<div id="statisticsVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/managers/managerHome.html"><span>首页</span></a></li>
+                <li><a href="/pages/managers/checkVenue.html"><span>审核场馆</span></a></li>
+                <li><a href="/pages/managers/balanceAccount.html"><span>结算</span></a></li>
+                <li><a href="/pages/managers/statistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">admin<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/admin">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="alert alert-warning" role="alert" style="display: none" id="statisticsError">{{errorMsg}}</div>
+
+        <ul class="nav nav-pills">
+            <li role="presentation"><a type="button" onclick="showNums()">场馆会员统计</a></li>
+            <li role="presentation"><a type="button" onclick="showVenue()">场馆信息</a></li>
+            <li role="presentation"><a type="button" onclick="showMoney()">财务统计</a></li>
+        </ul>
+        <hr/>
+        <div class="row">
+            <div id="numShow" style="display: block">
+                <div class="row">
+                    <div id="users" style="width: 30%;height:400px; float: left;"></div>
+                    <div id="venues" style="width: 30%;height:400px; float: left;"></div>
+                    <div id="shows" style="width: 30%;height:400px; float: left;"></div>
+                </div>
+                <!--<div class="row">-->
+                <!--<div id="ordersNum" style="width: 50%;height:400px;float: left; "></div>-->
+                <!--<div id="ordersPrice" style="width: 50%;height:400px;float: left;"></div>-->
+                <!--</div>-->
+                <div class="row">
+                    <div style="width: 30%;text-align: center; float: left;">总用户数：{{userNum}}</div>
+                    <div style="width: 30%;text-align: center; float: left;">总场馆数：{{venueNum}}</div>
+                    <div style="width: 30%;text-align: center; float: left;">总演出数：{{showNum}}</div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div><h3>会员等级人数统计</h3></div>
+                    <div id="usersLevel" style="width: 80%;height:400px; left: 10%"></div>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <div class="row">
+            <div id="venueShow" style="display: none">
+                <!--<div class="input-group">-->
+                <!--<input type="text" class="form-control" placeholder="输入场馆名字或者ID">-->
+                <!--<span class="input-group-btn">-->
+                <!--<button class="btn btn-default" type="button">Go!</button>-->
+                <!--</span>-->
+                <!--</div>-->
+                <!--<hr/>-->
+                <div v-for="venue in venues">
+                    <a class="col-xs-2 btn btn-link" type="button" style="float: left" v-on:click="showVenueInfo(venue.venueid,venue.venuename)">{{venue.venuename}}({{venue.venueid}})</a>
+                </div>
+                <hr/>
+                <hr/>
+                <div v-show="showVenueShowInfo">
+                    <div v-if="showLen">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-2">发布活动总数：{{showQuantity}}</div>
+                                    <div class="col-xs-4">目前收益（按照分红标准后）：￥{{showIncome | currency}}</div>
+                                    <div class="col-xs-5">已到账（含结算和线下）：￥{{hasPayed | currency}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div v-for="vshow in allShows">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">活动名称：{{vshow.show.showname}}</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">发布时间：{{vshow.show.posttime | time}}</div>
+                                        <div class="col-sm-2">活动类型：{{vshow.show.showtype}}</div>
+                                        <div class="col-sm-5">活动描述：{{vshow.show.showdescribe}}</div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">活动时间：{{vshow.show.showtime | time}}</div>
+                                        <div class="col-sm-2">总座位数：{{vshow.show.showline*vshow.show.showrow}}</div>
+                                        <div class="col-sm-2">已预订数：{{vshow.show.showline*vshow.show.showrow-vshow.show.restseats}}</div>
+                                        <div class="col-sm-4">已检票数{{vshow.checkOrders}}（累计到场{{vshow.checkSeats}}个座位人数）</div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-xs-2"></div>
+                                        <div class="col-xs-2">在线订单</div>
+                                        <div class="col-xs-2">线下订单</div>
+                                        <div class="col-xs-2">退订订单</div>
+                                        <div class="col-xs-2">总计</div>
+                                        <div class="col-xs-2">已到账</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-1">数量</div>
+                                        <div class="col-xs-2">{{vshow.onlinePayNum}}</div>
+                                        <div class="col-xs-2">{{vshow.realPayNum}}</div>
+                                        <div class="col-xs-2">{{vshow.backNum}}</div>
+                                        <div class="col-xs-2">{{vshow.onlinePayNum+vshow.realPayNum+vshow.backNum}}</div>
+                                        <div class="col-xs-2">————</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-1">金额</div>
+                                        <div class="col-xs-2">￥{{vshow.onlinePayIncome | currency}}</div>
+                                        <div class="col-xs-2">￥{{vshow.realPayIncome | currency}}</div>
+                                        <div class="col-xs-2">￥{{vshow.backIncome | currency}}</div>
+                                        <div class="col-xs-2">￥{{vshow.onlinePayIncome+vshow.realPayIncome+vshow.backIncome | currency}}</div>
+                                        <div class="col-xs-2">￥{{vshow.show.venueget | currency}}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div class="jumbotron">
+                            <div class="container">
+                                <p>场馆 {{noInfoVenueName}}({{noInfoVenueId}}) 暂无统计信息</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div id="moneyShow" style="display: none;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-3">数量</div>
+                        <div class="col-xs-3">金额</div>
+                        <div class="col-xs-3">Tickets获得</div>
+                        <div class="col-xs-1"></div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1">线上购票</div>
+                        <div class="col-xs-3">  {{ticketsOrderInfo.onlineOrderNum       }}</div>
+                        <div class="col-xs-3">￥{{ticketsOrderInfo.onlineOrderPrice   | currency  }}</div>
+                        <div class="col-xs-3">￥{{ticketsOrderInfo.onlineOrderBenifit | currency  }}</div>
+                        <div class="col-xs-1"></div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1">线下购票</div>
+                        <div class="col-xs-3">  {{ticketsOrderInfo.realOrderNum         }}</div>
+                        <div class="col-xs-3">￥{{ticketsOrderInfo.realOrderPrice    | currency  }}</div>
+                        <div class="col-xs-3">￥{{ticketsOrderInfo.realOrderBenifit  | currency  }}</div>
+                        <div class="col-xs-1"></div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1">撤销订单</div>
+                        <div class="col-xs-3">  {{ticketsOrderInfo.backOrderNum          }}</div>
+                        <div class="col-xs-3">￥{{ticketsOrderInfo.backOrderPrice   | currency  }}</div>
+                        <div class="col-xs-3">￥{{ticketsOrderInfo.backOrderBenifit | currency  }}</div>
+                        <div class="col-xs-1"></div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1">总计</div>
+                        <div class="col-xs-3">——————</div>
+                        <div class="col-xs-3">——————</div>
+                        <div class="col-xs-3">￥{{ticketsOrderInfo.backOrderBenifit+ticketsOrderInfo.realOrderBenifit+ticketsOrderInfo.onlineOrderBenifit | currency  }}</div>
+                        <div class="col-xs-1"></div>
+                    </div>
+                    <hr/>
+
+                </div>
+                <div id="ordersNum" style="width: 400px;height:400px; float: left;"></div>
+                <div id="ordersPrice" style="width: 400px;height:400px;float: left;"></div>
+
+                <!--<div id="ordersNum" style="width: 50%;height:400px; float: left;"></div>-->
+                <!--<div id="ordersPrice" style="width: 50%;height:400px; float: left;"></div>-->
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+</body>
+
+</html>

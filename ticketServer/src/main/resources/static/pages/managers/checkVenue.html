@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <title>审核场馆</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+
+
+
+    <script type="text/javascript" src="/appjs/managers/checkVenues.js"></script>
+
+
+</head>
+<body>
+<div id="checkVenuesVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/managers/managerHome.html"><span>首页</span></a></li>
+                <li><a href="/pages/managers/checkVenue.html"><span>审核场馆</span></a></li>
+                <li><a href="/pages/managers/balanceAccount.html"><span>结算</span></a></li>
+                <li><a href="/pages/managers/statistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">admin<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/admin">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="alert alert-warning" role="alert" style="display: none" id="checkVenuesError">{{errorMsg}}</div>
+        <div class="alert alert-warning" role="alert" style="display: none" id="checkVenuesSuccess">{{successMsg}}</div>
+        <div v-if="hasCheck">
+            <div v-for="f in uncheckInfo">
+                <div class="panel panel-default">
+                    <div class="panel-heading">场馆id：{{f.venueid}}</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-3">场馆名称：{{f.venuename}}</div>
+                            <div class="col-sm-3">场馆电话：{{f.venuephone}}</div>
+                            <div class="col-sm-3">场馆位置：{{f.location}}</div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">场馆描述：{{f.information}}</div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-3"><a type="button" class="btn btn-danger col-xs-offset-8" data-toggle="modal" data-target="#notPassModal"  v-on:click="refuse(f.venueid)">不通过</a></div>
+                            <div class="col-sm-3"><a type="button" class="btn btn-success col-xs-offset-8"  v-on:click="pass(f.venueid)">通过</a></div>
+                        </div>
+                        <!--<a type="button" class="btn btn-danger col-xs-offset-8"   v-on:click="refuse(f.venueid)">不通过</a>-->
+                        <!--<a type="button" class="btn btn-danger col-xs-offset-8" data-toggle="modal" data-target="#notPassModal"  v-on:click="refuse(f.venueid)">不通过</a>-->
+                        <!--<a type="button" class="btn btn-success col-xs-offset-8"  v-on:click="pass(f.venueid)">通过</a>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div v-else>
+            <div class="jumbotron">
+                <div class="container">
+                    <p>暂时没有需要审核的场馆了！</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="notPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="control-label" >输入拒绝理由</div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10"><textarea class="form-control" v-model="notPassReason"></textarea></div>
+                            <div class="col-xs-1"></div>
+
+                        </div>
+                        <hr/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <input type="button" v-on:click="denyVenue" class="btn btn-danger" value="提交"></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+
+</html>

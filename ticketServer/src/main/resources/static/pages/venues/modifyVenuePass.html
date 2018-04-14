@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Modify Venue Password</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script src="/appjs/venues/modifyVenuePass.js"></script>
+</head>
+<body>
+
+<div id="modifyVenuePassVue">
+
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a class="barFun" style="display: block;" href="/pages/venues/postEvent.html"><span>发布活动</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/postHistory.html"><span>发布历史</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/sceneTickets.html"><span>现场购票</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/checkTickets.html"><span>检票入场</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/venueStatistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{venueName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/tickets/venueHome">场馆信息</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/venues">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="modifyVenuePassError">{{errorMsg}}</div>
+
+    <form @submit.prevent="modifyVenuePassSubmit" class="form-horizontal " role="form" >
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2">场馆ID</label>
+                <div class="col-sm-10 col-lg-3">
+                    <p>{{venueID}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">场馆名称</label>
+                <div class="col-sm-10 col-lg-3">
+                    <p>{{venueName}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">原密码</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="password"  class="form-control" v-model="origin">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">新密码</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="password"  class="form-control" v-model="newPass">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">确认密码</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="password"  class="form-control" v-model="newConfirm">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-5"></div>
+                <a href="/tickets/venueHome" class="col-xs-1 btn btn-lg btn-warning">取消/首页</a>
+                <div class="controls col-xs-3">
+                    <input type="submit" class="btn btn-lg btn-success" value="确认修改">
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>
+
+</body>
+</html>

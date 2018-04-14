@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tickets Venue Home</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script src="/appjs/venues/venueHome.js"></script>
+
+
+</head>
+<body>
+<div id="venueHomeVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a class="barFun" style="display: block;" href="/pages/venues/postEvent.html"><span>发布活动</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/postHistory.html"><span>发布历史</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/sceneTickets.html"><span>现场购票</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/checkTickets.html"><span>检票入场</span></a></li>
+                <li><a class="barFun" style="display: block;" href="/pages/venues/venueStatistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{venueName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/tickets/venueHome">场馆信息</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/venues">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="alert alert-warning" role="alert" style="display: none" id="venueHomePassError">{{errorMsg}}</div>
+
+        <table class="table table-striped table-responsive table-bordered" style="text-align: center">
+            <div class="row">
+                <div class="col-xs-4">
+                    <caption>场馆信息</caption>
+                </div>
+            </div>
+
+            <tbody>
+            <tr>
+                <td>场馆ID</td>
+                <td>{{venueID}}</td>
+            </tr>
+            <tr>
+                <td>场馆名称</td>
+                <td>{{venueName}}</td>
+            </tr>
+            <tr>
+                <td>场馆电话</td>
+                <td>{{venuePhone}}</td>
+            </tr>
+            <tr>
+                <td>场馆地址</td>
+                <td>{{venueLocation}}</td>
+            </tr>
+            <tr>
+                <td>场馆描述</td>
+                <td>{{venueInfo}}</td>
+            </tr>
+            <tr>
+                <td>场馆行数</td>
+                <td>{{venueLine}}</td>
+            </tr>
+            <tr>
+                <td>场馆列数</td>
+                <td>{{venueRow}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="row">
+            <div class="col-xs-8"></div>
+            <div class="col-xs-2">
+                <a href="/pages/venues/modifyVenue.html" class="btn btn-warning">修改信息</a>
+            </div>
+            <div class="col-xs-2">
+                <a href="/pages/venues/modifyVenuePass.html" class="btn btn-danger">修改密码</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

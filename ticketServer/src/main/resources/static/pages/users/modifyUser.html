@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Modify User Information</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script src="/appjs/users/modifyUserInfo.js"></script>
+</head>
+<body>
+<div id="modifyUserVue">
+
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/showTickets"><span>订票业务</span></a></li>
+                <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{name}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a>会员等级:{{level}}</a></li>
+                        <li><a href="/tickets/home">个人信息</a></li>
+                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/">退出登录</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="modifyError">{{errorMsg}}</div>
+    <div class="alert alert-success" role="alert" style="display: none" id="modifySuccess">{{successMsg}}</div>
+    <form @submit.prevent="modifySubmit" class="form-horizontal " role="form">
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2">邮箱</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="example@example.com" class="form-control" v-model="email"
+                           style="display: none">
+                    <span>{{email}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">昵称</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="昵称" class="form-control" v-model="name">
+                    <p class="help-block"></p>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">生日</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" id="d12" placeholder="1949-10-01" class="form-control" v-model="birth">
+                </div>
+                <p class="help-block col-sm-3 col-lg-3">日期格式：yyyy-mm-dd</p>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">性别</label>
+                <div class="col-sm-10 ">
+                    <label class="radio col-sm-1">
+                        <input type="radio" value="男" name="group" checked="checked" v-model="gender">
+                        男
+                    </label>
+                    <label class="radio col-sm-2">
+                        <input type="radio" value="女" name="group" v-model="gender">
+                        女
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-5"></div>
+                <a href="/tickets/home" class="col-xs-1 btn btn-lg btn-warning">取消/首页</a>
+                <div class="controls col-xs-3">
+                    <input type="submit" class="btn btn-lg btn-success" value="确认修改">
+                </div>
+            </div>
+
+
+        </fieldset>
+    </form>
+
+</div>
+
+</body>
+</html>

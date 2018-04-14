@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="c3p0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ticketServer/lib/c3p0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

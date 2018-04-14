@@ -1,0 +1,207 @@
+.register-form {
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.black_overlay {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .50;
+    filter: alpha(opacity=50);
+}
+
+.white_content {
+    display: none;
+    position: absolute;
+    top: 35%;
+    left: 36%;
+    width: 33%;
+    border: 2px solid #d3d3d3;
+    background-color: white;
+    z-index: 1002;
+    /* overflow: auto; */
+}
+
+.white_content_small {
+    display: none;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    height: 50%;
+    border: 16px solid lightblue;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+}
+
+/*座位分布的css样式*/
+.front {
+    width: 300px;
+    margin: 5px 32px 45px 32px;
+    background-color: #f0f0f0;
+    color: #666;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+/*.booking-details {float: right;position: relative;width:200px;height: 450px; }*/
+.booking-details h3 {
+    margin: 5px 5px 0 0;
+    font-size: 16px;
+}
+
+.booking-details p {
+    line-height: 26px;
+    font-size: 16px;
+    color: #999
+}
+
+.booking-details p span {
+    color: #666
+}
+
+div.seatCharts-cell {
+    color: #182C4E;
+    height: 25px;
+    width: 35px;
+    line-height: 25px;
+    margin: 3px;
+    text-align: center;
+    outline: none;
+    font-size: 13px;
+}
+
+/*div.seatCharts-cell {color: #182C4E;height: 25px;width: 25px;line-height: 25px;margin: 3px;float: left;text-align: center;outline: none;font-size: 13px;}*/
+div.seatCharts-seat {
+    color: #fff;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div.seatCharts-row {
+    height: 35px;
+}
+
+div.seatCharts-seat.available {
+    background-color: #B9DEA0;
+}
+
+div.seatCharts-seat.focused {
+    background-color: #76B474;
+    border: none;
+}
+
+div.seatCharts-seat.selected {
+    background-color: #E6CAC4;
+}
+
+div.seatCharts-seat.unavailable {
+    background-color: #472B34;
+    cursor: not-allowed;
+}
+
+/*div.seatCharts-container {border-right: 1px dotted #adadad;width: 400px;padding: 20px;}*/
+/*div.seatCharts-container {border-right: 1px dotted #adadad;width: 400px;padding: 20px;float: left;}*/
+div.seatCharts-legend {
+    padding-left: 0px;
+    /*position: absolute;*/
+    bottom: 16px;
+}
+
+ul.seatCharts-legendList {
+    padding-left: 0px;
+}
+
+.seatCharts-legendItem {
+    /*width: 90px;*/
+    margin-top: 10px;
+    line-height: 2;
+}
+
+/*.seatCharts-legendItem{float:left; width:90px;margin-top: 10px;line-height: 2;}*/
+span.seatCharts-legendDescription {
+    margin-left: 5px;
+    line-height: 30px;
+}
+
+.checkout-button {
+    display: block;
+    width: 80px;
+    height: 24px;
+    line-height: 20px;
+    /*margin: 10px auto;*/
+    border: 1px solid #999;
+    font-size: 14px;
+    cursor: pointer
+}
+
+#selected-seats {
+    max-height: 150px;
+    overflow-y: auto;
+    /*overflow-x: none;*/
+    width: 200px;
+}
+
+#selected-seats li {
+    float: left;
+    width: 72px;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #d3d3d3;
+    background: #f7f7f7;
+    margin: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center
+}
+
+/*座位分布的css样式*/
+
+
+/*优惠券样式*/
+.stamp {width: 50%;height: 160px;padding: 0 10px;position: relative;overflow: hidden;}
+.stamp:before {content: '';position: absolute;top:0;bottom:0;left:10px;right:10px;z-index: -1;}
+.stamp:after {content: '';position: absolute;left: 10px;top: 10px;right: 10px;bottom: 10px;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.5);z-index: -2;}
+.stamp i{position: absolute;left: 20%;top: 0px;height: 190px;width: 80%;background-color: rgba(255,255,255,.15);transform: rotate(-30deg);}
+.stamp .par{float: left;padding: 16px 15px;width: 75%;border-right:2px dashed rgba(255,255,255,.3);text-align: left;}
+.stamp .par p{color:#fff;}
+.stamp .par span{font-size: 50px;color:#fff;margin-right: 5px;}
+.stamp .par .sign{font-size: 34px;}
+.stamp .par sub{position: relative;top:-5px;color:rgba(255,255,255,.8);}
+.stamp .copy{display: inline-block;padding:21px 14px;width:100px;vertical-align: text-bottom;font-size: 30px;color:rgb(255,255,255);}
+.stamp .copy p{font-size: 16px;margin-top: 15px;}
+
+.stamp01{background: #D24161;background: radial-gradient(transparent 0, transparent 5px, #D24161 5px);background-size: 15px 15px;background-position: 9px 3px;}
+.stamp01:before{background-color:#D24161;}
+.stamp01 .copy{padding: 10px 6px 10px 12px;font-size: 24px;}
+.stamp01 .copy p{font-size: 14px;margin-top: 5px;margin-bottom: 8px;}
+.stamp01 .copy a{background-color:#fff;color:#333;font-size: 14px;text-decoration:none;padding:5px 10px;border-radius:3px;display: block;}
+
+.stamp02{background: #F39B00;background: radial-gradient(transparent 0, transparent 5px, #F39B00 5px);background-size: 15px 15px;background-position: 9px 3px;}
+.stamp02:before{background-color:#F39B00;}
+.stamp02 .copy{padding: 10px 6px 10px 12px;font-size: 24px;}
+.stamp02 .copy p{font-size: 14px;margin-top: 5px;margin-bottom: 8px;}
+.stamp02 .copy a{background-color:#fff;color:#333;font-size: 14px;text-decoration:none;padding:5px 10px;border-radius:3px;display: block;}
+
+.stamp03{background: #7EAB1E;background: radial-gradient(transparent 0, transparent 5px, #7EAB1E 5px);background-size: 15px 15px;background-position: 9px 3px;}
+.stamp03:before{background-color:#7EAB1E;}
+.stamp03 .copy{padding: 10px 6px 10px 12px;font-size: 24px;}
+.stamp03 .copy p{font-size: 14px;margin-top: 5px;margin-bottom: 8px;}
+.stamp03 .copy a{background-color:#fff;color:#333;font-size: 14px;text-decoration:none;padding:5px 10px;border-radius:3px;display: block;}
+
+.stamp04{background: #50ADD3;background: radial-gradient(transparent 0, transparent 5px, #50ADD3 5px);background-size: 15px 15px;background-position: 9px 3px;}
+.stamp04:before{background-color:#50ADD3;}
+.stamp04 .copy{padding: 10px 6px 10px 12px;font-size: 24px;}
+.stamp04 .copy p{font-size: 14px;margin-top: 5px;margin-bottom: 8px;}
+.stamp04 .copy a{background-color:#fff;color:#333;font-size: 14px;text-decoration:none;padding:5px 10px;border-radius:3px;display: block;}

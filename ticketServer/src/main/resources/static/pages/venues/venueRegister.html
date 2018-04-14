@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <title>Venue Register</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/appcss/mainCSS.css"/>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script src="/appjs/venues/venueRegister.js"></script>
+
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/venueLogin"><span>场馆登录</span></a></li>
+                <li><a href="/pages/venues/venueRegister.html"><span>注册场馆</span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="register-form container" id="venueRegisterVUE">
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="venueRegisterError">{{errorMsg}}</div>
+
+    <form @submit.prevent="venueRegisterSubmit" class="form-horizontal " role="form" >
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2">场馆名字</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="" class="form-control" v-model="venueRegister.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">场馆电话</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="" class="form-control" v-model="venueRegister.phone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">场馆地址</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="" class="form-control" v-model="venueRegister.location">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">场馆描述</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="" class="form-control" v-model="venueRegister.information">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">座位行数</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="整数" class="form-control" v-model="venueRegister.line">
+                    <p class="help-block">此栏须填整数</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">座位列数</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="text" placeholder="整数" class="form-control" v-model="venueRegister.row">
+                    <p class="help-block">此栏须填整数</p>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">密码</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="password" placeholder="" class="form-control" v-model="venueRegister.password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">确认密码</label>
+                <div class="col-sm-10 col-lg-3">
+                    <input type="password" placeholder="" class="form-control" v-model="venueRegister.confirmPass">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="controls col-xs-offset-5 col-lg-offset-4">
+                    <input type="submit" class="btn btn-lg btn-success" value="注册">
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+    <div class="modal fade" id="venueRegisterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body"><h1>你的场馆ID为：{{id}}，请记牢并用id登录！</h1></div>
+                <div class="modal-footer">
+                    <a href="/venues/registerSuccess" class="btn btn-success">已经记住了ID</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Orders</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
+    <script type="text/javascript" src="/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/appjs/users/myOrders.js"></script>
+</head>
+<body>
+<div id="myOrdersVue">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/showTickets"><span>订票业务</span></a></li>
+                <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{username}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a>会员等级:{{userlevel}}</a></li>
+                        <li><a href="/tickets/home">个人信息</a></li>
+                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/">退出登录</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 40px;padding-top: 40px;margin-bottom: 40px;padding-bottom: 40px;">
+
+        <!--<nav class="navbar navbar-default navbar-static-top">-->
+
+        <div v-show="isFuture">
+            <div v-if="futureLen">
+                <div v-for="f in future">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-2">订单号：{{f[0].orderid}}</div>
+                                <div class="col-sm-2">表演名称：{{f[1].showname}}</div>
+                            </div>
+                            <!--订单号：{{f[0].orderid}}-->
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">订单时间：{{f[0].ordertime | time}}</div>
+                                <div class="col-sm-3">订单金额：{{f[0].totalprice | currency}}</div>
+                                <div class="col-sm-3">座位数量：{{f[0].quantity}}</div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">座位号：{{f[0].orderseats}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">表演时间：{{f[1].showtime| time}}</div>
+                                <div class="col-sm-4">表演地点：{{f[2].location}}</div>
+                            </div>
+                            <hr/>
+                            <div class="col-xs-offset-5">该订单原价：{{f[0].originprice | currency}}</div>
+                            <div class="col-xs-offset-5">会员折后价：{{f[0].totalprice | currency}}</div>
+                        </div>
+                        <div class="panel-footer">
+                            <a type="button" class="btn btn-danger col-xs-offset-8" v-bind:href="'/order/backOrder/'+f[0].orderid">撤销订单</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div v-else>
+                <div class="jumbotron">
+                    <div class="container">
+                        <p>您还没有即将到来的活动！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="isPast">
+            <div v-if="pastLen">
+                <div v-for="p in past">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-2">订单号：{{p[0].orderid}}</div>
+                                <div class="col-sm-2">表演名称：{{p[1].showname}}</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">订单时间：{{p[0].ordertime | time}}</div>
+                                <div class="col-sm-3">订单金额：{{p[0].totalprice | currency}}</div>
+                                <div class="col-sm-3">座位数量：{{p[0].quantity}}</div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">座位号：{{p[0].orderseats}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">表演时间：{{p[1].showtime| time}}</div>
+                                <div class="col-sm-4">表演地点：{{p[2].location}}</div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">是否检票：{{p[0].hascheck}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="col-xs-offset-5">该订单原价：{{p[0].originprice | currency}}</div>
+                            <div class="col-xs-offset-5">会员折后价：{{p[0].totalprice | currency}}</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div v-else>
+                <div class="jumbotron">
+                    <div class="container">
+                        <p>您还没有已经过去的活动！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="isAll">
+            <div v-if="allLen">
+                <div v-for="all in allOrders">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-2">订单号：{{all[0].orderid}}</div>
+                                <div class="col-sm-2">表演名称：{{all[1].showname}}</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">订单时间：{{all[0].ordertime | time}}</div>
+                                <div class="col-sm-3">订单金额：{{all[0].totalprice | currency}}</div>
+                                <div class="col-sm-3">座位数量：{{all[0].quantity}}</div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">座位号：{{all[0].orderseats}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">表演时间：{{all[1].showtime| time}}</div>
+                                <div class="col-sm-4">表演地点：{{all[2].location}}</div>
+                            </div>
+                            <hr/>
+
+                            <div class="col-xs-offset-5">该订单原价：{{all[0].originprice | currency}}</div>
+                            <div class="col-xs-offset-5">会员折后价：{{all[0].totalprice | currency}}</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div v-show="isNotPay">
+            <div v-if="notLen">
+                <div v-for="not in notPay">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-2">订单号：{{not[0].orderid}}</div>
+                                <div class="col-sm-2">表演名称：{{not[1].showname}}</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">订单时间：{{not[0].ordertime | time}}</div>
+                                <div class="col-sm-3">订单金额：{{not[0].totalprice | currency}}</div>
+                                <div class="col-sm-3">座位数量：{{not[0].quantity}}</div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">座位号：{{not[0].orderseats}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">表演时间：{{not[1].showtime| time}}</div>
+                                <div class="col-sm-4">表演地点：{{not[2].location}}</div>
+                            </div>
+                            <hr/>
+
+                            <div class="col-xs-offset-5">该订单原价：{{not[0].originprice | currency}}</div>
+                            <div class="col-xs-offset-5">会员折后价：{{not[0].totalprice | currency}}</div>
+                        </div>
+                        <div class="panel-footer">
+                            <a type="button" class="btn btn-warning col-xs-offset-8" v-bind:href="'/order/payOrder/'+not[0].orderid">结算</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <div class="jumbotron">
+                    <div class="container">
+                        <p>您还没有未付款订单！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="isHasPay">
+            <div v-if="payLen">
+                <div v-for="pay in hasPay">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-2">订单号：{{pay[0].orderid}}</div>
+                                <div class="col-sm-2">表演名称：{{pay[1].showname}}</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">订单时间：{{pay[0].ordertime | time}}</div>
+                                <div class="col-sm-3">订单金额：{{pay[0].totalprice | currency}}</div>
+                                <div class="col-sm-3">座位数量：{{pay[0].quantity}}</div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">座位号：{{pay[0].orderseats}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">表演时间：{{pay[1].showtime| time}}</div>
+                                <div class="col-sm-4">表演地点：{{pay[2].location}}</div>
+                            </div>
+                            <hr/>
+
+                            <div class="col-xs-offset-5">该订单原价：{{pay[0].originprice | currency}}</div>
+                            <div class="col-xs-offset-5">会员折后价：{{pay[0].totalprice | currency}}</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div v-else>
+                <div class="jumbotron">
+                    <div class="container">
+                        <p>您还没有已完成支付的订单！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="isOverDue">
+            <div v-if="overLen">
+                <div v-for="over in overDue">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-2">订单号：{{over[0].orderid}}</div>
+                                <div class="col-sm-2">表演名称：{{over[1].showname}}</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">订单时间：{{over[0].ordertime | time}}</div>
+                                <div class="col-sm-3">订单金额：{{over[0].totalprice | currency}}</div>
+                                <div class="col-sm-3">座位数量：{{over[0].quantity}}</div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">座位号：{{over[0].orderseats}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">表演时间：{{over[1].showtime| time}}</div>
+                                <div class="col-sm-4">表演地点：{{over[2].location}}</div>
+                            </div>
+                            <hr/>
+
+                            <div class="col-xs-offset-5">该订单原价：{{over[0].originprice | currency}}</div>
+                            <div class="col-xs-offset-5">会员折后价：{{over[0].totalprice | currency}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <div class="jumbotron">
+                    <div class="container">
+                        <p>您还没有过期未付款订单！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="isHasBack">
+            <div v-if="backLen">
+                <div v-for="back in hasBack">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-2">订单号：{{back[0].orderid}}</div>
+                                <div class="col-sm-2">表演名称：{{back[1].showname}}</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">订单时间：{{back[0].ordertime | time}}</div>
+                                <div class="col-sm-3">订单金额：{{back[0].beforebackprice | currency}}</div>
+                                <div class="col-sm-3">座位数量：{{back[0].quantity}}</div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">座位号：{{back[0].orderseats}}</div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">表演时间：{{back[1].showtime| time}}</div>
+                                <div class="col-sm-4">表演地点：{{back[2].location}}</div>
+                            </div>
+                            <hr/>
+
+                            <div class="col-xs-offset-5">该订单原价：{{back[0].beforebackprice | currency}}</div>
+                            <div class="col-xs-offset-5">撤销扣除金额：{{back[0].totalprice | currency}}</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div v-else>
+                <div class="jumbotron">
+                    <div class="container">
+                        <p>您还没有已撤回订单！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-2"><span type="button" class="btn btn-info" v-on:click="showFuture">即将到来</span></div>
+                <div class="col-xs-2"><span type="button" class="btn btn-primary" v-on:click="showPast">已过去</span></div>
+                <div class="col-xs-2"><span type="button" class="btn btn-success" v-on:click="showPay">已付款</span></div>
+                <div class="col-xs-2"><span type="button" class="btn btn-warning" v-on:click="showNot">未付款</span></div>
+                <div class="col-xs-2"><span type="button" class="btn btn-danger" v-on:click="showOver">已失效</span></div>
+                <div class="col-xs-2"><span type="button" class="btn btn-default" v-on:click="showBack">已撤回</span></div>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+</body>
+</html>

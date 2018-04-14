@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>发布历史</title>
+
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
+
+    <script type="text/javascript" src="/appjs/shows/postHistory.js"></script>
+
+</head>
+<body>
+
+
+<div id="postHistoryVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/venues/postEvent.html"><span>发布活动</span></a></li>
+                <li><a href="/pages/venues/postHistory.html"><span>发布历史</span></a></li>
+                <li><a href="/pages/venues/sceneTickets.html"><span>现场购票</span></a></li>
+                <li><a href="/pages/venues/checkTickets.html"><span>检票入场</span></a></li>
+                <li><a href="/pages/venues/venueStatistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{venueName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/tickets/venueHome">场馆信息</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/venues">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="postHistoryError">{{errorMsg}}</div>
+
+    <div class="container">
+
+        <div v-if="showLen">
+            <div v-for="show in allShows">
+                <div class="panel panel-default">
+                    <div class="panel-heading">活动名称：{{show.showname}}</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">发布时间：{{show.posttime | time}}</div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">活动时间：{{show.showtime | time}}</div>
+                            <div class="col-sm-2">活动类型：{{show.showtype}}</div>
+                            <div class="col-sm-2">座位规模：{{show.showline}}行{{show.showrow}}列</div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">活动描述：{{show.showdescribe}}</div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div v-else>
+            <div class="jumbotron">
+                <div class="container">
+                    <p>您还没有发布过活动！快去发布吧</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

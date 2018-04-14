@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>发布活动</title>
+
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/appjs/shows/postEventVue.js"></script>
+    <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
+
+
+
+    <script>
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#showDate' //指定元素
+            , type: 'datetime'
+            , min: 10
+        });
+
+    </script>
+</head>
+<body>
+
+
+<div id="postEventVue">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#login-collapse">
+                <span class="sr-only">登录选项</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/venues/postEvent.html"><span>发布活动</span></a></li>
+                <li><a href="/pages/venues/postHistory.html"><span>发布历史</span></a></li>
+                <li><a href="/pages/venues/sceneTickets.html"><span>现场购票</span></a></li>
+                <li><a href="/pages/venues/checkTickets.html"><span>检票入场</span></a></li>
+                <li><a href="/pages/venues/venueStatistics.html"><span>信息统计</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{venueName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/tickets/venueHome">场馆信息</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/venues">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="alert alert-warning" role="alert">新的演出时间必须在当前日期的10天之后;当座位图无法生成的时候刷新界面重试即可。</div>
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="showRegisterError">{{errorMsg}}</div>
+
+    <div class="container">
+        <div class="alert alert-success" role="alert" style="display: none" id="showRegisterSuccess">活动申请成功！三秒后跳转到发布历史。<a href="/pages/venues/postHistory.html">>>>继续>>></a></div>
+
+        <form  class="form-horizontal" role="form">
+        <!--<form @submit.prevent="showRegisterSubmit" class="form-horizontal" role="form">-->
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">演出名称</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="" class="form-control" id="showName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">演出类型</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <select name="showType" id="showType" class="form-control">
+                            <option value="音乐">音乐</option>
+                            <option value="舞蹈">舞蹈</option>
+                            <option value="话剧">话剧</option>
+                            <option value="体育">体育</option>
+                            <option value="喜剧">喜剧</option>
+                            <option value="杂技">杂技</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">演出时间</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="" class="form-control" id="showDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">演出描述</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="" class="form-control" id="showInformation">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">座位行数</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="整数" class="form-control" id="showLine" v-model="lines">
+                        <!--<input type="text" placeholder="整数" class="form-control" id="showLine" v-model="lines" v-on:change="generateSeats(lines,rows)">-->
+                        <p class="help-block">此栏须填整数</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">座位列数</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="整数" class="form-control" id="showRow" v-model="rows">
+                        <!--<input type="text" placeholder="整数" class="form-control" id="showRow" v-model="rows" v-on:change="generateSeats(lines,rows)">-->
+                        <p class="help-block">此栏须填整数</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4"></label>
+                    <div class="col-sm-10 col-lg-3">
+                        <button type="button" class="btn btn-success" id="seatCharts" @click="generateSeats(lines,rows)">生成座位图</button>
+                        <!--<button type="button" class="btn btn-success" value="生成座位图" onclick="registSeat()">生成座位图</button>-->
+
+                    </div>
+
+                </div>
+                <div id="seatMaps" class="col-xs-offset-2"></div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">拟定价格种类</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder=0 class="form-control" v-model="typeNumber" id="typeNum">
+                        <p class="help-block">此栏须填整数</p>
+                    </div>
+                </div>
+
+                <div v-for="n in parseInt(typeNumber)" class="form-group">
+
+                    <label class="control-label col-sm-2 col-lg-2">命名</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="预留" class="form-control" v-bind:id="priceName+''+n">
+                    </div>
+                    <label class="control-label col-sm-2 col-lg-1">座位区间</label>
+                    <div class="col-sm-10 col-lg-3">
+                        <input type="text" placeholder="座位号（小）" class="form-control" v-bind:id="seatL+''+n">
+                        <input type="text" placeholder="座位号（大|包含）" class="form-control" v-bind:id="seatR+''+n">
+                    </div>
+                    <label class="control-label col-sm-2 col-lg-1">价格</label>
+                    <div class="col-sm-10 col-lg-2">
+                        <input type="text" placeholder="价格" class="form-control" v-bind:id="price+''+n">
+                    </div>
+
+                    <hr size=20 width=100%>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="controls col-xs-offset-5 col-lg-offset-4">
+                    <button type="button" class="btn btn-lg btn-success" v-on:click="showRegisterSubmit">注册</button>
+                        <!--<input type="submit" class="btn btn-lg btn-success" value="注册">-->
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
