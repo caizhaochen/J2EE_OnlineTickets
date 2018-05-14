@@ -12,7 +12,14 @@
     <script src="/js/vue.min.js"></script>
     <script src="/js/vue-resource.js"></script>
     <script src="/appjs/users/register.js"></script>
+    <script type="text/javascript" src="/laydate/laydate.js"></script>
 
+
+    <script>
+        laydate.render({
+            elem: '#birthText'
+        });
+    </script>
 </head>
 <body>
 <div>
@@ -59,7 +66,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">生日</label>
                 <div class="col-sm-10 col-lg-3">
-                    <input type="text" id="d12" placeholder="1949-10-01" class="form-control" v-model="register.birth">
+                    <input type="text" id="birthText" placeholder="1949-10-01" class="form-control" v-model="register.birth">
                 </div><p class="help-block col-sm-3 col-lg-3">日期格式：yyyy-mm-dd</p>
             </div>
 
