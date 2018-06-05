@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="tickets" />
         <module name="ticketServer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="9">
+      <module name="tickets" target="1.8" />
       <module name="ticketServer" target="1.8" />
     </bytecodeTargetLevel>
   </component>

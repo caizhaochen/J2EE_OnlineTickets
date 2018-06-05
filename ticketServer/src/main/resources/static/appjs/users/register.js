@@ -17,7 +17,7 @@ function register() {
             register:{
                 email:'',
                 name:'',
-                birth:'',
+                // birth:'',
                 gender:'男',
                 password:'',
                 confirmPass:''
@@ -27,37 +27,44 @@ function register() {
             registerSubmit:function () {
                 const selfThis=this;
                 var self =(this.register);
-                if(self.email==""||self.name==""||self.birth==""||self.gender==""||self.password==""||self.confirmPass==""){
+                var myBirth=$('#birthText').val();
+                if(self.email==""||self.name==""||myBirth==""||self.gender==""||self.password==""||self.confirmPass==""){
                     // return "false";
                     selfThis.errorMsg="请填写完整信息！"
                     showError();
                     setTimeout("hideError()",5000);
                 }
                 else{
-                    if(!RQcheck(self.birth)){
-                        selfThis.errorMsg="请检查日期以及日期格式是否正确！"
-                        showError();
-                        setTimeout("hideError()",5000);
-                    }
-                    else if(self.password!=self.confirmPass){
-                        selfThis.errorMsg="请确认两次输入的密码一样！"
-                        showError();
-                        setTimeout("hideError()",5000);
+                    console.log(myBirth);
+                    // if(!RQcheck(self.birth)){
+                    //     selfThis.errorMsg="请检查日期以及日期格式是否正确！"
+                    //     showError();
+                    //     setTimeout("hideError()",5000);
+                    // }
+                    // else
+                    if(self.password!=self.confirmPass){
+                        // selfThis.errorMsg="请确认两次输入的密码一样！"
+                        // showError();
+                        // setTimeout("hideError()",5000);
+                        toastr.error("请确认两次输入的密码一样！")
                     }
                     else{
-                        var userInfo=[self.email,self.name,self.birth,self.gender,self.password];
+                        var userInfo=[self.email,self.name,myBirth,self.gender,self.password];
                         this.$http.get("http://localhost:8080/user/register/"+userInfo).then(function (response) {
                             if(response.bodyText=="exists"){
                                 selfThis.errorMsg="该邮箱已被注册，请登录或用其他邮箱注册";
-                                showError();
+                                // showError();
                                 // setTimeout("hideError()",5000);
+                                toastr.error("该邮箱已被注册，请登录或用其他邮箱注册")
                             }
                             if(response.bodyText=="fail"){
                                 selfThis.errorMsg="注册失败，请重试！";
-                                showError();
+                                // showError();
+                                toastr.error("注册失败，请重试！")
                             }
                             if(response.bodyText=="success"){
-                                window.location.href="/registerSuccess"
+                                toastr.success("注册成功，即将跳转到登录界面！");
+                                setTimeout("window.location.href=\"/userLogin\"",3000);
                             }
 
                         })
@@ -71,6 +78,23 @@ function register() {
 
 }
 
+function showSuccess() {
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "positionClass": "toast-top",
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    toastr.success("注册成功，即将跳转到登录界面！");
+}
 
 function hideError() {
     var alertBox=document.getElementById("registerError");

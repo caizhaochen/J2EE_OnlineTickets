@@ -205,3 +205,11 @@ span.seatCharts-legendDescription {
 .stamp04 .copy{padding: 10px 6px 10px 12px;font-size: 24px;}
 .stamp04 .copy p{font-size: 14px;margin-top: 5px;margin-bottom: 8px;}
 .stamp04 .copy a{background-color:#fff;color:#333;font-size: 14px;text-decoration:none;padding:5px 10px;border-radius:3px;display: block;}
+
+.showShowsPictures{
+    float: left;
+}
+.showShowsInfo{
+    float: left;
+
+}

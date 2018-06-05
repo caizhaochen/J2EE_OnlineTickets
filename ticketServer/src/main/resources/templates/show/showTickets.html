@@ -6,7 +6,7 @@
     <title>Book Tickets</title>
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <!--<link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>-->
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
 
     <!--<link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>-->
     <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -21,7 +21,7 @@
 <div id="showTickets">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
-            <div class="navbar-brand"><span>逗你玩在线购票</span></div>
+            <div class="navbar-brand"><span>REDBUD在线购票</span></div>
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#login-collapse">
                 <span class="sr-only">登录选项</span>
@@ -66,25 +66,61 @@
                             <!--</span>-->
                     <!--</div>-->
                 <!--</div>-->
+                <!--<div v-for="item in arrayData">-->
+                <!--<div class="panel panel-success">-->
+                <!--<div class="panel-heading"><h4>{{item[0].showname}}——{{item[1]}}</h4></div>-->
+                <!--<ul class="list-group">-->
+                <!--<li class="list-group-item">描述：{{item[0].showdescribe}}</li>-->
+                <!--<li class="list-group-item">类型：{{item[0].showtype}}</li>-->
+                <!--<li class="list-group-item">时间：{{item[0].showtime |time}}</li>-->
+                <!--<li class="list-group-item">地点：{{item[2]}}</li>-->
+                <!--<li class="list-group-item">余票：{{item[0].restseats}}</li>-->
+                <!--</ul>-->
+                <!--<div class="panel-footer">-->
+                <!--<div class="row">-->
+                <!--<div class="col-lg-4 col-xs-3">-->
+
+                <!--</div>-->
+                <!--<div class="col-xs-3 col-lg-1">-->
+                <!--<span class="btn btn-success" v-on:click="bookShow(item[0].showid)">选座订票</span>-->
+                <!--</div>-->
+                <!--<div class="col-lg-1"></div>-->
+                <!--<div class="col-xs-3 col-lg-1">-->
+                <!--<span class="btn btn-warning" v-on:click="randomBookShow(item[0].showid)">随机订票</span>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
                 <div v-for="item in arrayData">
-                    <div class="panel panel-success">
-                        <div class="panel-heading"><h4>{{item[0].showname}}——{{item[1]}}</h4></div>
+                    <div class="showShowsInfo col-lg-2 col-md-2"></div>
+                    <div class="showShowsPictures col-lg-2 col-md-2 col-sm-10 col-xs-10">
+                        <img v-bind:src=" '/showImages/'+item[0].showid+'.jpg' " style="width: 120px;height: 160px;"/>
+                        <!--<img v-bind:src=" 'E:/testPictures/'+item[0].showid+'.jpg' " style="width: 120px;height: 160px;"/>-->
+                        <!--<img src="/images/show1.jpg" style="width: 120px;height: 160px;"/>-->
+                    </div>
+                    <div class="showShowsInfo col-lg-6 col-md-6 col-sm-11 col-xs-11">
+                        <h2>[ {{item[1]}} ] {{item[0].showname}}</h2>
                         <ul class="list-group">
-                            <li class="list-group-item">描述：{{item[0].showdescribe}}</li>
-                            <li class="list-group-item">类型：{{item[0].showtype}}</li>
-                            <li class="list-group-item">时间：{{item[0].showtime |time}}</li>
-                            <li class="list-group-item">地点：{{item[2]}}</li>
-                            <li class="list-group-item">余票：{{item[0].restseats}}</li>
+                            <li class="list-inline">描述：{{item[0].showdescribe}}</li>
+                            <li class="list-inline">类型：{{item[0].showtype}}</li>
+                            <li class="list-inline">时间：{{item[0].showtime |time}}</li>
+                            <li class="list-inline">地点：{{item[2]}}</li>
+                            <li class="list-inline">余票：{{item[0].restseats}}</li>
                         </ul>
-                        <div class="panel-footer">
+                    </div>
+                    <div class="panel">
+                        <div>
                             <div class="row">
-                                <div class="col-xs-5">
+                                <div class="col-lg-4 col-xs-3">
 
                                 </div>
-                                <div class="col-xs-1">
+                                <div class="col-xs-3 col-lg-1">
                                     <span class="btn btn-success" v-on:click="bookShow(item[0].showid)">选座订票</span>
                                 </div>
-                                <div class="col-xs-1">
+                                <div class="col-lg-1"></div>
+                                <div class="col-xs-3 col-lg-1">
                                     <span class="btn btn-warning" v-on:click="randomBookShow(item[0].showid)">随机订票</span>
                                 </div>
                             </div>

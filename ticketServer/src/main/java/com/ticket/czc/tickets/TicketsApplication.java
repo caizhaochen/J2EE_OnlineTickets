@@ -25,12 +25,12 @@ public class TicketsApplication{
 
 
 	public static void main(String[] args) {
-		try {
-			OrderScheduler orderScheduler=new OrderScheduler();
-			orderScheduler.schedulerJob();
-		}catch (SchedulerException e){
-			e.printStackTrace();
-		}
+//		try {
+//			OrderScheduler orderScheduler=new OrderScheduler();
+//			orderScheduler.schedulerJob();
+//		}catch (SchedulerException e){
+//			e.printStackTrace();
+//		}
 		SpringApplication.run(TicketsApplication.class, args);
 
 	}

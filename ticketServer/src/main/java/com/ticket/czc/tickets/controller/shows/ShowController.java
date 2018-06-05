@@ -6,14 +6,23 @@ import com.ticket.czc.tickets.model.ShowsEntity;
 import com.ticket.czc.tickets.service.SeatsManageService;
 import com.ticket.czc.tickets.service.ShowManageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.misc.BASE64Decoder;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.PanelUI;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,6 +33,9 @@ import java.util.List;
 @RequestMapping("/show")
 public class ShowController {
 
+    @Value("${web.upload-path}")
+    private String path;
+
     private ShowManageService showManageService= ServiceFactory.getShowManageService();
     private SeatsManageService seatsManageService=ServiceFactory.getSeatsManageService();
 //    @Autowired
@@ -33,11 +45,16 @@ public class ShowController {
 
     @RequestMapping("/register/{showInfo}")
     @ResponseBody
-    public String showRegister(@PathVariable("showInfo")List showInfo, HttpServletRequest request) throws IOException{
+    public ArrayList<String> showRegister(@PathVariable("showInfo")List showInfo, HttpServletRequest request) throws IOException{
         HttpSession session=request.getSession(false);
+        ArrayList<String> result=new ArrayList<>();
+
         String idString=String.valueOf(session.getAttribute("venueId"));
         if (idString==null||idString==""){
-            return "noVenue";
+            result.add("fail");
+            result.add("登录过期，重新登录");
+//            return "noVenue";
+            return result;
         }
         int venueId=Integer.valueOf(idString);
         String showName=(String)showInfo.get(0);
@@ -81,10 +98,64 @@ public class ShowController {
             }
         }
 
+
         System.out.println(seats.size());
         Boolean saveSeats=seatsManageService.saveSeats(seats);
-        return String.valueOf(saveSeats);
+        String addSeatRes= String.valueOf(saveSeats);
+        result.add("success");
+        result.add(String.valueOf(showId));
+        return result;
 //        System.out.println(showInfo);
+    }
+
+    @RequestMapping("/uploadPicture")
+    @ResponseBody
+    public ArrayList<String> doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        ArrayList<String> result=new ArrayList<>();
+        String image = req.getParameter("image");
+        String showId=req.getParameter("showId");
+
+        // 只允许jpg
+        String header ="data:image/jpeg;base64,";
+
+        if(image.indexOf(header) != 0){
+//            resp.getWriter().print(wrapJSON(false));
+//            return null;
+            result.add("fail");
+            result.add("图片格式不正确，请确认是jpg/jepg");
+            return result;
+        }
+        // 去掉头部
+        image = image.substring(header.length());
+        // 写入磁盘
+        boolean success = false;
+        BASE64Decoder decoder = new BASE64Decoder();
+        try{
+
+            byte[] decodedBytes = decoder.decodeBuffer(image);
+//            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+//            String imgFilePath =path+"/images/"+showId+".jpg";
+//            org.springframework.core.io.Resource resource = resourceLoader.getResource("classpath:");
+//            System.out.println(resource.getFile().getPath());
+            String imgFilePath =path+showId+".jpg/";
+//            String imgFilePath ="images/"+showId+".jpg/";
+//            String imgFilePath2 ="E:/testPictures/"+showId+".jpg";
+            FileOutputStream out = new FileOutputStream(ResourceUtils.getFile(imgFilePath));
+//            FileOutputStream out = new FileOutputStream(imgFilePath);
+//            FileOutputStream out2 = new FileOutputStream(imgFilePath2);
+            out.write(decodedBytes);
+//            out2.write(decodedBytes);
+            out.close();
+//            out2.close();
+            success = true;
+        }catch(Exception e){
+            success = false;
+            e.printStackTrace();
+        }
+        result.add(String.valueOf(success));
+        return result;
+//        resp.getWriter().print(wrapJSON(success));
     }
 
     @RequestMapping("/getAvailableShows")

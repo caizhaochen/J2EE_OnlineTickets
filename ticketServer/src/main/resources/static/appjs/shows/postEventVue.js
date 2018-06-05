@@ -12,6 +12,7 @@ function postEventVue() {
             seatL: 'seatL',
             seatR: 'seatR',
             price: 'price',
+            image:''
 
         },
         methods: {
@@ -80,6 +81,40 @@ function postEventVue() {
 
             },
 
+            // var image = '';
+            selectImage:function(e){
+                console.log("选择了上传图片");
+                // this.image=e.target.files[0];
+                var file = e.target.files[0];
+                var imgSize=file.size/1024;
+                if (imgSize>300){
+                    toastr.error("请保证图片的大小不超过300K！");
+                    return;
+                }else {
+                    // var file = e.target.files[0];
+                    console.log("开始些图片");
+                    var reader = new FileReader();
+                    console.log("开始些图片2");
+                    reader.readAsDataURL(file);
+                    console.log("开始些图片3");
+                    reader.onloadend = function (){
+                        console.log("开始些图片4");
+                        // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+                        var dataURL = reader.result;
+                        console.log("开始些图片5");
+                        document.getElementById('image').src=dataURL;
+                        console.log("开始些图片6");
+                        vue.image=dataURL;
+                        console.log("开始些图片7");
+                    }
+                    document.getElementById('image').style.display="block";
+                    // $('#image').style.display="block";
+                    document.getElementById('imageP').style.display="none";
+                    // $('#imageP').style.display="none";
+
+                }
+            },
+
             showRegisterSubmit: function () {
                 var isBlank = "false";
                 var isInt="true";
@@ -91,6 +126,7 @@ function postEventVue() {
                 var showLine = $("#showLine").val();
                 var showRow = $("#showRow").val();
                 var priceNum = $("#typeNum").val();
+
                 var priceType =[];
                 for (var i = 1; i <= priceNum; i++) {
                     var typeName = $("#priceName" + i).val();
@@ -133,19 +169,51 @@ function postEventVue() {
                     showError();
                     setTimeout("hideError()", 5000);
                 }
+                else if (this.image==''){
+                    toastr.error("请选择活动海报")
+                }
                 else {
+                    console.log("ppppicture"+this.image);
                     var showRegister=[showName,showType,showTime,showInfo,showLine,showRow,priceNum,priceType];
                     console.log(showRegister);
                     this.$http.get("http://localhost:8080/show/register/"+showRegister).then(function (response) {
-                        var result=response.bodyText;
-                        if (result=="noVenue"){
+                        var result=response.data;
+                        if (result[0]=="fail"){
                             window.location.href="/venues";
                         }
-                        else if(result=="false"){
-                            this.errorMsg = "发布失败，请重试！"
-                            showError();
-                            setTimeout("hideError()", 5000);
-                        }else {
+                        else if(result[0]=="success"){
+                        //     this.errorMsg = "发布失败，请重试！"
+                        //     showError();
+                        //     setTimeout("hideError()", 5000);
+                        // }else {
+                            var showid=result[1];
+                            console.log("开始传图片");
+                            this.$http.post("http://localhost:8080/show/uploadPicture",{image: vue.image,showId:showid},{emulateJSON: true})
+                                .then(function(response){
+                                console.log(response);
+                                },
+                                function(error){
+                                    console.log(error);
+                                });
+                            // $.ajax({
+                            //     type:'POST',
+                            //     url: 'http://localhost:8080/show/uploadPicture',
+                            //     data: {image: vue.image,showId:showid},
+                            //     async: false,
+                            //     dataType: 'json',
+                            //     success: function(data){
+                            //         // if(data.success){
+                            //         //     alert('上传成功');
+                            //         // }else{
+                            //         //     alert('上传失败');
+                            //         // }
+                            //         console.log(data);
+                            //     },
+                            //     error: function(err){
+                            //         console.log(err);
+                            //         alert(err+'网络故障');
+                            //     }
+                            // });
                             showSuccess();
                             setTimeout("returnPostHistory()",3000);
                         }
