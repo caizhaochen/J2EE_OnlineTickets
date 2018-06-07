@@ -32,7 +32,7 @@ $(document).ready(function() {
                         }else if(res=="notPermit"){
                             toastr.error("该号已被注销，请换一个邮箱注册登录！");
                         } else if(res=="success"){
-                            window.location.href="/tickets/home"
+                            window.location.href="/showTickets"
                         }
                     })
                 }
