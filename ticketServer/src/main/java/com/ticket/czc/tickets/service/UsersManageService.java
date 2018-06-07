@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface UsersManageService {
     public String validateUser(String email,String password);
 
-    public String registerUser(UsersEntity usersEntity);
+    public ArrayList<String> registerUser(UsersEntity usersEntity);
 
     public UsersEntity getUserInfo(String email);
 

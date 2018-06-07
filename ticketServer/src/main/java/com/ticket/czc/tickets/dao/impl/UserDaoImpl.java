@@ -24,9 +24,25 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
     @Override
     public UsersEntity findUser(String email) {
-        System.out.println("email_"+email);
-        UsersEntity user = (UsersEntity) super.load(UsersEntity.class, email);
-        return user;
+        ArrayList<UsersEntity> list=new ArrayList<>();
+        try {
+            Session session = HibernateUtil.getSession() ;
+            Transaction tx=session.beginTransaction();
+
+            String hql = "from com.ticket.czc.tickets.model.UsersEntity u where u.email= :p";
+            Query query = session.createQuery(hql);
+            query.setString("p",email);
+            list =(ArrayList<UsersEntity>) query.list();
+            tx.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if (list==null||list.size()==0){
+            return null;
+        }
+        else {
+            return list.get(0);
+        }
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.ticket.czc.tickets.factory;
 
+import com.ticket.czc.tickets.dao.impl.ValidateDaoImpl;
 import com.ticket.czc.tickets.service.*;
 import com.ticket.czc.tickets.service.impl.*;
+import com.ticket.czc.tickets.service.implservice.EmailCheck;
 import org.hibernate.criterion.Order;
 
 public class ServiceFactory {
@@ -32,5 +34,13 @@ public class ServiceFactory {
 
     public static CouponManageService getCouponManageService(){
         return CouponManageServiceImpl.getInstance();
+    }
+
+    public static EmailCheck getEmailCheckService(){
+        return EmailCheck.getInstance();
+    }
+
+    public static ValidateServiceImpl getValidateService(){
+        return ValidateServiceImpl.getInstance();
     }
 }
