@@ -32,4 +32,8 @@ public class DaoFactory {
     public static CouponDao getCouponDao(){
         return CouponDaoImpl.getInstance();
     }
+
+    public static ValidateDao getVaidateDao(){
+        return ValidateDaoImpl.getInstance();
+    }
 }

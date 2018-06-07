@@ -55,6 +55,7 @@
 
         <!--<nav class="navbar navbar-default navbar-static-top">-->
 
+        //即将到来的演出
         <div v-show="isFuture">
             <div v-if="futureLen">
                 <div v-for="f in future">
@@ -167,6 +168,7 @@
             </div>
         </div>
 
+        //在界面上没有对应的内容
         <div v-show="isAll">
             <div v-if="allLen">
                 <div v-for="all in allOrders">

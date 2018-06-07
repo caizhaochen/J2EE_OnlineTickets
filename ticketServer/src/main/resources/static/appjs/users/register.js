@@ -18,51 +18,76 @@ function register() {
                 email:'',
                 name:'',
                 // birth:'',
-                gender:'男',
+                code:'',
+                // gender:'男',
                 password:'',
-                confirmPass:''
+                confirmPass:'',
+                waitTime:60
             }
         },
         methods:{
+            getCodeFunction:function () {
+                var time;
+                if (this.register.email == ""){
+                    toastr.error("请先输入你的邮箱！");
+                }else {
+                    $("#codeGetButton").attr("disabled",true);
+                    $("#codeGetButton").val("正在发送...");
+                    $("#codeGetButton").css("background-color","#999999");
+                    this.$http.post("http://localhost:8080/user/getCheckCode/"+this.register.email).then(
+                        function(response)  {
+                            console.log(response);
+                            toastr.success("发送成功！请在30分钟内填写验证码！");
+
+                            console.log("start wait 60s");
+                            time=setInterval(
+                                function () {
+                                    console.log("在倒计时方法中的waitTime-"+vue.waitTime);
+                                    if (vue.waitTime==0){
+                                        $("#codeGetButton").attr("disabled",false);
+                                        $("#codeGetButton").val("获取验证码");
+                                        $("#codeGetButton").css("background-color","#c4e3f3");
+                                        console.log("倒计时方法准备return");
+                                        clearInterval(time);
+                                        return;
+                                    }
+                                    else {
+                                        console.log("still wait "+vue.waitTime);
+                                        $("#codeGetButton").attr("disabled",true);
+                                        $("#codeGetButton").val(vue.waitTime+"s后重新获取");
+                                        $("#codeGetButton").css("background-color","#999999");
+                                        vue.waitTime--;
+                                    }
+                                },1000);
+
+                        }),
+                        function () {
+                            toastr.error("网络或者服务器错误，请重试！")
+                        }
+
+                }
+                this.waitTime=60;
+                return;
+            },
             registerSubmit:function () {
                 const selfThis=this;
                 var self =(this.register);
-                var myBirth=$('#birthText').val();
-                if(self.email==""||self.name==""||myBirth==""||self.gender==""||self.password==""||self.confirmPass==""){
-                    // return "false";
-                    selfThis.errorMsg="请填写完整信息！"
-                    showError();
-                    setTimeout("hideError()",5000);
+                // var myBirth=$('#birthText').val();
+                if(self.email==""||self.name==""||self.code==""||self.password==""||self.confirmPass==""){
+                    toastr.error("请确认信息填写完整!")
                 }
                 else{
-                    console.log(myBirth);
-                    // if(!RQcheck(self.birth)){
-                    //     selfThis.errorMsg="请检查日期以及日期格式是否正确！"
-                    //     showError();
-                    //     setTimeout("hideError()",5000);
-                    // }
-                    // else
                     if(self.password!=self.confirmPass){
-                        // selfThis.errorMsg="请确认两次输入的密码一样！"
-                        // showError();
-                        // setTimeout("hideError()",5000);
                         toastr.error("请确认两次输入的密码一样！")
                     }
                     else{
-                        var userInfo=[self.email,self.name,myBirth,self.gender,self.password];
+                        var userInfo=[self.email,self.name,self.code,self.password];
                         this.$http.get("http://localhost:8080/user/register/"+userInfo).then(function (response) {
-                            if(response.bodyText=="exists"){
-                                selfThis.errorMsg="该邮箱已被注册，请登录或用其他邮箱注册";
-                                // showError();
-                                // setTimeout("hideError()",5000);
-                                toastr.error("该邮箱已被注册，请登录或用其他邮箱注册")
+                            var registerRes=response.data;
+                            if (registerRes[0]=="fail"){
+                                toastr.error(registerRes[1]);
                             }
-                            if(response.bodyText=="fail"){
-                                selfThis.errorMsg="注册失败，请重试！";
-                                // showError();
-                                toastr.error("注册失败，请重试！")
-                            }
-                            if(response.bodyText=="success"){
+                            if(registerRes[0]=="success"){
                                 toastr.success("注册成功，即将跳转到登录界面！");
                                 setTimeout("window.location.href=\"/userLogin\"",3000);
                             }

@@ -9,10 +9,12 @@ import com.ticket.czc.tickets.model.NumStatistics;
 import com.ticket.czc.tickets.model.UsersEntity;
 import com.ticket.czc.tickets.service.CouponManageService;
 import com.ticket.czc.tickets.service.UsersManageService;
+import com.ticket.czc.tickets.service.ValidateService;
 import com.ticket.czc.tickets.service.implservice.EmailCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ public class UsersManageServiceImpl implements UsersManageService {
 //    private UserDao userDao;
     private CouponManageService couponManageService= ServiceFactory.getCouponManageService();
 
+//    @Resource
+    private ValidateService validateService=ServiceFactory.getValidateService();
     @Override
     public String validateUser(String email, String password) {
         UsersEntity usersEntity=userDao.findUser(email);
@@ -54,31 +58,37 @@ public class UsersManageServiceImpl implements UsersManageService {
     }
 
     @Override
-    public String registerUser(UsersEntity usersEntity) {
+    public ArrayList<String> registerUser(UsersEntity usersEntity) {
+        ArrayList<String> result=new ArrayList<>();
+
         if(usersEntity==null){
-            return "fail";
+            result.add("fail");
+            result.add("网络错误！(Network Error!)");
+            return result;
         }else{
+            //确认是第一次注册
             UsersEntity usersEntity2=userDao.findUser(usersEntity.getEmail());
             if(usersEntity2!=null){
-                return "exists";
+                result.add("fail");
+                result.add("该邮箱已被注册！");
+                return result;
             }else{
+                //是第一次注册，然后先确认验证码是否正确或者是否过期
+                ArrayList<String> checkResult=validateService.checkValidateCode(usersEntity);
+                if (!checkResult.get(0).equals("success")){
+                    return checkResult;
+                }
+
+
                 UsersEntity usersEntity1=userDao.saveUser(usersEntity);
                 if(usersEntity1==null){
-                    return "fail";
+                    result.add("fail");
+                    result.add("网络错误！(Network Error!)");
+                    return result;
                 }
-                UsersEntity usersEntity3= new UsersEntity();
-                try {
-                    usersEntity3=EmailCheck.activateMail(usersEntity);
-                }catch (MessagingException m){
-                    m.printStackTrace();
-                }catch (NoSuchAlgorithmException n){
-                    n.printStackTrace();
-                }
-                if(usersEntity3==null){
-                    return "fail";
-                }else{
-                    return "success";
-                }
+
+                result.add("success");
+                return result;
 
             }
 

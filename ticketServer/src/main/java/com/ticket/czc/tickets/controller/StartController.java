@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StartController {
     @RequestMapping("/")
     public String start(){
-        return "/user/welcome";
+        return "/user/login";
     }
 
     @RequestMapping("/venues")

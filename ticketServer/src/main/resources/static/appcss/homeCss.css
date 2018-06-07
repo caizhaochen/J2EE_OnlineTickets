@@ -1,0 +1,72 @@
+.homeBack{
+    width: 100%;
+    margin-top: -20px;
+    height: 500px;
+    background: linear-gradient(to right,#83302a,#88342c, #83302a);
+    background-image: linear-gradient(to right, rgb(131, 48, 42), rgb(136, 52, 44), rgb(131, 48, 42));
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+}
+
+.homeContent{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+
+}
+
+.inputBorderClass{
+    align-items: center;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 10px;
+
+}
+
+.inputClass{
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    height:2.3em;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+
+    width: 300px;
+    margin-top: 20px;
+    margin-left: 70px;
+    padding-left: 5px;
+
+}
+
+.labelClass{
+
+}
+
+.loginBtn{
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.6em;
+    font-family: "Microsoft Yi Baiti";
+    height:2.4em;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    width: 300px;
+    display: block;
+    text-align: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 70px;
+
+}
+
+.formTotal{
+    padding-top: 45px;
+}

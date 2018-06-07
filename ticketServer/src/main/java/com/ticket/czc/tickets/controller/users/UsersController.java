@@ -7,6 +7,7 @@ import com.ticket.czc.tickets.model.UsersEntity;
 import com.ticket.czc.tickets.service.AccountManageService;
 import com.ticket.czc.tickets.service.CouponManageService;
 import com.ticket.czc.tickets.service.UsersManageService;
+import com.ticket.czc.tickets.service.implservice.EmailCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,46 +25,63 @@ import java.util.ArrayList;
 @RequestMapping("/user")
 public class UsersController {
 
+    private EmailCheck emailCheck=ServiceFactory.getEmailCheckService();
     private UsersManageService usersManageService = ServiceFactory.getUserManageService();
     private AccountManageService accountManageService=ServiceFactory.getAccountManageService();
     private CouponManageService couponManageService=ServiceFactory.getCouponManageService();
+
 
 //    @Autowired
 //    private UsersManageService usersManageService;
 //    @Autowired
 //    private AccountManageService accountManageService;
+    /**
+     * 获取验证码（click the button to get verify code）
+     * @param userEmail --just need the userEmail
+     */
+    @RequestMapping("/getCheckCode/{userEmail}")
+    public String getCheckCode(@PathVariable("userEmail")String userEmail){
+        try {
+            emailCheck.sendValidateCode(userEmail);
+            return "success";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "fail";
+        }
 
+    }
+
+    /***
+     *用户注册 （Register user）
+     * @param userInfo--
+     *                0-userEmail    ,
+     *                1-userName     ,
+     *                2-userToken    ,
+     *                3-userPass     ,
+     *
+     * @return <state:result></state:result>
+     */
     @RequestMapping("/register/{userInfo}")
-    public String register(@PathVariable("userInfo") String[] userInfo) {
-//        String email=userInfo.get(0);
-//        String name=userInfo.get(1);
-//        String birth=userInfo.get(2);
-//        String sex=userInfo.get(3);
-//        String password=userInfo.get(4);
-        String email = userInfo[0];
-        String name = userInfo[1];
-        String birth = userInfo[2];
-        String sex = userInfo[3];
-        String password = userInfo[4];
+    public ArrayList<String> registerUser(@PathVariable("userInfo")ArrayList<String> userInfo){
+        ArrayList<String> resArray=new ArrayList<>();
+        if (userInfo==null){
+            resArray.add("fail");
+            resArray.add("网络错误！请重试。");
+            return resArray;
+        }
 
-        UsersEntity users = new UsersEntity();
-        users.setEmail(email);
-        users.setUsername(name);
-        users.setUserbirth(Date.valueOf(birth));
-        users.setUsersex(sex);
-        users.setUserpassword(password);
-        users.setLevel(0);
-        users.setIscheck(0);
-        users.setEnableuse(1);
-        users.setActivetime(new Timestamp(Long.parseLong("-1")));
-        users.setCredit(0);
-        users.setUserconsume(0.0);
-        String result = usersManageService.registerUser(users);
-
-//        String accountId=email.split("@")[0];
-        accountManageService.registerAccount(email,password);
-
-        return result;
+        UsersEntity user=new UsersEntity();
+        user.setEmail(userInfo.get(0));
+        user.setUsername(userInfo.get(1));
+        user.setToken(userInfo.get(2));
+        user.setUserpassword(userInfo.get(3));
+        user.setUserbirth(new Date(System.currentTimeMillis()));
+        user.setUsersex("男");
+        user.setIscheck(1);
+        user.setEnableuse(1);
+        user.setLevel(0);
+        ArrayList<String> res=usersManageService.registerUser(user);
+        return res;
     }
 
     @RequestMapping("/login/{loginInfo}")
@@ -72,7 +90,7 @@ public class UsersController {
         String password = loginInfo.get(1);
 
         String loginRes = usersManageService.validateUser(email, password);
-        if (loginRes == Constant.USER_SUCCESS_LOGIN) {
+        if (loginRes .equals( Constant.USER_SUCCESS_LOGIN)) {
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", email);
         }

@@ -1,0 +1,78 @@
+body{
+    background-color: #f8f8f8;
+}
+.register-form{
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: #ffffff;
+    align-items: center;
+}
+
+.registerContent{
+    padding-top: 20px;
+}
+
+.registerBorder{
+    height: 2.4em;
+    line-height: 2.4em;
+    margin-bottom: 1.8em;
+}
+.registerLabel{
+    text-align: right;
+    font-size: medium;
+    font-weight: 500;
+    font-family: Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,PingFang SC,Microsoft YaHei;
+}
+
+.registerInput{
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    height:2.3em;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    /*width: 95%;*/
+
+    width: 20em;
+    /*width: 300px;*/
+    padding-left: 5px;
+}
+
+.codeInput{
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    height:2.3em;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    width: 12em;
+    padding-left: 5px;
+}
+
+#codeGetButton{
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    height:2.3em;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    background-color: #c4e3f3;
+    width: 7.8em;
+    text-align: center;
+}
+
+.registerSubmit{
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    height:2.3em;
+    border-radius:4px;
+    color: #f9f9f9;
+    border:1px solid #c8cccf;
+    background-color: dodgerblue;
+    width: 20em;
+    text-align: center;
+}
