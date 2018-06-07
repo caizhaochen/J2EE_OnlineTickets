@@ -4,9 +4,9 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/tickets</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/onlinevenue</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">czc489622czc</property>
+        <property name="connection.password">Cqm@1997</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <!--<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</property>-->
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
