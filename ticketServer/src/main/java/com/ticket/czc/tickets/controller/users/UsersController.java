@@ -89,6 +89,7 @@ public class UsersController {
         user.setEnableuse(1);
         user.setLevel(0);
         user.setCredit(0);
+        user.setUserconsume(0.0);
         ArrayList<String> res=usersManageService.registerUser(user);
         return res;
     }

@@ -464,7 +464,7 @@ public class OrderController {
         order.setOrderstatus(2);
         orderManageService.updateOrder(order);
 
-        accountManageService.addMoney(Constant.ADMIN_ACCOUNT,orderPrice);
+//        accountManageService.addMoney(Constant.ADMIN_ACCOUNT,orderPrice);
 
         /**
          * 付款成功后
