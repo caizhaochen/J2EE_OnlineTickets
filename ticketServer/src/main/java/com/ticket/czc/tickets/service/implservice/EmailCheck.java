@@ -44,7 +44,7 @@ public class EmailCheck {
     //    @Resource
     private ValidateService validateService= ServiceFactory.getValidateService();
     public static final String FROM = "czc18252896388@163.com";//发件人的email
-    public static final String PWD = "*******";//发件人密码--邮箱密码
+    public static final String PWD = "czc489622czc";//发件人密码--邮箱密码
     public static final int TIMELIMIT = 1000*60*30; //激活邮件过期时间30min
     public static final String TITLE = "REDBUD共享账簿验证码";
     public static final String HOST = "smtp.163.com";
