@@ -9,13 +9,19 @@ import com.ticket.czc.tickets.service.CouponManageService;
 import com.ticket.czc.tickets.service.UsersManageService;
 import com.ticket.czc.tickets.service.implservice.EmailCheck;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import sun.misc.BASE64Decoder;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -25,6 +31,8 @@ import java.util.ArrayList;
 @RequestMapping("/user")
 public class UsersController {
 
+    @Value("${web.upload-path}")
+    private String path;
     private EmailCheck emailCheck=ServiceFactory.getEmailCheckService();
     private UsersManageService usersManageService = ServiceFactory.getUserManageService();
     private AccountManageService accountManageService=ServiceFactory.getAccountManageService();
@@ -80,6 +88,7 @@ public class UsersController {
         user.setIscheck(1);
         user.setEnableuse(1);
         user.setLevel(0);
+        user.setCredit(0);
         ArrayList<String> res=usersManageService.registerUser(user);
         return res;
     }
@@ -96,6 +105,42 @@ public class UsersController {
         }
 
         return loginRes;
+    }
+
+    @RequestMapping("/uploadUserIcon")
+//    @ResponseBody
+    public ArrayList<String> doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        ArrayList<String> result=new ArrayList<>();
+        String image = req.getParameter("image");
+        String userEmail=req.getParameter("userEmail");
+        System.out.println("图片："+image);
+        // 只允许jpg
+        String header ="data:image/jpeg;base64,";
+        if(image.indexOf(header) != 0){
+            result.add("fail");
+            result.add("图片格式不正确，请确认是jpg/jepg");
+            return result;
+        }
+        // 去掉头部
+        image = image.substring(header.length());
+        // 写入磁盘
+        boolean success = false;
+        BASE64Decoder decoder = new BASE64Decoder();
+        try{
+
+            byte[] decodedBytes = decoder.decodeBuffer(image);
+            String imgFilePath =path+"userIcons/"+userEmail+".jpg/";
+            FileOutputStream out = new FileOutputStream(ResourceUtils.getFile(imgFilePath));
+            out.write(decodedBytes);
+            out.close();
+            success = true;
+        }catch(Exception e){
+            success = false;
+            e.printStackTrace();
+        }
+        result.add(String.valueOf(success));
+        return result;
     }
 
     @RequestMapping("/modifyInfo/{userInfo}")

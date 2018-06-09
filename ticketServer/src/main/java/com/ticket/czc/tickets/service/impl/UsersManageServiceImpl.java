@@ -5,8 +5,11 @@ import com.ticket.czc.tickets.common.LevelDiscount;
 import com.ticket.czc.tickets.dao.UserDao;
 import com.ticket.czc.tickets.factory.DaoFactory;
 import com.ticket.czc.tickets.factory.ServiceFactory;
+import com.ticket.czc.tickets.model.AccountsEntity;
+import com.ticket.czc.tickets.model.CouponsEntity;
 import com.ticket.czc.tickets.model.NumStatistics;
 import com.ticket.czc.tickets.model.UsersEntity;
+import com.ticket.czc.tickets.service.AccountManageService;
 import com.ticket.czc.tickets.service.CouponManageService;
 import com.ticket.czc.tickets.service.UsersManageService;
 import com.ticket.czc.tickets.service.ValidateService;
@@ -30,6 +33,7 @@ public class UsersManageServiceImpl implements UsersManageService {
 //    @Autowired
 //    private UserDao userDao;
     private CouponManageService couponManageService= ServiceFactory.getCouponManageService();
+    private AccountManageService accountManageService=ServiceFactory.getAccountManageService();
 
 //    @Resource
     private ValidateService validateService=ServiceFactory.getValidateService();
@@ -87,6 +91,7 @@ public class UsersManageServiceImpl implements UsersManageService {
                     return result;
                 }
 
+                accountManageService.registerAccount(usersEntity.getEmail(),usersEntity.getUserpassword());
                 result.add("success");
                 return result;
 

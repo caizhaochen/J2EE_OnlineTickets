@@ -23,3 +23,4 @@ dist/
 nbdist/
 .nb-gradle/
 /src/main/resources/hibernate.cfg.xml
+/src/main/java/com/ticket/czc/tickets/service/implservice/EmailCheck.java

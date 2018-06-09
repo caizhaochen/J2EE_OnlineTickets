@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title>Tickets Home</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/personInfoCss.css"/>
 
     <script src="/js/vue.min.js"></script>
     <script src="/js/vue-resource.js"></script>
@@ -13,96 +13,153 @@
 
     <script src="/appjs/users/home.js"></script>
     <script src="/appjs/users/deleteUser.js"></script>
+    <script type="text/javascript" src="/laydate/laydate.js"></script>
 
 
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+        laydate.render({
+            elem: '#birth' //指定元素
+            , type: 'date'
+        });
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
 </head>
 <body>
 <div id="homeVue">
-    <nav class="navbar navbar-default">
-        <div class="navbar-header">
-            <div class="navbar-brand"><span>REDBUD在线购票</span></div>
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#login-collapse">
-                <span class="sr-only">登录选项</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
-            <ul class="nav navbar-nav">
-                <li><a href="/showTickets"><span>订票业务</span></a></li>
-                <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">{{username}}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a>会员等级:{{userlevel}}</a></li>
-                        <li><a href="/tickets/home">个人信息</a></li>
-                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/">退出登录</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-        <table class="table table-striped table-responsive table-bordered" style="text-align: center">
-            <div class="row">
-                <div class="col-xs-4">
-                    <caption>个人信息</caption>
-                </div>
-                <div class="col-xs-offset-9">
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">注销该号</button>
-                </div>
+    <div>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <div class="navbar-brand"><span>REDBUD在线购票</span></div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#login-collapse">
+                    <span class="sr-only">登录选项</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
+            <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+                <ul class="nav navbar-nav">
+                    <li><a href="/showTickets"><span>订票业务</span></a></li>
+                    <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{username}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a>会员等级:{{userlevel}}</a></li>
+                            <li><a href="/tickets/home">个人信息</a></li>
+                            <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/">退出登录</a></li>
 
-            <tbody>
-            <tr>
-                <td>邮箱</td>
-                <td>{{useremail}}</td>
-            </tr>
-            <tr>
-                <td>昵称</td>
-                <td>{{username}}</td>
-            </tr>
-            <tr>
-                <td>性别</td>
-                <td>{{usersex}}</td>
-            </tr>
-            <tr>
-                <td>生日</td>
-                <td>{{userbirth}}</td>
-            </tr>
-            <tr>
-                <td>会员等级</td>
-                <td>{{userlevel}}</td>
-            </tr>
-            <tr>
-                <td>积分</td>
-                <td>{{usercredit}}分|<a href="/pages/users/creditShop.html" class="btn-link">积分商城</a></td>
-            </tr>
-            <tr>
-                <td>累计消费</td>
-                <td>{{userconsume | currency}}元</td>
-            </tr>
-            </tbody>
-        </table>
-
-
-        <div class="row">
-            <div class="col-xs-8"></div>
-            <div class="col-xs-2">
-                <a href="/pages/users/modifyUser.html" class="btn btn-warning">修改信息</a>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <div class="col-xs-2">
-                <a href="/pages/users/modifyPass.html" class="btn btn-danger">修改密码</a>
-            </div>
-        </div>
+        </nav>
+
     </div>
+    <div class="personInfo-body container-fluid">
+        <div class="row person-Content">
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</div>
+                            <div class="col-md-8">{{useremail}}</div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</div>
+                            <div class="col-md-8"><input type="text" class="personInfoInput" v-model="username"/></div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</div>
+                            <div class="col-md-8">
+                                <label>
+                                    <input type="radio" value="男" name="group" v-model="usersex" class="personRadio"/>
+                                    <span class="radioChar">男</span>
+                                    <!--</label>-->
+                                    <!--<label class="radio personRadio">-->
+                                    <input type="radio" value="女" name="group" v-model="usersex"/>
+                                    <span class="radioChar">女</span>
+                                </label>
+                            </div>
+                            <!--<div class="col-md-8">{{usersex}}</div>-->
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日:</div>
+                            <div class="col-md-8"><input type="text" class="personInfoInput" v-model="userbirth" id="birth"/></div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</div>
+                            <div class="col-md-8"><a href="/pages/users/modifyPass.html" class="btn-link">修改密码</a></div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">会员等级:</div>
+                            <div class="col-md-8">{{userlevel}}</div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">积&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分:</div>
+                            <div class="col-md-8">{{usercredit}}分|<a href="/pages/users/creditShop.html" class="btn-link">积分商城</a></div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4">累计消费:</div>
+                            <div class="col-md-8">{{userconsume | currency}}元</div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8"><button class="btn saveModifyButton btn-info" v-on:click="saveModify">保存</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <img v-bind:src=" '/showImages/userIcons/'+userEmailNoChar+'.jpg'" alt="你的头像" class="personIcon" id="userIcon"/>
+                </div>
+                <div>
+                    <div align="center">
+                        <a class="fileinput-button">
+                            <span>选择头像</span>
+                            <input type="file" accept="image/jpeg" class="form-control" v-on:change="selectImage"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
+
 <!--<div id="deleteVue">-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
