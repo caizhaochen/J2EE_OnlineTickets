@@ -15,7 +15,7 @@ public class SeatsEntity {
     private Integer seatnum;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seatsid")
     public int getSeatsid() {
         return seatsid;

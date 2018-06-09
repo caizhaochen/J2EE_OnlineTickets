@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ticketServer/ticketServer.iml" filepath="$PROJECT_DIR$/ticketServer/ticketServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/ticketServer/tickets.iml" filepath="$PROJECT_DIR$/ticketServer/tickets.iml" />
     </modules>
   </component>
