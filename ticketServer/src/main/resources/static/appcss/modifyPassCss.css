@@ -12,7 +12,7 @@ body{
 }
 
 .person-Content{
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .personIcon{
@@ -75,6 +75,21 @@ table{
 
 .saveModifyButton{
     width: 9em;
+    /*width: 100%;*/
     font-size: 1.2em;
+    margin-bottom: 1em;
+
 }
+
+.modifyPassLabel{
+    text-align: right;
+    /*margin-right: 17%;*/
+}
+
+.cancelModifyButton{
+    margin-top: 10px;
+    width: 7em;
+}
+
+
 

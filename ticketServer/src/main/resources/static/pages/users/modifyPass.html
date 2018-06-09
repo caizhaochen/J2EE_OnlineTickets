@@ -4,95 +4,131 @@
     <meta charset="UTF-8"/>
     <title>Modify Password</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/appcss/modifyPassCss.css"/>
 
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="/js/vue.min.js"></script>
     <script src="/js/vue-resource.js"></script>
     <script src="/appjs/users/modifyPass.js"></script>
+
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
 </head>
 <body>
 
 <div id="modifyPassVue">
+    <div>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <div class="navbar-brand"><span>REDBUD在线购票</span></div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#login-collapse">
+                    <span class="sr-only">登录选项</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+                <ul class="nav navbar-nav">
+                    <li><a href="/showTickets"><span>订票业务</span></a></li>
+                    <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{name}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a>会员等级:{{level}}</a></li>
+                            <li><a href="/tickets/home">个人信息</a></li>
+                            <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/">退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="personInfo-body container-fluid">
+        <div ><a href="/tickets/home" class="btn cancelModifyButton btn-danger">取消</a></div>
+        <div class="row person-Content">
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="row personInfoLine">
+                            <div class="col-md-5 modifyPassLabel">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</div>
+                            <div class="col-md-5">{{email}}</div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-5 modifyPassLabel">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</div>
+                            <div class="col-md-5">{{name}}</div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-5 modifyPassLabel">原&ensp;密&ensp;码:</div>
+                            <div class="col-md-5"><input type="password" class="personInfoInput" v-model="origin"/></div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-5 modifyPassLabel">新&ensp;密&ensp;码:</div>
+                            <div class="col-md-5"><input type="password" class="personInfoInput" v-model="newPass"/></div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-5 modifyPassLabel">确认密码:</div>
+                            <div class="col-md-5"><input type="password" class="personInfoInput" v-model="newConfirm"/></div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine"></div>
+                        <div class="row personInfoLine">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-5"><button class="btn saveModifyButton btn-info" v-on:click="modifyPassSubmit">确认修改</button></div>
+                            <div class="col-md-2"></div>
 
-    <nav class="navbar navbar-default">
-        <div class="navbar-header">
-            <div class="navbar-brand"><span>REDBUD在线购票</span></div>
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#login-collapse">
-                <span class="sr-only">登录选项</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <img v-bind:src=" '/showImages/userIcons/'+userEmailNoChar+'.jpg'" alt="你的头像" class="personIcon" id="userIcon"/>
+                </div>
+                <!--<div>-->
+                    <!--<div align="center">-->
+                        <!--<a class="fileinput-button">-->
+                            <!--<span>选择头像</span>-->
+                            <!--<input type="file" accept="image/jpeg" class="form-control" v-on:change="selectImage"/>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
         </div>
-        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
-            <ul class="nav navbar-nav">
-                <li><a href="/showTickets"><span>订票业务</span></a></li>
-                <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{name}}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a>会员等级:{{level}}</a></li>
-                        <li><a href="/tickets/home">个人信息</a></li>
-                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/">退出登录</a></li>
 
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-
-    <div class="alert alert-danger" role="alert" style="display: none" id="modifyPassError">{{errorMsg}}</div>
-
-    <form @submit.prevent="modifyPassSubmit" class="form-horizontal " role="form" >
-        <fieldset>
-            <div class="form-group">
-                <label class="control-label col-sm-2">邮箱</label>
-                <div class="col-sm-10 col-lg-3">
-                    <p>{{email}}</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">昵称</label>
-                <div class="col-sm-10 col-lg-3">
-                    <p>{{name}}</p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-2">原密码</label>
-                <div class="col-sm-10 col-lg-3">
-                    <input type="password"  class="form-control" v-model="origin">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">新密码</label>
-                <div class="col-sm-10 col-lg-3">
-                    <input type="password"  class="form-control" v-model="newPass">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">确认密码</label>
-                <div class="col-sm-10 col-lg-3">
-                    <input type="password"  class="form-control" v-model="newConfirm">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-xs-5"></div>
-                <a href="/tickets/home" class="col-xs-1 btn btn-lg btn-warning">取消/首页</a>
-                <div class="controls col-xs-3">
-                    <input type="submit" class="btn btn-lg btn-success" value="确认修改">
-                </div>
-            </div>
-        </fieldset>
-    </form>
+    </div>
 
 </div>
+
 
 </body>
 </html>
