@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 
@@ -31,6 +32,7 @@ public class OrderController {
     private ShowManageService showManageService=ServiceFactory.getShowManageService();
     private AccountManageService accountManageService=ServiceFactory.getAccountManageService();
     private CouponManageService couponManageService=ServiceFactory.getCouponManageService();
+    private VenueManageService venueManageService=ServiceFactory.getVenueManageService();
 //    @Autowired
 //    private OrderManageService orderManageService;
 //    @Autowired
@@ -427,12 +429,22 @@ public class OrderController {
 
     @RequestMapping("/getPayInfo")
     @ResponseBody
-    public OrdersEntity getPayInfo(HttpServletRequest request)throws IOException{
+    public List getPayInfo(HttpServletRequest request)throws IOException{
+        List result=new ArrayList();
         HttpSession session=request.getSession();
         int orderId=(int)session.getAttribute("orderId");
 //        double orderPrice=(double)session.getAttribute("orderPrice");
         OrdersEntity order=orderManageService.getOrder(orderId);
-        return order;
+        int showId=order.getShowid();
+        ShowsEntity show=showManageService.getShowById(showId);
+        int venueId=show.getVenueid();
+        VenuesEntity venue=venueManageService.getVenueInfo(venueId);
+        result.add(order);
+        result.add(show.getShowname());
+        result.add(show.getShowtime());
+        result.add(venue.getVenuename());
+        result.add(venue.getLocation());
+        return result;
     }
 
     //用户购票付款

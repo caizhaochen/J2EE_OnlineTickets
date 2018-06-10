@@ -59,10 +59,14 @@ function creditShop() {
         },
         methods:{
             showCreditShop:function () {
+                $("#dealCredit").css("background-color","#5bc0de");
+                $("#myCoupon").css("background-color","#e7e7e7");
                 this.showShop=true;
                 this.showCoupon=false;
             },
             showMyCoupon:function () {
+                $("#dealCredit").css("background-color","#e7e7e7");
+                $("#myCoupon").css("background-color","#5bc0de");
                 this.$http.get("http://localhost:8080/user/getMyCoupon").then(function (response) {
                     this.myCoupons=response.data;
                     if(this.myCoupons.length>0){
@@ -76,20 +80,17 @@ function creditShop() {
                 this.$http.get("http://localhost:8080/user/getCoupon/"+money).then(function (response) {
                     var getInfo=response.data;
                     if(getInfo[0]=="success"){
-                        this.successMsg="获取成功！";
-                        this.userCredit=this.userCredit-money*12;
-                        showSuccess();
-                        setTimeout("hideSuccess()",5000);
+                        toastr.success("获取成功！");
                     }else if(getInfo[0]=="fail"){
                         this.errorMsg=getInfo[1];
-                        showError();
-                        setTimeout("hideError()",5000);
+                        toastr.error(this.errorMsg);
                     }
                 })
             }
         },
         mounted:function (){
             this.$http.get("http://localhost:8080/tickets/getUserInfo").then(function (response) {
+
                 var userInfo=response.data;
                 this.username=userInfo.username;
                 this.userlevel=userInfo.level;
@@ -98,32 +99,11 @@ function creditShop() {
             });
 
         }
-    })
-
+    });
 }
-
-function hideError() {
-    var alertBox = document.getElementById("creditShopError");
-    alertBox.style.display = "none";
-}
-
-function showError() {
-    var alertBox = document.getElementById("creditShopError");
-    alertBox.style.display = "block";
-
-}
-function hideSuccess() {
-    var alertBox = document.getElementById("creditShopSuccess");
-    alertBox.style.display = "none";
-}
-
-function showSuccess() {
-    var alertBox = document.getElementById("creditShopSuccess");
-    alertBox.style.display = "block";
-
-}
-
 
 window.onload=function () {
+    $("#dealCredit").css("background-color","#5bc0de");
+    $("#myCoupon").css("background-color","#e7e7e7");
     creditShop();
 }

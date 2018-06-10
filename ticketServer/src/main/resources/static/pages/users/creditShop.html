@@ -4,13 +4,32 @@
     <meta charset="UTF-8"/>
     <title>积分商城</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/creditShop.css"/>
 
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="/js/vue.min.js"></script>
     <script src="/js/vue-resource.js"></script>
     <script src="/appjs/users/creditShop.js"></script>
+
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
 </head>
 <body>
 <div id="creditShopVue">
@@ -47,67 +66,113 @@
     </nav>
 
 
-    <div class="alert alert-danger" role="alert" style="display: none" id="creditShopError">{{errorMsg}}</div>
-    <div class="alert alert-success" role="alert" style="display: none" id="creditShopSuccess">{{successMsg}}</div>
+    <div class="container creditShopBorder">
 
-    <div class="container">
-
-        <ul class="nav nav-pills">
-            <li role="presentation"><a type="button" v-on:click="showCreditShop">积分兑换</a></li>
-            <li role="presentation"><a type="button" v-on:click="showMyCoupon">我的优惠券</a></li>
-        </ul>
-        <div class="row">
-            <div class="page-header">
-                <h1>尊敬的用户{{username}}({{userEmail}}),您当前的积分为{{userCredit}}分</h1>
+        <div class="creditShopHead">
+            <ul class="nav nav-pills">
+                <li role="presentation"><button type="button" class="btn changeBtn" v-on:click="showCreditShop" id="dealCredit">积分兑换</button></li>
+                <li role="presentation"><button type="button" class="btn changeBtn" v-on:click="showMyCoupon" id="myCoupon">我的优惠券</button></li>
+            </ul>
+            <div>
+                <div class="page-header">
+                    <span class="creditInfo" style="display: none">尊敬的用户{{username}}({{userEmail}}),您当前的积分为{{userCredit}}分</span>
+                    <span class="creditInfo">您当前的剩余积分为{{userCredit}}分</span>
+                </div>
             </div>
         </div>
+
 
         <div v-show="showShop">
-            <div class="stamp stamp01">
-                <div class="par"><p>Tickets折扣券</p><sub class="sign">￥</sub><span>100.00</span><sub>优惠券</sub><p>1200积分可以兑换</p></div>
-                <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(100)">领取</a></div>
+            <div class="col-md-6 stampBorder">
+                <div class="stamp stamp01">
+                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>100.0</span><sub>优惠券</sub><p>1200积分可以兑换</p></div>
+                    <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(100)">领取</a></div>
+                    <i></i>
+                </div>
             </div>
-            <hr/>
-            <div class="stamp stamp03">
-                <div class="par"><p>Tickets折扣券</p><sub class="sign">￥</sub><span>50.00</span><sub>优惠券</sub><p>600积分可以兑换</p></div>
-                <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(50)">领取</a></div>
-                <!--<i></i>-->
+            <!--<hr/>-->
+            <div class="col-md-6 stampBorder">
+                <div class="stamp stamp03">
+                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>50.0</span><sub>优惠券</sub><p>600积分可以兑换</p></div>
+                    <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(50)">领取</a></div>
+                    <i></i>
+                </div>
             </div>
-            <hr/>
-            <div class="stamp stamp04">
-                <div class="par"><p>Tickets折扣券</p><sub class="sign">￥</sub><span>30.00</span><sub>优惠券</sub><p>360积分可以兑换</p></div>
-                <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(30)">领取</a></div>
-                <!--<i></i>-->
+            <!--<hr/>-->
+            <div class="col-md-6 stampBorder">
+                <div class="stamp stamp04">
+                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>30.0</span><sub>优惠券</sub><p>360积分可以兑换</p></div>
+                    <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(30)">领取</a></div>
+                    <i></i>
+                </div>
             </div>
-            <hr/>
-            <div class="stamp stamp02">
-                <div class="par"><p>Tickets折扣券</p><sub class="sign">￥</sub><span>10.00</span><sub>优惠券</sub><p>120积分可以兑换</p></div>
-                <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(10)">领取</a></div>
-                <!--<i></i>-->
+            <!--<hr/>-->
+            <div class="col-md-6 stampBorder">
+                <div class="stamp stamp02">
+                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>10.0</span><sub>优惠券</sub><p>120积分可以兑换</p></div>
+                    <div class="copy">副券<hr/><a type="button" class="btn btn-default" v-on:click="getCoupon(10)">领取</a></div>
+                    <i></i>
+                </div>
             </div>
+
         </div>
 
-        <div v-show="showCoupon">
-            <div v-if="hasCoupons">
-                <div v-for="myCoupon in myCoupons">
-                    <div class="stamp stamp02">
-                        <div class="par"><p>Tickets折扣券</p><sub class="sign">￥</sub><span>{{myCoupon.price}}</span><sub>优惠券</sub></div>
-                        <div class="copy"><hr/><h2>{{myCoupon.couponquantity}}张</h2></div>
-                        <i></i>
+        <div class="noCouponAlert">
+            <div v-show="showCoupon">
+                <div v-if="hasCoupons">
+                    <div v-for="myCoupon in myCoupons">
+                        <div class="col-md-6 stampBorder">
+                            <div v-if="myCoupon.price === 100">
+                                <div class="stamp stamp01">
+                                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>{{myCoupon.price}}.0</span><sub>优惠券</sub><p>永久有效</p></div>
+                                    <div class="copy"><hr/><h2>{{myCoupon.couponquantity}}张</h2></div>
+                                    <i></i>
+                                </div>
+                            </div>
+                            <div v-else-if="myCoupon.price === 50">
+                                <div class="stamp stamp03">
+                                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>{{myCoupon.price}}.0</span><sub>优惠券</sub><p>永久有效</p></div>
+                                    <div class="copy"><hr/><h2>{{myCoupon.couponquantity}}张</h2></div>
+                                    <i></i>
+                                </div>
+                            </div>
+                            <div v-else-if="myCoupon.price === 30">
+                                <div class="stamp stamp04">
+                                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>{{myCoupon.price}}.0</span><sub>优惠券</sub><p>永久有效</p></div>
+                                    <div class="copy"><hr/><h2>{{myCoupon.couponquantity}}张</h2></div>
+                                    <i></i>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="stamp stamp02">
+                                    <div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>{{myCoupon.price}}.0</span><sub>优惠券</sub><p>永久有效</p></div>
+                                    <div class="copy"><hr/><h2>{{myCoupon.couponquantity}}张</h2></div>
+                                    <i></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--<div class="stamp stamp02">-->
+                        <!--<div class="par"><p>REDBUD折扣券</p><sub class="sign">￥</sub><span>{{myCoupon.price}}</span><sub>优惠券</sub></div>-->
+                        <!--<div class="copy"><hr/><h2>{{myCoupon.couponquantity}}张</h2></div>-->
+                        <!--<i></i>-->
+                        <!--</div>-->
+                        <!--<hr/>-->
                     </div>
-                    <hr/>
+                </div>
+                <div v-else>
+                    <div class="jumbotron">
+                        <div class="container">
+                            <p>您暂时没有优惠券，赶紧去兑换吧！</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div v-else>
-                <div class="jumbotron">
-                    <div class="container">
-                        <p>您暂时没有优惠券，赶紧去兑换吧！</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
     </div>
+
 
 
 </div>
