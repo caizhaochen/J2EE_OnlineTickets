@@ -69,16 +69,16 @@
         <ul class="nav navbar-nav">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">全部订单<span class="caret"></span></a>
+                   aria-expanded="false">{{listName}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a>全部订单</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a >即将到来</a></li>
-                    <li><a>已过去</a></li>
-                    <li><a>已付款</a></li>
-                    <li><a>未付款</a></li>
-                    <li><a>已失效</a></li>
-                    <li><a>已撤回</a></li>
+                    <!--<li><a>全部订单</a></li>-->
+                    <!--<li role="separator" class="divider"></li>-->
+                    <li><a v-on:click="showFuture">即将到来</a></li>
+                    <li><a v-on:click="showPast">已过去</a></li>
+                    <li><a v-on:click="showPay">已付款</a></li>
+                    <li><a v-on:click="showNot">未付款</a></li>
+                    <li><a v-on:click="showOver">已失效</a></li>
+                    <li><a v-on:click="showBack">已撤回</a></li>
                 </ul>
             </li>
         </ul>

@@ -47,6 +47,8 @@ function myOrders() {
             username:'您还没有登录',
             userlevel:0,
 
+            listName:'即将到来',
+
             allOrders:[],
             future:[],
             past:[],
@@ -73,6 +75,7 @@ function myOrders() {
         },
         methods:{
             showFuture:function () {
+                this.listName='即将到来';
                 this.isHasPay=false;
                 this.isOverDue=false;
                 this.isNotPay=false;
@@ -81,6 +84,7 @@ function myOrders() {
                 this.isPast=false;
             },
             showPast:function () {
+                this.listName='已过去';
                 this.isHasPay=false;
                 this.isOverDue=false;
                 this.isNotPay=false;
@@ -89,6 +93,7 @@ function myOrders() {
                 this.isPast=true;
             },
             showPay:function () {
+                this.listName='已付款';
                 this.isHasPay=true;
                 this.isOverDue=false;
                 this.isNotPay=false;
@@ -97,6 +102,7 @@ function myOrders() {
                 this.isPast=false;
             },
             showNot:function () {
+                this.listName='未付款';
                 this.isHasPay=false;
                 this.isOverDue=false;
                 this.isNotPay=true;
@@ -105,6 +111,7 @@ function myOrders() {
                 this.isPast=false;
             },
             showOver:function () {
+                this.listName='已失效';
                 this.isHasPay=false;
                 this.isOverDue=true;
                 this.isNotPay=false;
@@ -113,6 +120,7 @@ function myOrders() {
                 this.isPast=false;
             },
             showBack:function () {
+                this.listName='已撤回';
                 this.isHasPay=false;
                 this.isOverDue=false;
                 this.isNotPay=false;
