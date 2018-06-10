@@ -58,19 +58,60 @@
             <h2>{{showname}}</h2>
             <div class="well">
                 <div class="row">
-                    <div class="col-xs-1">时间</div>
-                    <div class="col-xs-3">{{showtime |time}}</div>
+                    <!--<div class="col-xs-1">时间</div>-->
+                    <!--<div class="col-xs-3">{{showtime |time}}</div>-->
+                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
+                    <div class="col-lg-8 col-md-8 col-sm-10">REDBUD > 菜菜影院 > 《好一朵美丽的茉莉花》Zhaochen Thai > 2018-09-05 周三 19:30</div>
+                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
                 </div>
             </div>
-            <div id="seat-map">
-                <div id="seat-maps"></div>
+            <div class="row">
+                <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                <!--<div class="col-lg-8 col-md-8 col-sm-10">-->
+                    <!--<span class="label label-info" style="font-size: 20px">场馆座位图示</span>-->
+                <!--</div>-->
+                <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                <p>
+
+                </p>
+            </div>
+            <div>
+                <div class="col-lg-2 col-md-2 col-sm-1">
+                    <!--<div id="legend"></div>-->
+                </div>
+                <div id="seat-map" class="col-lg-8 col-md-8 col-sm-10">
+                    <div id="seat-maps"></div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-1">
+                    <div id="legend"></div>
+                </div>
             </div>
             <div class="booking-details">
                 <ul id="selected-seats">
                 </ul>
-                <span class="col-xs-offset-2">票价总计：￥{{totalPrice | currency }}</span>
-                <p class="col-xs-offset-2"><button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button></p>
-                <div id="legend"></div>
+                <div>
+                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
+                    <div class="col-lg-8 col-md-8 col-sm-10">
+                        <span>票价总计：￥{{totalPrice | currency }}</span>
+                        <p></p>
+                        <button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button>
+                        <p></p>
+                        <!--<div id="legend"></div>-->
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
+                </div>
+                <!--<span class="col-xs-offset-2">票价总计：￥{{totalPrice | currency }}</span>-->
+
+                <!--<p class="col-xs-offset-2"><button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button></p>-->
+
+                <!--<div>-->
+                    <!--<div>-->
+                        <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                        <!--<div id="legend" class="col-lg-8 col-md-8 col-sm-10"></div>-->
+                        <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div id="legend"></div>-->
             </div>
         </div>
     </div>

@@ -68,7 +68,7 @@ function randomSeats() {
                     showError();
                     setTimeout("hideError()", 5000);
                 }
-                else if(this.seatsNum>20){
+                else if(this.seatsNum>8){
                     this.errorMsg = "随机购票每单不得超过20张"
                     showError();
                     setTimeout("hideError()", 5000);
