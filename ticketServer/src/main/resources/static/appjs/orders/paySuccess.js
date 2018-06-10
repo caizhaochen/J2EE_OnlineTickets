@@ -19,8 +19,8 @@ function paySuccess() {
                 this.userlevel=userInfo.level;
             });
             this.$http.get("http://localhost:8080/order/getPayInfo").then(function (orderResponse) {
-                var orderInfo=orderResponse.data;
-                console.log(orderResponse);
+                var orderInfo=orderResponse.data[0];
+                console.log(orderInfo);
                 // this.orderId=orderInfo.orderid;
                 // this.orderTime=orderInfo.ordertime;
                 // this.originPrice=orderInfo.originprice;
