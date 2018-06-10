@@ -75,7 +75,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDao {
         try {
             Session session = HibernateUtil.getSession() ;
             Transaction tx=session.beginTransaction();
-            String hql = "from com.ticket.czc.tickets.model.CouponsEntity c where c.userid= :p and c.couponquantity>0 and c.price< :m";
+            String hql = "from com.ticket.czc.tickets.model.CouponsEntity c where c.userid= :p and c.couponquantity>0 and c.price< :m order by c.price";
             Query query = session.createQuery(hql);
             query.setString("p",userEmail);
             query.setDouble("m",price);

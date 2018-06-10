@@ -47,6 +47,7 @@ function payOrder() {
             username:'您还没有登录',
             userlevel:'',
             orderId:'',
+            showId:'',
             orderTime:'',
             orderPrice:'',
             orderQuantity:'',
@@ -58,15 +59,20 @@ function payOrder() {
             accountPass:'',
             hasCoupon:false,
             reducePrice:0,
+            showName:'',
+            showTime:'',
+            venueName:'',
+            venueLocation:''
         },
         methods:{
             pay:function () {
                 var id=this.accountId;
                 var pass=this.accountPass;
                 if(id==""||pass==""){
-                    this.errorMsg="请填写完整账户账号和密码";
-                    showError();
-                    setTimeout("showError()",5000);
+                    // this.errorMsg="请填写完整账户账号和密码";
+                    // showError();
+                    // setTimeout("showError()",5000);
+                    toastr.error("请填写完整账户账号和密码");
                 }
                 else {
                     var payInfo=[id,pass,this.reducePrice];
@@ -74,24 +80,16 @@ function payOrder() {
                         console.log(payResponse.bodyText);
                         var payRes=payResponse.bodyText;
                         if(payRes=="noUser"){
-                            this.errorMsg="不存在该银行账户";
-                            showError();
-                            setTimeout("showError()",5000);
+                            toastr.error("不存在该银行账户");
                         }
                         else if(payRes=="errorPassword"){
-                            this.errorMsg="密码错误";
-                            showError();
-                            setTimeout("showError()",5000);
+                            toastr.error("密码错误");
                         }
                         else if(payRes=="overDue"){
-                            this.errorMsg="您未在规定时间内支付，订单已失效";
-                            showError();
-                            setTimeout("showError()",5000);
+                            toastr.error("您未在规定时间内支付，订单已失效");
                         }
                         else if(payRes=="notEnough"){
-                            this.errorMsg="账户余额不足";
-                            showError();
-                            setTimeout("showError()",5000);
+                            toastr.error("账户余额不足");
                         }
                         else{
                             window.location.href="/order/paySuccess";
@@ -107,16 +105,24 @@ function payOrder() {
                 this.userlevel=userInfo.level;
             });
             this.$http.get("http://localhost:8080/order/getPayInfo").then(function (orderResponse) {
-                var orderInfo=orderResponse.data;
                 console.log(orderResponse);
+
+                var orderInfo=orderResponse.data[0];
                 this.orderId=orderInfo.orderid;
+                this.showId=orderInfo.showid;
                 this.orderTime=orderInfo.ordertime;
                 this.originPrice=orderInfo.originprice;
                 this.orderQuantity=orderInfo.quantity;
                 this.seats=orderInfo.orderseats;
                 this.orderDeadline=orderInfo.orderdeadline;
                 this.orderPrice=orderInfo.totalprice;
-            })
+
+                this.showName=orderResponse.data[1];
+                this.showTime=orderResponse.data[2];
+                this.venueName=orderResponse.data[3];
+                this.venueLocation=orderResponse.data[4];
+
+            });
             this.$http.get("http://localhost:8080/coupon/getCoupons").then(function (couponResponse) {
                 var couponsInfo=couponResponse.data;
                 console.log(couponsInfo);
@@ -124,6 +130,9 @@ function payOrder() {
                     this.hasCoupon=true;
                 }
                 this.coupons=couponsInfo;
+            });
+            $("#payShowImage").on("error",function () {
+                $(this).attr("src","/images/showIndex.jpg");
             })
         }
     })
