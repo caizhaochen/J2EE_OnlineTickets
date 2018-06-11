@@ -158,6 +158,36 @@ $(document).ready(function () {
             },
             randomBookShow:function (showid) {
                 window.location.href="/randomSeats/"+showid;
+            },
+            searchShow:function () {
+                var searchText=$("#searchInput").val();
+                if (searchText==""){
+                    this.arrayData=this.arrayDateAll;
+                    this.totalCount = this.arrayData.length;
+                    this.pageCount = parseInt((this.totalCount - 1) / this.pagesize) + 1;
+                    this.showPage(vue.pageCurrent, null, true);
+                }
+                else {
+                    var arr=[];
+                    for(var i=0;i<this.arrayDateAll.length;i++){
+                        if (this.arrayDateAll[i][0].showname.indexOf(searchText)!=-1||
+                            this.arrayDateAll[i][0].showtype.indexOf(searchText)!=-1||
+                            this.arrayDateAll[i][1].indexOf(searchText)!=-1||
+                            this.arrayDateAll[i][2].indexOf(searchText)!=-1){
+                            arr.push(this.arrayDateAll[i]);
+                        }
+                    }
+                    if (arr.length!=0){
+                        this.arrayData=arr;
+                    }
+                    else {
+                        this.arrayData=this.arrayDateAll;
+                        toastr.warning("没有符合要求的搜索信息");
+                        toastr.error("没有符合要求的搜索信息");
+                    }
+                    // this.arrayData=arr;
+                    return this.arrayData;
+                }
             }
 
         },

@@ -142,9 +142,7 @@ function loadSeats() {
         methods:{
             fetchTickets:function () {
                 if(this.selected.length==0){
-                    this.errorMsg="请至少选择一张票！"
-                    showError();
-                    setTimeout("hideError()",5000);
+                    toastr.error("请至少选择一张票！");
                 }
                 else{
                     var quantity=this.selected.length;
@@ -157,8 +155,7 @@ function loadSeats() {
                         var result=responseData[0];
                         if(result=="fail"){
                             this.errorMsg=responseData[1];
-                            showError();
-                            setTimeout("hideError()",5000);
+                            toastr.error(this.errorMsg);
                         }
                         else if(result=="success"){
                             var orderId=responseData[1];
@@ -242,7 +239,8 @@ function loadSeats() {
                                     return 'selected';
                                 }
                                 else {
-                                    alert("最多只能选择6个座位！");
+                                    toastr.error("最多只能选择6个座位！");
+                                    // alert("最多只能选择6个座位！");
                                     return 'available';
                                 }
 

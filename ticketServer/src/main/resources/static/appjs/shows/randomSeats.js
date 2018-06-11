@@ -64,14 +64,10 @@ function randomSeats() {
         methods: {
             fetchRandomTickets: function () {
                 if (!IntCheck(this.seatsNum)) {
-                    this.errorMsg = "票张数必须为正整数！"
-                    showError();
-                    setTimeout("hideError()", 5000);
+                    toastr.error("票张数必须为正整数！");
                 }
-                else if(this.seatsNum>8){
-                    this.errorMsg = "随机购票每单不得超过20张"
-                    showError();
-                    setTimeout("hideError()", 5000);
+                // else if(this.seatsNum>8){
+                    toastr.error("随机购票每单不得超过8张");
                 }
                 else {
                     var quantity = this.seatsNum;
