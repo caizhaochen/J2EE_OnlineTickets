@@ -66,7 +66,7 @@ function randomSeats() {
                 if (!IntCheck(this.seatsNum)) {
                     toastr.error("票张数必须为正整数！");
                 }
-                // else if(this.seatsNum>8){
+                else if(this.seatsNum>8){
                     toastr.error("随机购票每单不得超过8张");
                 }
                 else {
