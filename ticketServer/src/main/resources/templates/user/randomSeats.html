@@ -54,27 +54,86 @@
     <div class="alert alert-danger" role="alert" style="display: none" id="randomSeatsError">{{errorMsg}}</div>
     <div class="wrapper">
         <div class="container">
-            <span style="color: red">随机配票规则：一次不可以超过20张，随机配票成价格最低的方案。</span>
+            <!--<span style="color: red">随机配票规则：一次不可以超过8张，随机配票成价格最低的方案。</span>-->
 
             <h2>{{showname}}</h2>
             <div class="well">
                 <div class="row">
-                    <div class="col-xs-1">时间：</div>
-                    <div class="col-xs-3">{{showtime |time}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-1">余票：</div>
-                    <div class="col-xs-3">{{restTickets}}张</div>
+                    <!--<div class="col-xs-1">时间</div>-->
+                    <!--<div class="col-xs-3">{{showtime |time}}</div>-->
+                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
+                    <div class="col-lg-8 col-md-8 col-sm-10">REDBUD > 菜菜影院 > 《好一朵美丽的茉莉花》Zhaochen Thai > 2018-09-05 周三 19:30</div>
+                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
                 </div>
             </div>
-            <div class="booking-details">
-                <div class="form-group">
-                    <label class="control-label col-sm-2">购票张数：</label>
-                    <div class="col-sm-10 col-lg-3">
-                        <input type="text" placeholder="" class="form-control" v-model="seatsNum"/>
-                    </div>
+            <!--<div class="well">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-1">时间：</div>-->
+                    <!--<div class="col-xs-3">{{showtime |time}}</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-1">余票：</div>-->
+                    <!--<div class="col-xs-3">{{restTickets}}张</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div>
+                <div class="col-lg-2 col-md-2 col-sm-1">
+                    <!--<div id="legend"></div>-->
                 </div>
-                <p class="col-xs-offset-2"><button class=" btn btn-success" type="button"  v-on:click="fetchRandomTickets">确认购票</button></p>
+                <div class="col-lg-8 col-md-8 col-sm-10">
+                    <span style="color: red">随机配票规则：一次不可以超过8张，随机配票成价格最低的方案。最终解释权归官方所有</span>
+                    <br/>
+                    <br/>
+                    <div>
+                        <div class="col-lg-2 col-md-3 col-sm-4">
+                            购票张数：
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-4">
+                            <input type="text" placeholder="" class="form-control" v-model="seatsNum"/>
+                            <!--<select class="selectpicker" title="1" data-style="btn-info" data-live-search="true" data-live-search-placeholder="输入您想要预定的座位数">-->
+                                <!--<option>1</option>-->
+                                <!--<option>2</option>-->
+                                <!--<option>3</option>-->
+                                <!--<option>4</option>-->
+                                <!--<option>5</option>-->
+                                <!--<option>6</option>-->
+                                <!--<option>7</option>-->
+                                <!--<option>8</option>-->
+                            <!--</select>-->
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-sm-4">
+                            <button class=" btn btn-success" type="button"  v-on:click="fetchRandomTickets">确认购票</button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-1">
+                    <!--<div id="legend"></div>-->
+                </div>
+            </div>
+
+            <div class="booking-details">
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-2">购票张数：</label>-->
+                    <!--<div class="col-sm-10 col-lg-3">-->
+                        <!--<input type="text" placeholder="" class="form-control" v-model="seatsNum"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<p class="col-xs-offset-2"><button class=" btn btn-success" type="button"  v-on:click="fetchRandomTickets">确认购票</button></p>-->
+
+                <!--<div>-->
+                    <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                    <!--<div class="col-lg-8 col-md-8 col-sm-10">-->
+                        <!--<label class="control-label col-sm-2">购票张数：</label>&ndash;&gt;-->
+                        <!--<input type="text" placeholder="" class="form-control" v-model="seatsNum"/>-->
+                        <!--<p></p>-->
+                        <!--<button class=" btn btn-success" type="button"  v-on:click="fetchRandomTickets">确认购票</button>-->
+                        <!--<p></p>-->
+                        <!--&lt;!&ndash;<div id="legend"></div>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
