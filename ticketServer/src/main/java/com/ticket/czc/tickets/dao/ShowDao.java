@@ -22,6 +22,8 @@ public interface ShowDao {
 
     public ArrayList<String> getAllTypes();
 
+    public ArrayList<ShowsEntity> getShowsByIds(ArrayList<Integer> showIds);
+
 
 
 }

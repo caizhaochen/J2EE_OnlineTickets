@@ -43,4 +43,8 @@ public class ServiceFactory {
     public static ValidateServiceImpl getValidateService(){
         return ValidateServiceImpl.getInstance();
     }
+
+    public static FavoriteServiceImpl getFavoriteService(){
+        return FavoriteServiceImpl.getInstance();
+    }
 }

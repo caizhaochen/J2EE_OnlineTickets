@@ -3,9 +3,11 @@ package com.ticket.czc.tickets.controller.users;
 import com.ticket.czc.tickets.common.Constant;
 import com.ticket.czc.tickets.factory.ServiceFactory;
 import com.ticket.czc.tickets.model.CouponsEntity;
+import com.ticket.czc.tickets.model.ShowsEntity;
 import com.ticket.czc.tickets.model.UsersEntity;
 import com.ticket.czc.tickets.service.AccountManageService;
 import com.ticket.czc.tickets.service.CouponManageService;
+import com.ticket.czc.tickets.service.FavoriteService;
 import com.ticket.czc.tickets.service.UsersManageService;
 import com.ticket.czc.tickets.service.implservice.EmailCheck;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -37,6 +40,7 @@ public class UsersController {
     private UsersManageService usersManageService = ServiceFactory.getUserManageService();
     private AccountManageService accountManageService=ServiceFactory.getAccountManageService();
     private CouponManageService couponManageService=ServiceFactory.getCouponManageService();
+    private FavoriteService favoriteService=ServiceFactory.getFavoriteService();
 
 
 //    @Autowired
@@ -109,7 +113,6 @@ public class UsersController {
     }
 
     @RequestMapping("/uploadUserIcon")
-//    @ResponseBody
     public ArrayList<String> doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         ArrayList<String> result=new ArrayList<>();
@@ -202,11 +205,44 @@ public class UsersController {
         return couponManageService.getAvailableCoupons(email);
     }
 
-
-
-
-    public static void main(String[] args) {
-        System.out.println(Date.valueOf("1997-02-10"));
+    /**
+     *
+     * @param request
+     * @return ArrayList<ShowsEntity>
+     */
+    @RequestMapping("/getFavoriteShow")
+    @ResponseBody
+    public ArrayList<ShowsEntity> getFavoriteShows(HttpServletRequest request){
+        HttpSession session=request.getSession(false);
+        String userEmail=(String)session.getAttribute("userId");
+        return favoriteService.getFavoriteShowInfo(userEmail);
     }
+
+    /**
+     *
+     * @param favorite-ArrayList [userEmail][showId]
+     * @return String-"success"
+     */
+    @RequestMapping("/addFavorite/{favorite}")
+    @ResponseBody
+    public String addFavorite(@PathVariable("favorite")List favorite){
+        String userEmail=(String) favorite.get(0);
+        int showId=(int)favorite.get(1);
+        favoriteService.addFavorite(userEmail,showId);
+        return "success";
+    }
+    @RequestMapping("/cancelFavorite/{favorite}")
+    @ResponseBody
+    public String cancelFavorite(@PathVariable("favorite")List favorite){
+        String userEmail=(String) favorite.get(0);
+        int showId=(int)favorite.get(1);
+        favoriteService.cancelFavorite(userEmail,showId);
+        return "success";
+    }
+
+
+//    public static void main(String[] args) {
+//        System.out.println(Date.valueOf("1997-02-10"));
+//    }
 
 }

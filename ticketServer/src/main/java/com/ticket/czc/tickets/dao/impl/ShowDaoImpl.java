@@ -154,9 +154,33 @@ public class ShowDaoImpl extends BaseDaoImpl implements ShowDao{
         return list;
     }
 
-    public static void main(String[] args){
-//        ShowDaoImpl showDao=new ShowDaoImpl();
-//        ArrayList<ShowsEntity> showsEntities=showDao.getAllAvailableShows();
-//        System.out.println(showsEntities.size());
+    @Override
+    public ArrayList<ShowsEntity> getShowsByIds(ArrayList<Integer> showIds) {
+        ArrayList<ShowsEntity> result=new ArrayList<>();
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction tx=session.beginTransaction();
+            for (int i=0;i<showIds.size();i++){
+                System.out.println(showIds.get(i));
+                ShowsEntity show=session.get(ShowsEntity.class,showIds.get(i));
+                result.add(show);
+            }
+            tx.commit();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
+//    public static void main(String[] args){
+////        ShowDaoImpl showDao=new ShowDaoImpl();
+////        ArrayList<ShowsEntity> showsEntities=showDao.getAllAvailableShows();
+////        System.out.println(showsEntities.size());
+//        ArrayList<Integer> showIds=new ArrayList<>();
+//        showIds.add(100086);
+//        showIds.add(100087);
+//        ArrayList<ShowsEntity> shows=new ShowDaoImpl().getShowsByIds(showIds);
+//        System.out.println(shows.size()+":"+shows.get(0).getShowname()+";"+shows.get(1).getShowname());
+//    }
 }
