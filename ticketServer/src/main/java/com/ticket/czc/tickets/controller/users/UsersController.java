@@ -12,6 +12,7 @@ import com.ticket.czc.tickets.service.UsersManageService;
 import com.ticket.czc.tickets.service.implservice.EmailCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UsersController {
 
@@ -52,6 +53,7 @@ public class UsersController {
      * @param userEmail --just need the userEmail
      */
     @RequestMapping("/getCheckCode/{userEmail}")
+    @ResponseBody
     public String getCheckCode(@PathVariable("userEmail")String userEmail){
         try {
             emailCheck.sendValidateCode(userEmail);
@@ -74,6 +76,7 @@ public class UsersController {
      * @return <state:result></state:result>
      */
     @RequestMapping("/register/{userInfo}")
+    @ResponseBody
     public ArrayList<String> registerUser(@PathVariable("userInfo")ArrayList<String> userInfo){
         ArrayList<String> resArray=new ArrayList<>();
         if (userInfo==null){
@@ -99,6 +102,7 @@ public class UsersController {
     }
 
     @RequestMapping("/login/{loginInfo}")
+    @ResponseBody
     public String login(@PathVariable("loginInfo") ArrayList<String> loginInfo, HttpServletRequest request) throws IOException {
         String email = loginInfo.get(0);
         String password = loginInfo.get(1);
@@ -113,6 +117,7 @@ public class UsersController {
     }
 
     @RequestMapping("/uploadUserIcon")
+    @ResponseBody
     public ArrayList<String> doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         ArrayList<String> result=new ArrayList<>();
@@ -148,6 +153,7 @@ public class UsersController {
     }
 
     @RequestMapping("/modifyInfo/{userInfo}")
+    @ResponseBody
     public String modifyInfo(@PathVariable("userInfo") ArrayList<String> userInfo) {
         UsersEntity user = new UsersEntity();
         user = usersManageService.getUserInfo(userInfo.get(0));
@@ -163,6 +169,7 @@ public class UsersController {
     }
 
     @RequestMapping("/modifyPass/{userInfo}")
+    @ResponseBody
     public String modifyPass(@PathVariable("userInfo") ArrayList<String> userInfo) {
         UsersEntity user = new UsersEntity();
         user = usersManageService.getUserInfo(userInfo.get(0));
@@ -176,6 +183,7 @@ public class UsersController {
     }
 
     @RequestMapping("deleteUser")
+    @ResponseBody
     public String deleteUser(HttpServletRequest request)throws IOException{
         HttpSession session=request.getSession(false);
         String email=(String)session.getAttribute("userId");
@@ -190,8 +198,15 @@ public class UsersController {
         }
     }
 
+    /**
+     * 用户获取优惠券
+     * @param price
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/getCoupon/{price}")
-//    @ResponseBody
+    @ResponseBody
     public ArrayList<String> getCoupon(@PathVariable("price") double price,HttpServletRequest request)throws IOException{
         HttpSession session=request.getSession();
         String email=(String)session.getAttribute("userId");
@@ -199,6 +214,7 @@ public class UsersController {
     }
 
     @RequestMapping("/getMyCoupon")
+    @ResponseBody
     public ArrayList<CouponsEntity> getMyCoupons(HttpServletRequest request)throws IOException{
         HttpSession session=request.getSession();
         String email=(String)session.getAttribute("userId");
@@ -238,6 +254,11 @@ public class UsersController {
         int showId=(int)favorite.get(1);
         favoriteService.cancelFavorite(userEmail,showId);
         return "success";
+    }
+
+    @RequestMapping("/MyFavorite")
+    public String myFavorite(){
+        return "/user/myFavorites";
     }
 
 

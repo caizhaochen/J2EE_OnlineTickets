@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的收藏</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/favoriteCss.css"/>
+
+    <!--<link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>-->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/appjs/users/myFavorite.js"></script>
+
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+</head>
+<body>
+<div id="favoriteVue">
+    <div>
+        <nav class="navbar navbar-default navbar-Favorite">
+            <div class="navbar-header">
+                <div class="navbar-brand"><span>REDBUD在线购票</span></div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#login-collapse">
+                    <span class="sr-only">登录选项</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+                <ul class="nav navbar-nav">
+                    <li><a href="/showTickets"><span>订票业务</span></a></li>
+                    <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{username}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a>会员等级:{{userlevel}}</a></li>
+                            <li><a href="/tickets/home">个人信息</a></li>
+                            <li><a href="/pages/users/creditShop.html">积分商城</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/">退出登录</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="showInfoBody">
+        <div class="showInfoLeftMenu">
+            <div class="link-group">
+                <h4 class="title">
+                    我的REDBUD
+                </h4>
+            </div>
+            <!--//订单-->
+            <div class="link-group">
+                <div class="title">
+                    <a href="" class="menuA">我的订单</a>
+                </div>
+                <div class="link-url" style="display: none;">
+                    <span class="orderInfoLi">
+                        <a href="" class="menuB">即将到来</a>
+                    </span>
+                    <span class="orderInfoLi">
+                        <a href="" class="menuB">即将到来</a>
+                    </span>
+                </div>
+            </div>
+            <!--//收藏-->
+            <div class="link-group">
+                <div class="title">
+                    <a href="" class="menuA" style="color: #2F96B4;">我的收藏</a>
+                </div>
+                <div class="link-url">
+                    <span class="orderInfoLi">
+                        <a href="" class="menuB normal-collect" v-on:click="normalClick" id="normalA">正常收藏</a>
+                    </span>
+                    <span class="orderInfoLi">
+                        <a href="" class="menuB past-collect" v-on:click="pastClick" id="pastA">过期收藏</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="orderMenuBlank"></div>
+    <div class="showInfoPresentation">
+        <div class="favoriteMenu">
+            <span class="favoriteMenuTitleBorder"><button class="favoriteMenuTitleActive normal-collect" v-on:click="normalClick" id="normalB">正常收藏</button></span>
+            <span class="favoriteMenuTitleBorder"><button class="favoriteMenuTitle past-collect" v-on:click="pastClick" id="pastB">过期收藏</button></span>
+        </div>
+
+        <!--还未过期的收藏-->
+        <div v-show="showNormal">
+            <div v-if="hasNormal">
+                <div v-for="item in normal">
+                    <!--每个演出-->
+                    <div class="favoriteShowBorder">
+                        <div class="favoriteShow">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="/images/show1.jpg" alt="" style="width: 133px;height: 176px;"/>
+                                </div>
+                                <div class="col-xs-6 showDetail">
+                                    <h2>{{item.showname}}</h2>
+                                    <ul class="list-group">
+                                        <li class="list-inline">描述：{{item.showdescribe}}</li>
+                                        <li class="list-inline">类型：{{item.showtype}}</li>
+                                        <li class="list-inline">时间：{{item.showtime |time}}</li>
+                                        <li class="list-inline">余票：{{item.restseats}}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-2 favoriteOption">
+                                    <a href="" class="favoriteOptionDetail">查看详情</a>
+                                </div>
+                                <div class="col-xs-1 favoriteOption2">
+                                    <a href=""><i class="fa fa-trash fa-2x"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <div class="favoriteShowBorder">
+                    <div class="favoriteShow">
+                        <div class="row">
+                            <div class="col-xs-3">
+                            </div>
+                            <div class="col-xs-6 showDetail" style="text-align: center;padding-top: 50px;">
+                                <h2>还没有任何收藏</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!--已经过期的收藏-->
+        <div v-show="showPasts">
+            <div v-if="hasPast">
+                <div v-for="item in past">
+                    <div class="favoriteShowBorder">
+                        <div class="favoriteShow">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="/images/show1.jpg" alt="" style="width: 133px;height: 176px;"/>
+                                </div>
+                                <div class="col-xs-6 showDetail">
+                                    <h2>{{item.showname}}</h2>
+                                    <ul class="list-group">
+                                        <li class="list-inline">描述：{{item.showdescribe}}</li>
+                                        <li class="list-inline">类型：{{item.showtype}}</li>
+                                        <li class="list-inline">时间：{{item.showtime |time}}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-2 favoriteOption"></div>
+                                <div class="col-xs-1 favoriteOption2">
+                                    <a href=""><i class="fa fa-trash fa-2x"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div v-else>
+                <div class="favoriteShowBorder">
+                    <div class="favoriteShow">
+                        <div class="row">
+                            <div class="col-xs-3">
+                            </div>
+                            <div class="col-xs-6 showDetail" style="text-align: center;padding-top: 50px;">
+                                <h2>还没有任何过期收藏</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
