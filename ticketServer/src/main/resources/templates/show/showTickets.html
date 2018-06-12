@@ -16,6 +16,29 @@
     <script type="text/javascript" src="/js/vue.min.js"></script>
     <script type="text/javascript" src="/js/vue-resource.js"></script>
     <script type="text/javascript" src="/appjs/users/bookTickets.js"></script>
+
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+        laydate.render({
+            elem: '#birth' //指定元素
+            , type: 'date'
+        });
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
 </head>
 <body>
 <div id="showTickets">
@@ -54,61 +77,79 @@
     <div class="container body-content">
         <div class="form-group">
             <div class="label col-lg-6 col-md-6 col-sm-12">
-                <label>演出列表</label>
+                <!--<label>演出列表</label>-->
+                <label></label>
             </div>
             <div class="input col-lg-6 col-md-6 col-sm-12">
-                <input type="text" class="form-control" placeholder="请输入演出名称/日期/地点..."/>
+                <!--<input type="text" class="form-control" placeholder="请输入演出名称/日期/地点..."/>-->
+                <div class="col-lg-10 col-md-10 col-sm-8">
+                    <input id="searchInput" type="text" class="form-control" placeholder="请输入演出名称/日期/地点..."/>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4">
+                    <button class="btn btn-info" type="button" v-on:click="searchShow">search</button>
+                </div>
+                <!--<input id="searchInput" type="text" class="form-control" placeholder="请输入演出名称/日期/地点..."/>-->
+                <!--<button class="btn btn-info" type="button" v-on:click="searchShow">search</button>-->
             </div>
             <div class="form-group">
                 <div class="page-header">
                     演出列表
                 </div>
 
-                <div v-for="item in arrayData">
-                    <div class="col-xs-12 col-lg-12">
-                        <p></p>
-                    </div>
-                    <!--<div class="showShowsInfo col-lg-2 col-md-2"></div>-->
-                    <div class="blank col-lg-3 col-md-2 col-sm-1"></div>
-                    <div class="showShowsPictures col-lg-3 col-md-2 col-sm-6">
-                        <img v-bind:src=" '/showImages/'+item[0].showid+'.jpg' " style="width: 120px;height: 160px;padding-top: 10px;"/>
-                        <!--<img v-bind:src=" 'E:/testPictures/'+item[0].showid+'.jpg' " style="width: 120px;height: 160px;"/>-->
-                        <!--<img src="/images/show1.jpg" style="width: 120px;height: 160px;"/>-->
-                    </div>
-                    <div class="showShowsInfo col-lg-6 col-md-8 col-sm-5">
-                        <h2>[ {{item[1]}} ] {{item[0].showname}}</h2>
-                        <ul class="list-group">
-                            <li class="list-inline">描述：{{item[0].showdescribe}}</li>
-                            <li class="list-inline">类型：{{item[0].showtype}}</li>
-                            <li class="list-inline">时间：{{item[0].showtime |time}}</li>
-                            <li class="list-inline">地点：{{item[2]}}</li>
-                            <li class="list-inline">余票：{{item[0].restseats}}</li>
-                        </ul>
-                    </div>
-                    <div class="panel">
-                        <div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-6">
-
-                                </div>
-                                <div class="col-md-2 col-lg-2 col-sm-3" >
-                                    <span class="btn btn-success" v-on:click="bookShow(item[0].showid)">选座订票</span>
-                                </div>
-                                <div class="col-md-4 col-lg-4 col-sm-3">
-                                    <span class="btn btn-warning" v-on:click="randomBookShow(item[0].showid)">随机订票</span>
-                                </div>
-
-                                <div class="col-xs-12">
-                                    <p></p>
-                                </div>
-
+                <div>
+                    <div class="col-lg-8 col-md-8">
+                        <div v-for="item in arrayData">
+                            <!--<div class="col-xs-12 col-lg-12">-->
+                            <!--<p></p>-->
+                            <!--</div>-->
+                            <!--<div class="showShowsInfo col-lg-2 col-md-2"></div>-->
+                            <!--<div class="blank col-lg-1 col-md-1 col-sm-1"></div>-->
+                            <div class="showShowsPictures col-lg-4 col-md-4 col-sm-6">
+                                <img v-bind:src=" '/showImages/'+item[0].showid+'.jpg' " style="width: 150px;height: 180px;padding-top: 15px;"/>
+                                <!--<img v-bind:src=" 'E:/testPictures/'+item[0].showid+'.jpg' " style="width: 120px;height: 160px;"/>-->
+                                <!--<img src="/images/show1.jpg" style="width: 120px;height: 160px;"/>-->
                             </div>
+                            <div class="showShowsInfo col-lg-8 col-md-8 col-sm-6">
+                                <h2>[ {{item[1]}} ] {{item[0].showname}}</h2>
+                                <ul class="list-group">
+                                    <li class="list-inline">描述：{{item[0].showdescribe}}</li>
+                                    <li class="list-inline">类型：{{item[0].showtype}}</li>
+                                    <li class="list-inline">时间：{{item[0].showtime |time}}</li>
+                                    <li class="list-inline">地点：{{item[2]}}</li>
+                                    <li class="list-inline">余票：{{item[0].restseats}}</li>
+                                </ul>
+                            </div>
+                            <div class="panel">
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4 col-sm-6">
+
+                                        </div>
+                                        <div class="col-md-2 col-lg-2 col-sm-3" >
+                                            <span class="btn btn-success" v-on:click="bookShow(item[0].showid)">选座订票</span>
+                                        </div>
+                                        <div class="col-md-2 col-lg-2 col-sm-3">
+                                            <span class="btn btn-warning" v-on:click="randomBookShow(item[0].showid)">随机订票</span>
+                                        </div>
+
+                                        <div class="col-xs-12">
+                                            <p></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div>
+                            这是固定的推荐列表
                         </div>
                     </div>
                 </div>
 
                 <!--<div class="page-header">分页</div>-->
-                <div class="pager" id="pager">
+                <div class="pager col-lg-12 col-md-12 col-sm-12" id="pager">
                     <span class="form-inline">
                         <select class="form-control" v-model="pagesize" v-on:change="showPage(pageCurrent,$event,true)">
                             <option value="2">2</option>
