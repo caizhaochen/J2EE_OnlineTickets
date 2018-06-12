@@ -36,4 +36,8 @@ public class DaoFactory {
     public static ValidateDao getVaidateDao(){
         return ValidateDaoImpl.getInstance();
     }
+
+    public static FavoriteDao getFavoriteDao(){
+        return FavoriteDaoImpl.getInstance();
+    }
 }

@@ -3,11 +3,14 @@ package com.ticket.czc.tickets.controller.shows;
 import com.ticket.czc.tickets.factory.ServiceFactory;
 import com.ticket.czc.tickets.model.SeatsEntity;
 import com.ticket.czc.tickets.model.ShowsEntity;
+import com.ticket.czc.tickets.model.VenuesEntity;
 import com.ticket.czc.tickets.service.SeatsManageService;
 import com.ticket.czc.tickets.service.ShowManageService;
+import com.ticket.czc.tickets.service.VenueManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,10 +41,32 @@ public class ShowController {
 
     private ShowManageService showManageService= ServiceFactory.getShowManageService();
     private SeatsManageService seatsManageService=ServiceFactory.getSeatsManageService();
+    private VenueManageService venueManageService=ServiceFactory.getVenueManageService();
 //    @Autowired
 //    private ShowManageService showManageService;
 //    @Autowired
 //    private SeatsManageService seatsManageService;
+
+    @RequestMapping("/viewShowDetail/{showId}")
+    public String viewShowDetail(@PathVariable("showId")int showId, HttpServletRequest request){
+        HttpSession session=request.getSession();
+        session.setAttribute("viewShowId",showId);
+        return "/show/showDetail";
+    }
+
+    @RequestMapping("/viewShowDetail")
+    @ResponseBody
+    public List getShowDetailInfo(HttpServletRequest request){
+        List result=new ArrayList();
+        HttpSession session=request.getSession(false);
+        int viewShowId=(int)session.getAttribute("viewShowId");
+        ShowsEntity show=showManageService.getShowById(viewShowId);
+        int venueId=show.getVenueid();
+        VenuesEntity venue=venueManageService.getVenueInfo(venueId);
+        result.add(show);
+        result.add(venue);
+        return result;
+    }
 
     @RequestMapping("/register/{showInfo}")
     @ResponseBody

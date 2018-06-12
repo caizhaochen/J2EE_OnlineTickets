@@ -30,6 +30,8 @@
         <mapping class="com.ticket.czc.tickets.model.AccountsEntity"/>
         <mapping class="com.ticket.czc.tickets.model.CouponsEntity"/>
         <mapping class="com.ticket.czc.tickets.model.ValidatesEntity"/>
+        <mapping class="com.ticket.czc.tickets.model.CommentsEntity"/>
+        <mapping class="com.ticket.czc.tickets.model.FavoritesEntity"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
