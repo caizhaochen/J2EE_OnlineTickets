@@ -69,6 +69,26 @@ function myFavorite() {
                 $("#pastB").attr("class","favoriteMenuTitleActive");
                 this.showNormal=false;
                 this.showPasts=true;
+            },
+            getDetail:function (showid) {
+                window.location.href="/show/viewShowDetail/"+showid;
+            },
+            cancelFavorite:function (showid) {
+                // alert("cancel---"+showid);
+                var cancelFavorite=[this.userEmail,showid];
+                this.$http.get("http://localhost:8080/user/cancelFavorite/"+cancelFavorite).then(function (response) {
+                    for(var i=0;i<this.normal.length;i++){
+                        if((this.normal)[i].showid==showid){
+                            (this.normal).splice(i,1);
+                        }
+                    }
+                    for(var i=0;i<this.past.length;i++){
+                        if((this.past)[i].showid==showid){
+                            (this.past).splice(i,1);
+                        }
+                    }
+                    toastr.success("取消收藏成功！")
+                })
             }
         },
         mounted:function () {
@@ -79,6 +99,9 @@ function myFavorite() {
                 this.userEmail=userInfo.email;
             });
 
+            $("#favoriteImg").on("error",function () {
+                $(this).attr("src","/images/showIndex.jpg");
+            });
             this.$http.get("http://localhost:8080/user/getFavoriteShow").then(function (response) {
                 console.log(response);
                 var nowDate = new Date();

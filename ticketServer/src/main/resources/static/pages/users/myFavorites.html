@@ -79,7 +79,7 @@
             <!--//订单-->
             <div class="link-group">
                 <div class="title">
-                    <a href="" class="menuA">我的订单</a>
+                    <a href="/pages/users/myOrders.html" class="menuA">我的订单</a>
                 </div>
                 <div class="link-url" style="display: none;">
                     <span class="orderInfoLi">
@@ -122,7 +122,7 @@
                         <div class="favoriteShow">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <img src="/images/show1.jpg" alt="" style="width: 133px;height: 176px;"/>
+                                    <img id="favoriteImg" v-bind:src=" '/showImages/'+item.showid+'.jpg'" alt="" style="width: 133px;height: 176px;"/>
                                 </div>
                                 <div class="col-xs-6 showDetail">
                                     <h2>{{item.showname}}</h2>
@@ -134,10 +134,12 @@
                                     </ul>
                                 </div>
                                 <div class="col-xs-2 favoriteOption">
-                                    <a href="" class="favoriteOptionDetail">查看详情</a>
+                                    <!--<a class="favoriteOptionDetail">查看详情</a>-->
+                                    <a v-on:click="getDetail(item.showid)" class="favoriteOptionDetail">查看详情</a>
                                 </div>
                                 <div class="col-xs-1 favoriteOption2">
-                                    <a href=""><i class="fa fa-trash fa-2x"></i></a>
+                                    <!--<span><i class="fa fa-trash fa-2x"></i></span>-->
+                                    <a v-on:click="cancelFavorite(item.showid)"><i class="fa fa-trash fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +183,7 @@
                                 </div>
                                 <div class="col-xs-2 favoriteOption"></div>
                                 <div class="col-xs-1 favoriteOption2">
-                                    <a href=""><i class="fa fa-trash fa-2x"></i></a>
+                                    <a v-on:click="cancelFavorite(item.showid)"><i class="fa fa-trash fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -30,6 +30,7 @@ public class FavoriteDaoImpl extends BaseDaoImpl implements FavoriteDao {
             Query query = session.createQuery(hql);
             query.setString("u",userEmail);
             query.setInteger("s",showId);
+            query.executeUpdate();
             tx.commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -52,5 +53,9 @@ public class FavoriteDaoImpl extends BaseDaoImpl implements FavoriteDao {
             e.printStackTrace();
         }
         return favorites;
+    }
+
+    public static void main(String[] args){
+        new FavoriteDaoImpl().deleteFavorite("731744067@qq.com",100086);
     }
 }
