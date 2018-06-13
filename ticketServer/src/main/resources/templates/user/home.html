@@ -42,7 +42,7 @@
 <body>
 <div id="homeVue">
     <div>
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-Favorite">
             <div class="navbar-header">
                 <div class="navbar-brand"><span>REDBUD在线购票</span></div>
                 <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -63,7 +63,7 @@
                         <ul class="dropdown-menu">
                             <li><a>会员等级:{{userlevel}}</a></li>
                             <li><a href="/tickets/home">个人信息</a></li>
-                            <li><a href="/pages/users/creditShop.html">积分商城</a></li><li><a href="/pages/users/myFavorites.html">我的收藏</a></li>
+                            <li><a href="/pages/users/creditShop.html">积分商城</a></li>
                             <li><a href="/pages/users/myFavorites.html">我的收藏</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/">退出登录</a></li>
@@ -73,107 +73,134 @@
                 </ul>
             </div>
         </nav>
-
     </div>
-    <div class="personInfo-body container-fluid">
-        <div class="row person-Content">
-            <div class="col-md-8">
-                <div class="panel">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</div>
-                            <div class="col-md-8">{{useremail}}</div>
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</div>
-                            <div class="col-md-8"><input type="text" class="personInfoInput" v-model="username"/></div>
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</div>
-                            <div class="col-md-8">
-                                <label>
-                                    <input type="radio" value="男" name="group" v-model="usersex" class="personRadio"/>
-                                    <span class="radioChar">男</span>
-                                    <!--</label>-->
-                                    <!--<label class="radio personRadio">-->
-                                    <input type="radio" value="女" name="group" v-model="usersex"/>
-                                    <span class="radioChar">女</span>
-                                </label>
-                            </div>
-                            <!--<div class="col-md-8">{{usersex}}</div>-->
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日:</div>
-                            <div class="col-md-8"><input type="text" class="personInfoInput" v-model="userbirth" id="birth"/></div>
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</div>
-                            <div class="col-md-8"><a href="/pages/users/modifyPass.html" class="btn-link">修改密码</a></div>
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">会员等级:</div>
-                            <div class="col-md-8">{{userlevel}}</div>
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">积&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分:</div>
-                            <div class="col-md-8">{{usercredit}}分|<a href="/pages/users/creditShop.html" class="btn-link">积分商城</a></div>
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4">累计消费:</div>
-                            <div class="col-md-8">{{userconsume | currency}}元</div>
-                        </div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine"></div>
-                        <div class="row personInfoLine">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-8"><button class="btn saveModifyButton btn-info" v-on:click="saveModify">保存</button></div>
-                        </div>
-                    </div>
-                    <div class="col-md-2"></div>
 
+
+    <div class="showInfoBody">
+        <div class="showInfoLeftMenu">
+            <div class="link-group">
+                <h4 class="title">
+                    我的REDBUD
+                </h4>
+            </div>
+            <!--//订单-->
+            <div class="link-group">
+                <div class="title">
+                    <a href="" class="menuA">我的订单</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div>
-                    <img v-bind:src=" '/showImages/userIcons/'+userEmailNoChar+'.jpg'" alt="你的头像" class="personIcon" id="userIcon"/>
+            <!--//收藏-->
+            <div class="link-group">
+                <div class="title">
+                    <a href="" class="menuA" style="color: #2F96B4;">我的收藏</a>
                 </div>
-                <div>
-                    <div align="center">
-                        <a class="fileinput-button">
-                            <span>选择头像</span>
-                            <input type="file" accept="image/jpeg" class="form-control" v-on:change="selectImage"/>
-                        </a>
-                    </div>
+                <div class="link-url">
+                    <span class="orderInfoLi">
+                        <a href="" class="menuB">正常收藏</a>
+                    </span>
+                    <span class="orderInfoLi">
+                        <a href="" class="menuB">过期收藏</a>
+                    </span>
                 </div>
             </div>
+
+            <!--个人主页-->
+            <div class="link-group">
+                <div class="title">
+                    <a href="" class="menuA">个人信息</a>
+                </div>
+            </div>
+            <!--修改密码-->
+
         </div>
-
     </div>
+
+    <div class="orderMenuBlank"></div>
+
+    <div class="showInfoPresentation">
+        <div class="favoriteMenu">
+            <span class="favoriteMenuTitleBorder"><button class="favoriteMenuTitleActive">个人信息</button></span>
+            <span class="favoriteMenuTitleBorder"><button class="favoriteMenuTitle">密码安全</button></span>
+        </div>
+        <div class="favoriteShowBorder">
+            <div class="personInfoPart">
+                <div class="personInfoTextPart">
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</div>
+                        <div class="col-xs-8">{{useremail}}</div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</div>
+                        <div class="col-xs-8"><input type="text" class="personInfoInput" v-model="username"/></div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</div>
+                        <div class="col-xs-8">
+                            <label>
+                                <input type="radio" value="男" name="group" v-model="usersex" class="personRadio"/>
+                                <span class="radioChar">男</span>
+                                <input type="radio" value="女" name="group" v-model="usersex"/>
+                                <span class="radioChar">女</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日:</div>
+                        <div class="col-xs-8"><input type="text" class="personInfoInput" v-model="userbirth" id="birth"/></div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</div>
+                        <div class="col-xs-8"><a href="" class="btn-link">修改密码</a></div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">会员等级:</div>
+                        <div class="col-xs-8">{{userlevel}}</div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">积&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分:</div>
+                        <div class="col-xs-8">{{usercredit}}分|<a href="/pages/users/creditShop.html" class="btn-link">积分商城</a></div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3">累计消费:</div>
+                        <div class="col-xs-8">{{userconsume | currency}}元</div>
+                    </div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine"></div>
+                    <div class="row personInfoLine">
+                        <div class="col-xs-3"></div>
+                        <div class="col-xs-8"><button class="btn saveModifyButton btn-info" v-on:click="saveModify">保存</button></div>
+                    </div>
+                </div>
+
+                <div class="personInfoImagePart">
+                    <div>
+                        <img v-bind:src=" '/showImages/userIcons/'+userEmailNoChar+'.jpg'" alt="你的头像" class="personIcon" id="userIcon"/>
+                    </div>
+                    <div>
+                        <div align="center">
+                            <a class="fileinput-button">
+                                <span>选择头像</span>
+                                <input type="file" accept="image/jpeg" class="form-control" v-on:change="selectImage"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 </div>
 
-<!--<div id="deleteVue">-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">一旦注销便不可恢复！请慎重选择！</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <input type="button" onclick="deleteuser()" class="btn btn-danger" value="注销"></input>
-            </div>
-        </div>
-    </div>
-</div>
-<!--</div>-->
 
 
 </body>
