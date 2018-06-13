@@ -153,6 +153,11 @@ $(document).ready(function () {
                 }
 
             },
+
+            presentShowDetail:function(showid){
+                window.location.href="/show/viewShowDetail/"+showid;
+            },
+
             bookShow:function (showid) {
                 window.location.href="/bookSeats/"+showid;
             },
