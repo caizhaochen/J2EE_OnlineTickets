@@ -20,8 +20,26 @@ function home() {
             userconsume:0,
             userEmailNoChar:'',
             image:'',
+            preInfo:true,
+            preSafe:false,
+            originPass: '',
+            origin: '',
+            newPass: '',
+            newConfirm: '',
         },
         methods:{
+            infoClick:function () {
+                $("#privateInfo").attr("class","favoriteMenuTitleActive");
+                $("#privateSafe").attr("class","favoriteMenuTitle");
+                this.preInfo=true;
+                this.preSafe=false;
+            },
+            safeClick:function () {
+                $("#privateInfo").attr("class","favoriteMenuTitle");
+                $("#privateSafe").attr("class","favoriteMenuTitleActive");
+                this.preSafe=true;
+                this.preInfo=false;
+            },
             selectImage:function(e){
                 console.log("选择了上传图片");
                 // this.image=e.target.files[0];
@@ -85,6 +103,32 @@ function home() {
                 }
 
             },
+            modifyPassSubmit: function () {
+                const self = this;
+                if (self.origin == "" || self.newPass == "" || self.newConfirm == "") {
+                    toastr.error("请填写完整信息！");
+                }
+                else if (self.origin != self.originPass) {
+                    toastr.error("原密码不正确！");
+                }
+                else if (self.newPass != self.newConfirm) {
+                    toastr.error("确认密码与新密码不吻合！");
+                }
+                else {
+                    var modifyPass = [self.useremail, self.newPass];
+                    this.$http.get("http://localhost:8080/user/modifyPass/" + modifyPass).then(function (response) {
+                        if (response.bodyText == "fail") {
+                            toastr.error("修改失败，请重试！");
+                        }
+                        if (response.bodyText == "success") {
+                            window.location.href="/";
+                        }
+                    })
+
+                }
+
+            },
+
         },
         mounted:function () {
             this.$http.get("http://localhost:8080/tickets/getUserInfo").then(function (response) {
@@ -104,8 +148,9 @@ function home() {
                 this.userlevel=userInfo.level;
                 this.usercredit=userInfo.credit;
                 this.userconsume=userInfo.userconsume;
+                this.originPass = userInfo.userpassword;
 
-                $("#userIcon").on("error",function () {
+                $(".personIcon").on("error",function () {
                     $(this).attr("src","/images/show1.jpg");
                 })
             })

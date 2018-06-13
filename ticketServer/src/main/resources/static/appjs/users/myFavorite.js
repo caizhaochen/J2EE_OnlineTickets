@@ -55,16 +55,16 @@ function myFavorite() {
         },
         methods:{
             normalClick:function () {
-                $("#normalA").css("color","#31BBAC");
-                $("#pastA").css("color","#666");
+                // $("#normalA").css("color","#31BBAC");
+                // $("#pastA").css("color","#666");
                 $("#normalB").attr("class","favoriteMenuTitleActive");
                 $("#pastB").attr("class","favoriteMenuTitle");
                 this.showNormal=true;
                 this.showPasts=false;
             },
             pastClick:function () {
-                $("#normalA").css("color","#666");
-                $("#pastA").css("color","#31BBAC");
+                // $("#normalA").css("color","#666");
+                // $("#pastA").css("color","#31BBAC");
                 $("#normalB").attr("class","favoriteMenuTitle");
                 $("#pastB").attr("class","favoriteMenuTitleActive");
                 this.showNormal=false;
