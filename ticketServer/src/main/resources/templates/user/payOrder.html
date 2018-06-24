@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/payCss.css"/>
 
     <script src="/js/vue.min.js"></script>
     <script src="/js/vue-resource.js"></script>
@@ -68,88 +69,54 @@
     </nav>
 
     <!--<div class="alert alert-danger" role="alert" style="display: none" id="payOrderError">{{errorMsg}}</div>-->
-
-    <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-6">订单号：{{orderId}}</div>
-                    <div class="col-xs-6" style="text-align: right">{{orderTime | time}}</div>
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-1"></div>
-                    <!--<div class="col-sm-4">订单时间：{{orderTime | time}}</div>-->
-                    <!--<div class="col-sm-3">订单金额：{{orderPrice}}</div>-->
-                    <!--<div class="col-sm-3">座位数量：{{orderQuantity}}</div>-->
-                    <!--<div class="col-sm-1"></div>-->
-                    <div class="col-md-2 col-sm-11 col-xs-11"><img v-bind:src=" '/showImages/'+showId+'.jpg'" style="width: 70%;height: 130px;" id="payShowImage"/></div>
-                    <div class="col-md-9 col-xs-12 col-sm-12">
-                        <div class="payShowInfo payShowName">{{showName}}</div>
-                        <div class="payShowInfo">演出时间：{{showTime | time}}</div>
-                        <div class="payShowInfo">场馆名称：{{venueName}}</div>
-                        <div class="payShowInfo">场馆地点：{{venueLocation}}</div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-8">票号({{orderQuantity}}张)：{{seats}}</div>
-                    <div class="col-sm-2"></div>
-                </div>
-
-
-                <span v-if="hasCoupon">
-                    <hr/>
-                    <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-11">
-                            <span>使用折扣券</span>
-                        </div>
-                    </div>
-                    <label class="radio-inline col-xs-offset-1">
-                        <input type="radio" name="optionsCoupon" v-model="reducePrice" value="0"/> 不使用折扣券
-                    </label>
-                    <div v-for="coupon in coupons">
-                        <label class="radio-inline col-xs-offset-1">
-                            <input type="radio" name="optionsCoupon" v-model="reducePrice" v-bind:value="coupon.price"/> {{coupon.price}}元折扣券
-                        </label>
-                    </div>
-                </span>
-
-
-                <hr/>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <span style="color: red">请在{{orderDeadline | time}}前支付，否则订单将取消！</span>
-                </div>
-
-                <div class="col-xs-offset-5">该订单原价：￥{{originPrice | currency}}</div>
-                <div class="col-xs-offset-5">会员折后价：￥{{orderPrice | currency}}</div>
-                <div class="col-xs-offset-5">实际支付价：￥{{orderPrice-reducePrice | currency}}</div>
-
-                <hr/>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">银行账户</label>
-                    <div class="col-sm-10 col-lg-3">
-                        <input type="text" placeholder="" class="form-control" v-model="accountId"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">密码</label>
-                    <div class="col-sm-10 col-lg-3">
-                        <input type="password" placeholder="" class="form-control" v-model="accountPass"/>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer">
-                <button type="button" class="btn btn-warning col-xs-offset-8" v-on:click="pay">结算</button>
-            </div>
+    <div class="container" id="app">
+        <div class="count-down-wrapper">
+        <div class="count-down" data-payleftseconds="839">
+            <p class="time-left">
+                请在
+                <span class="minute">12</span>
+                分钟
+                <span class="second">47</span>秒内完成支付
+            </p>
+            <p class="tip">超时订单会自动取消，如遇支付问题，就当做慈善吧</p>
         </div>
     </div>
-
+        <p class="warning">请仔细核对场次信息，出票后将<span class="attention">无法退票和改签</span></p>
+        <table class="order-table">
+        <thead>
+        <tr>
+            <th>影片</th>
+            <th>时间</th>
+            <th>影院</th>
+            <th>座位</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="movie-name">《侏罗纪世界2》</td>
+            <td class="showtime">今天 6月24日 14:05</td>
+            <td class="cinema-name">中宁国际影城(京新广场店)</td>
+            <td>
+                <span class="hall">4号DTS厅</span>
+                <div class="seats">
+                    <div>
+                        <span class=""><i>6</i>排<i>3</i>座</span>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="right">
+        <div class="price-wrapper">
+            <span>实际支付 :</span>
+            <span class="price">33</span>
+        </div>
+        <div><div class="pay-btn" data-order-id="3202568955" data-act="pay-click" data-bid="b_u30afks6" href="/user/paySuccess.html">确认支付</div></div>
+    </div>
+    </div>
 
 
 </div>

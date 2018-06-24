@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>支付</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/paySuccessCss.css"/>
+
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script src="/appjs/orders/payOrder.js"></script>
+
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+</head>
+<body>
+    <div id="pay">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <div class="navbar-brand"><span>REDBUD在线购票</span></div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#login-collapse">
+                    <span class="sr-only">登录选项</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+                <ul class="nav navbar-nav">
+                    <li><a href="/showTickets"><span>订票业务</span></a></li>
+                    <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{username}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a>会员等级:{{userlevel}}</a></li>
+                            <li><a href="/tickets/home">个人信息</a></li>
+                            <li><a href="/pages/users/creditShop.html">积分商城</a></li><li><a href="/pages/users/myFavorites.html">我的收藏</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/">退出登录</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="cd"><i class="icon icon-sand"></i><span class="cd-text">请在 <span class="cd-time">06:35</span> 内完成支付, 超时订单会自动取消</span></div>
+        <div class="right right-widen">
+            <div class="order clear-fix">
+                <span class="block-left">
+                <div class="order-name">订单编号:</div>
+                </span>
+                <span class="block-right">
+                    <div class="amount">应付金额 ¥ <span class="amount-price">33.00</span></div></span>
+            </div>
+        </div>
+
+        <div class="payment-container">
+            <div class="payment payment-0">
+                <div class="payment-type">
+                    <div class="payment-list payment-list-0">
+                        <ul class="clear-fix">
+                            <li><input type="radio" name="thirdpart_pay" id="thirdpart_pay_wxqrpay" data-type="wxqrpay"
+                                       data-banktypeid="" data-bankcode="" checked=""><label class="payment-icon"
+                                                                                             for="thirdpart_pay_wxqrpay"><img
+                                    src="https://p1.meituan.net/pay/pc_wxqrpay.png" disabled="" alt="微信"></label><span
+                                    class="payment-weak-tip" style="visibility:visible;"></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="payment-submit-area clear-fix">
+                    <div class="amount">支付 ¥ <span class="amount-price">33.00</span></div>
+                    <div class="payment-submit"><a class="btn">确认付款</a></div>
+                    <div class="payment-back"><a>返回主页</a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

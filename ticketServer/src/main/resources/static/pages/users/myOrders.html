@@ -6,34 +6,41 @@
     <title>我的订单</title>
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/favoriteCss.css"/>
 
-    <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>
-    <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
-
+    <!--<link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>-->
     <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
-    <script type="text/javascript" src="/laydate/laydate.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/vue.min.js"></script>
     <script type="text/javascript" src="/js/vue-resource.js"></script>
-    <script type="text/javascript" src="/appjs/users/myOrders.js"></script>
-    <style>
-        .word{background:#E4FFE9;width:250px;margin:50px auto;padding:20px;font-family:"microsoft yahei";}
-        /* 强制不换行 */
-        .nowrap{white-space:nowrap;}
-        /* 允许单词内断句，首先会尝试挪到下一行，看看下一行的宽度够不够，
-        不够的话就进行单词内的断句 */
-        .breakword{word-wrap: break-word;}
-        /* 断句时，不会把长单词挪到下一行，而是直接进行单词内的断句 */
-        .breakAll{word-break:break-all;}
-        /* 超出部分显示省略号 */
-        .ellipsis{text-overflow:ellipsis;overflow:hidden;}
-    </style>
+    <script type="text/javascript" src="/appjs/users/myFavorite.js"></script>
+    <!--<script type="text/javascript" src="/appjs/users/myOrders.js"></script>-->
+
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
 </head>
 <body>
 <div id="myOrdersVue">
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="navbar-header">
+    <div>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar-header">
             <div class="navbar-brand"><span>REDBUD在线购票</span></div>
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#login-collapse">
@@ -43,7 +50,7 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
+            <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
             <ul class="nav navbar-nav">
                 <li><a href="/showTickets"><span>订票业务</span></a></li>
                 <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
@@ -61,420 +68,89 @@
                 </li>
             </ul>
         </div>
-    </nav>
-
-
-
-    <div class="collapse navbar-collapse navbar-right" id="search-collapse" style="padding-left:30px">
-        <ul class="nav navbar-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">{{listName}}<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <!--<li><a>全部订单</a></li>-->
-                    <!--<li role="separator" class="divider"></li>-->
-                    <li><a v-on:click="showFuture">即将到来</a></li>
-                    <li><a v-on:click="showPast">已过去</a></li>
-                    <li><a v-on:click="showPay">已付款</a></li>
-                    <li><a v-on:click="showNot">未付款</a></li>
-                    <li><a v-on:click="showOver">已失效</a></li>
-                    <li><a v-on:click="showBack">已撤回</a></li>
-                </ul>
-            </li>
-        </ul>
+        </nav>
     </div>
 
-    <div class="container" style="margin-top: 40px;padding-top: 40px;margin-bottom: 40px;padding-bottom: 40px;">
-
-        <!--<nav class="navbar navbar-default navbar-static-top">-->
-
-
-        <div v-show="isFuture">
-            <div v-if="futureLen">
-                <div v-for="f in future">
-                    <div class="showShowsInfo col-lg-4 col-md-6 col-sm-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-12">订单号：{{f[0].orderid}}</div>
-                                    <div class="col-xs-12">表演名称：{{f[1].showname}}</div>
-                                </div>
-
-                                <!--订单号：{{f[0].orderid}}-->
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="showShowsPictures col-lg-2 col-md-2 col-sm-10 col-xs-10">
-                                        <img v-bind:src=" '/showImages/'+f[0].showid+'.jpg' " style="width: 100px;height: 100px;"/>
-                                        <!--<img v-bind:src=" 'E:/testPictures/'+item[0].showid+'.jpg' " style="width: 120px;height: 160px;"/>-->
-                                        <!--<img src="/images/show1.jpg" style="width: 120px;height: 160px;"/>-->
-                                    </div>
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-offset-5">订单时间：{{f[0].ordertime | time}}</div>
-                                    <div class="col-xs-offset-5">订单金额：{{f[0].totalprice | currency}}</div>
-                                    <div class="col-xs-offset-5">座位数量：{{f[0].quantity}}</div>
-
-                                    <!--<div class="col-sm-1"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">座位号码： {{f[0].orderseats}}</div>
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">表演时间：{{f[1].showtime| time}}</div>
-                                    <div class="col-xs-12">表演地点：{{f[2].location}}</div>
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">该订单原价：{{f[0].originprice | currency}}</div>
-                                    <div class="col-xs-12">会员折后价：{{f[0].totalprice | currency}}</div>
-                                </div>
-
-
-                            </div>
-                            <div class="panel-footer">
-
-
-                                <a type="button" class="btn btn-danger col-xs-offset-8" v-bind:href="'/order/backOrder/'+f[0].orderid">撤销订单</a>
-
-                            </div>
-                        </div>
-
-                    </div>
-
+    <div class="showInfoBody">
+        <div class="showInfoLeftMenu">
+            <div class="link-group">
+                <h4 class="title">
+                    我的REDBUD
+                </h4>
+            </div>
+            <!--//订单-->
+            <div class="link-group">
+                <div class="title">
+                    <a href="" class="menuA" style="color: #2F96B4;">我的订单</a>
                 </div>
             </div>
-            <div v-else>
-                <div class="jumbotron">
-                    <div class="container">
-                        <p>您还没有即将到来的活动！</p>
-                    </div>
+            <!--//收藏-->
+            <div class="link-group">
+                <div class="title">
+                    <a href="/pages/users/myFavorites.html" class="menuA" >我的收藏</a>
+                </div>
+            </div>
+            <div class="link-group">
+                <div class="title">
+                    <a href="/tickets/home" class="menuA">个人信息</a>
                 </div>
             </div>
         </div>
-
-        <div v-show="isPast">
-            <div v-if="pastLen">
-                <div v-for="p in past">
-                    <div class="showShowsInfo col-lg-4 col-md-6 col-sm-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-12">订单号：{{p[0].orderid}}</div>
-                                    <div class="col-xs-12">表演名称：{{p[1].showname}}</div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">订单时间：{{p[0].ordertime | time}}</div>
-                                    <div class="col-xs-12">订单金额：{{p[0].totalprice | currency}}</div>
-                                    <div class="col-xs-12">座位数量：{{p[0].quantity}}</div>
-                                    <!--<div class="col-sm-1"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">座位号：</div>
-                                    <div class="col-xs-12">{{p[0].orderseats}}</div>
-                                    <!--<div class="col-sm-2"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">表演时间：{{p[1].showtime| time}}</div>
-                                    <!--<div class="col-sm-4">表演地点：{{p[2].location}}</div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">是否检票：{{p[0].hascheck}}</div>
-                                    <!--<div class="col-sm-2"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="col-xs-offset-5">该订单原价：{{p[0].originprice | currency}}</div>
-                                <div class="col-xs-offset-5">会员折后价：{{p[0].totalprice | currency}}</div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div v-else>
-                <div class="jumbotron">
-                    <div class="container">
-                        <p>您还没有已经过去的活动！</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+    </div>
+    <div class="orderMenuBlank"></div>
+    <div class="showInfoPresentation">
         <div v-show="isAll">
             <div v-if="allLen">
-                <div v-for="all in allOrders">
-                    <div class="showShowsInfo col-lg-4 col-md-6 col-sm-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-12">订单号：{{all[0].orderid}}</div>
-                                    <div class="col-xs-12">表演名称：{{all[1].showname}}</div>
+                <div v-for="item in allOrders">
+                    <!--每个演出-->
+                    <div class="favoriteShowBorder">
+                        <div class="favoriteShow">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img id="favoriteImg" v-bind:src=" '/showImages/'+item[1].showid+'.jpg'" alt="" style="width: 133px;height: 176px;"/>
                                 </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">订单时间：{{all[0].ordertime | time}}</div>
-                                    <div class="col-xs-12">订单金额：{{all[0].totalprice | currency}}</div>
-                                    <div class="col-xs-12">座位数量：{{all[0].quantity}}</div>
-                                    <!--<div class="col-sm-1"></div>-->
+                                <div class="col-xs-6 showDetail">
+                                    <h2>{{item[1].showname}}</h2>
+                                    <ul class="list-group">
+                                        <li class="list-inline">时间：{{item[1].showtime| time}}</li>
+                                        <li class="list-inline">地点：{{item[2].location]}}</li>
+                                        <li class="list-inline">付款：{{item[0].totalprice}}</li>
+                                        <li class="list-inline">座位号：{{item[0].orderseats}}</li>
+                                    </ul>
                                 </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">座位号：</div>
-                                    <div class="col-xs-12">{{all[0].orderseats}}</div>
-                                    <!--<div class="col-sm-2"></div>-->
+                                <div class="col-xs-2 favoriteOption">
+                                    <a class="favoriteOptionDetail">查看详情</a>
+                                    <!--<a v-on:click="getDetail(item.showid)" class="favoriteOptionDetail">查看详情</a>-->
                                 </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">表演时间：{{all[1].showtime| time}}</div>
-                                    <div class="col-xs-12">表演地点：{{all[2].location}}</div>
+                                <div class="col-xs-1 favoriteOption2">
+                                    <span><i class="fa fa-trash fa-2x"></i></span>
+                                    <!--<a v-on:click="cancelFavorite(item.showid)"><i class="fa fa-trash fa-2x"></i></a>-->
                                 </div>
-                                <hr/>
-
-                                <div class="col-xs-offset-5">该订单原价：{{all[0].originprice | currency}}</div>
-                                <div class="col-xs-offset-5">会员折后价：{{all[0].totalprice | currency}}</div>
                             </div>
                         </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div v-show="isNotPay">
-            <div v-if="notLen">
-                <div v-for="not in notPay">
-                    <div class="showShowsInfo col-lg-4 col-md-6 col-sm-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-12">订单号：{{not[0].orderid}}</div>
-                                    <div class="col-xs-12">表演名称：{{not[1].showname}}</div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">订单时间：{{not[0].ordertime | time}}</div>
-                                    <div class="col-xs-12">订单金额：{{not[0].totalprice | currency}}</div>
-                                    <div class="col-xs-12">座位数量：{{not[0].quantity}}</div>
-                                    <!--<div class="col-sm-1"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">座位号：</div>
-                                    <div class="col-xs-12">{{not[0].orderseats}}</div>
-                                    <!--<div class="col-sm-2"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-4">表演时间：{{not[1].showtime| time}}</div>
-                                    <div class="col-sm-4">表演地点：{{not[2].location}}</div>
-                                </div>
-                                <hr/>
-
-                                <div class="col-xs-offset-5">该订单原价：{{not[0].originprice | currency}}</div>
-                                <div class="col-xs-offset-5">会员折后价：{{not[0].totalprice | currency}}</div>
-                            </div>
-                            <div class="panel-footer">
-                                <a type="button" class="btn btn-warning col-xs-offset-8" v-bind:href="'/order/payOrder/'+not[0].orderid">结算</a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
             <div v-else>
-                <div class="jumbotron">
-                    <div class="container">
-                        <p>您还没有未付款订单！</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div v-show="isHasPay">
-            <div v-if="payLen">
-                <div v-for="pay in hasPay">
-                    <div class="showShowsInfo col-lg-4 col-md-6 col-sm-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-12">订单号：{{pay[0].orderid}}</div>
-                                    <div class="col-xs-12">表演名称：{{pay[1].showname}}</div>
-                                </div>
+                <div class="favoriteShowBorder">
+                    <div class="favoriteShow">
+                        <div class="row">
+                            <div class="col-xs-3">
                             </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">订单时间：{{pay[0].ordertime | time}}</div>
-                                    <div class="col-xs-12">订单金额：{{pay[0].totalprice | currency}}</div>
-                                    <div class="col-xs-12">座位数量：{{pay[0].quantity}}</div>
-                                    <!--<div class="col-sm-1"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">座位号：</div>
-                                    <div class="col-xs-12">{{pay[0].orderseats}}</div>
-                                    <!--<div class="col-sm-2"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">表演时间：{{pay[1].showtime| time}}</div>
-                                    <div class="col-xs-12">表演地点：{{pay[2].location}}</div>
-                                </div>
-                                <hr/>
-
-                                <div class="col-xs-offset-5">该订单原价：{{pay[0].originprice | currency}}</div>
-                                <div class="col-xs-offset-5">会员折后价：{{pay[0].totalprice | currency}}</div>
+                            <div class="col-xs-6 showDetail" style="text-align: center;padding-top: 50px;">
+                                <h2>还没有任何订单</h2>
                             </div>
                         </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div v-else>
-                <div class="jumbotron">
-                    <div class="container">
-                        <p>您还没有已完成支付的订单！</p>
                     </div>
                 </div>
             </div>
+
         </div>
-
-        <div v-show="isOverDue">
-            <div v-if="overLen">
-                <div v-for="over in overDue">
-                    <div class="showShowsInfo col-lg-4 col-md-6 col-sm-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-12">订单号：{{over[0].orderid}}</div>
-                                    <div class="col-xs-12">表演名称：{{over[1].showname}}</div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">订单时间：{{over[0].ordertime | time}}</div>
-                                    <div class="col-xs-12">订单金额：{{over[0].totalprice | currency}}</div>
-                                    <div class="col-xs-12">座位数量：{{over[0].quantity}}</div>
-                                    <!--<div class="col-sm-1"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">座位号：</div>
-                                    <div class="col-xs-12">{{over[0].orderseats}}</div>
-                                    <!--<div class="col-sm-2"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">表演时间：{{over[1].showtime| time}}</div>
-                                    <div class="col-xs-12">表演地点：{{over[2].location}}</div>
-                                </div>
-                                <hr/>
-
-                                <div class="col-xs-offset-5">该订单原价：{{over[0].originprice | currency}}</div>
-                                <div class="col-xs-offset-5">会员折后价：{{over[0].totalprice | currency}}</div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div v-else>
-                <div class="jumbotron">
-                    <div class="container">
-                        <p>您还没有过期未付款订单！</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div v-show="isHasBack">
-            <div v-if="backLen">
-                <div v-for="back in hasBack">
-                    <div class="showShowsInfo col-lg-4 col-md-6 col-sm-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-12">订单号：{{back[0].orderid}}</div>
-                                    <div class="col-xs-12">表演名称：{{back[1].showname}}</div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">订单时间：{{back[0].ordertime | time}}</div>
-                                    <div class="col-xs-12">订单金额：{{back[0].beforebackprice | currency}}</div>
-                                    <div class="col-xs-12">座位数量：{{back[0].quantity}}</div>
-                                    <!--<div class="col-sm-1"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">座位号：</div>
-                                    <div class="col-xs-12">{{back[0].orderseats}}</div>
-                                    <!--<div class="col-sm-2"></div>-->
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <!--<div class="col-sm-1"></div>-->
-                                    <div class="col-xs-12">表演时间：{{back[1].showtime| time}}</div>
-                                    <div class="col-xs-12">表演地点：{{back[2].location}}</div>
-                                </div>
-                                <hr/>
-
-                                <div class="col-xs-offset-5">该订单原价：{{back[0].beforebackprice | currency}}</div>
-                                <div class="col-xs-offset-5">撤销扣除金额：{{back[0].totalprice | currency}}</div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div v-else>
-                <div class="jumbotron">
-                    <div class="container">
-                        <p>您还没有已撤回订单！</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
     </div>
-    <!--<nav class="navbar navbar-default navbar-static-top">-->
+
+
+
+
 
 
 </div>
