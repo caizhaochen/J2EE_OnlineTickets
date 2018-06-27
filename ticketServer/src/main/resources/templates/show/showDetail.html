@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>
     <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
 
+    <link rel="stylesheet" type="text/css" href="/appcss/showDetailCss.css"/>
+
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
     <script type="text/javascript" src="/laydate/laydate.js"></script>
@@ -17,6 +19,7 @@
     <script type="text/javascript" src="/js/vue.min.js"></script>
     <script type="text/javascript" src="/js/vue-resource.js"></script>
     <!--<script type="text/javascript" src="/appjs/shows/bookSeats.js"></script>-->
+    <script type="text/javascript" src="/appjs/shows/showDetail.js"></script>
 
     <link rel="stylesheet" href="/css/toastr.min.css"/>
     <script src="/js/toastr.min.js"></script>
@@ -74,17 +77,167 @@
 
     <div class="wrapper">
         <div class="container">
-            <h2>{{showname}}</h2>
-            <div class="well">
-                <div class="row">
-                    <!--<div class="col-xs-1">时间</div>-->
-                    <!--<div class="col-xs-3">{{showtime |time}}</div>-->
-                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
-                    <div class="col-lg-8 col-md-8 col-sm-10">
-                        REDBUD > 菜菜影院 > 《好一朵美丽的茉莉花》Zhaochen Thai > 2018-09-05 周三 19:30
-                        <a href="/">前往选座</a>
+            <!--<h2>{{showname}}</h2>-->
+            <!--<div class="well">-->
+                <!--<div class="row">-->
+                    <!--&lt;!&ndash;<div class="col-xs-1">时间</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="col-xs-3">{{showtime |time}}</div>&ndash;&gt;-->
+                    <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                    <!--<div class="col-lg-8 col-md-8 col-sm-10">-->
+                        <!--REDBUD > 菜菜影院 > 《好一朵美丽的茉莉花》Zhaochen Thai > 2018-09-05 周三 19:30-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="row">-->
+                <!--<p>-->
+
+                <!--</p>-->
+            <!--</div>-->
+            <div class="banner">
+                <div class="wrapping clearfix">
+                    <div class="celeInfo-left">
+                        <div class="avatar-shadow">
+                            <img class="avatar" v-bind:src=" '/showImages/'+item[0].showid+'.jpg' " />
+                            <div class="show-ver"></div>
+                        </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-1"></div>
+
+                    <div class="celeInfo-right clearfix">
+                        <div class="show-brief-container">
+                            <h3 class="name">{{showname}}</h3>
+                            <ul>
+                                <li class="ellipsis">描述：{{item[0].showdescribe}}</li>
+                                <li class="ellipsis">类型：{{item[0].showtype}}</li>
+                                <li class="ellipsis">时间：{{item[0].showtime |time}}</li>
+                                <li class="ellipsis">地点：{{item[2]}}</li>
+                                <li class="ellipsis">余票：{{item[0].restseats}}</li>
+                            </ul>
+                        </div>
+
+                        <div class="action-buyBtn">
+                            <div class="action clearfix">
+                                <a class="wish ">
+                                    <div>
+                                        <i class="icon wish-icon"></i>
+                                        <span>喜欢</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <a class="btn buy" href="/cinemas?movieId=1197181" target="_blank">选座购票</a>
+                        </div>
+
+                        <div class="show-stats-back">
+                            <div class="back-btn">
+                                <a href="/cinema/13915?poi=65769234&amp;movieId=1198178" data-act="buy-btn-click" data-val="{city_id: 55, cinema_id: 13915}" data-bid="b_wek7vrx9">返回上级</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" id="app">
+                <div class="main-content-container clearfix">
+                    <div class="main-content">
+                        <div class="tab-container">
+                            <div class="tab-title-container clearfix">
+                                介绍
+                            </div>
+                            <div class="tab-content-container">
+                                <div class="tab-desc tab-content active" data-val="">
+                                    <div class="module">
+                                        <div class="mod-title">
+                                            <h3>剧情简介</h3>
+                                        </div>
+                                        <div class="mod-content">
+                                            <span class="dra">
+                                                越狱专家布雷斯林（史泰龙 饰）有三个学生：周树（黄晓明 饰）、卢克和金布罗，三人性格迥异，行事风格大相径庭。在保护表弟马雨声的一次行动中，周树和表弟被一起抓进一座名为“冥府”的超级监狱。布雷斯林为了营救爱徒，在逃出海上监狱“坟墓”之后再陷 “冥府”。这一次监狱难度更高，困难升级，对抗一触即发。师徒几人在监狱中艰难保命。监狱外，同样在追查这座地下监狱的同行德罗萨（戴夫·巴蒂斯塔 饰）与他们并肩作战。最终在狱友和团队的帮助下，三人与人工智能狱长几大反派展开殊死决战，一场大战即将开启。
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="related">
+                        <div class="module">
+                            <div class="mod-title">
+                                <h3>相关演出</h3>
+                            </div>
+                            <div class="mod-content">
+                                <div class="related-shows">
+                                    <dl class="show-list">
+                                        <dd>
+                                            <div class="show-item">
+                                                <a href="" target="_blank" data-act="" data-val="">
+                                                    <div class="show-poster">
+                                                        <img class="poster-default" src="/images/defaultshow.jpg"/>
+                                                        <img src="/images/recommendedshow1.png"/>
+                                                    </div>
+                                                </a>
+                                                <div class="show-ver"></div>
+                                            </div>
+                                            <div class="channel-detail show-item-title" title="">
+                                                <a href="" target="_blank" data-act="" data-val="">金蝉脱壳</a>
+                                            </div>
+
+                                        </dd>
+
+                                        <dd>
+                                            <div class="show-item">
+                                                <a href="" target="_blank" data-act="" data-val="">
+                                                    <div class="show-poster">
+                                                        <img class="poster-default" src="/images/defaultshow.jpg"/>
+                                                        <img src="/images/recommendedshow2.png"/>
+                                                    </div>
+                                                </a>
+                                                <div class="show-ver"></div>
+                                            </div>
+                                            <div class="channel-detail show-item-title" title="">
+                                                <a href="" target="_blank" data-act="" data-val="">边境杀手2</a>
+                                            </div>
+
+                                        </dd>
+
+                                        <dd>
+                                            <div class="show-item">
+                                                <a href="" target="_blank" data-act="" data-val="">
+                                                    <div class="show-poster">
+                                                        <img class="poster-default" src="/images/defaultshow.jpg"/>
+                                                        <img src="/images/recommendedshow3.png"/>
+                                                    </div>
+                                                </a>
+                                                <div class="show-ver"></div>
+                                            </div>
+                                            <div class="channel-detail show-item-title" title="">
+                                                <a href="" target="_blank" data-act="" data-val="">冰海沉落</a>
+                                            </div>
+
+                                        </dd>
+
+                                        <dd>
+                                            <div class="show-item">
+                                                <a href="" target="_blank" data-act="" data-val="">
+                                                    <div class="show-poster">
+                                                        <img class="poster-default" src="/images/defaultshow.jpg"/>
+                                                        <img src="/images/recommendedshow4.png"/>
+                                                    </div>
+                                                </a>
+                                                <div class="show-ver"></div>
+                                            </div>
+                                            <div class="channel-detail show-item-title" title="">
+                                                <a href="" target="_blank" data-act="" data-val="">死侍2</a>
+                                            </div>
+
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

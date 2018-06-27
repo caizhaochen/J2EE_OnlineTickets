@@ -1,0 +1,323 @@
+.banner {
+    width: 100%;
+    min-width: 1000px;
+    background: #392f59 url(imgs/background.png) no-repeat 50%;
+}
+
+.wrapping {
+    width: 1200px;
+    margin: 0 auto;
+    height: 376px;
+    position: relative;
+}
+
+.celeInfo-left {
+    width: 300px;
+    float: left;
+    position: relative;
+    top: 70px;
+    overflow: hidden;
+    z-index: 9;
+}
+
+.celeInfo-right {
+    position: relative;
+    margin-right: 30px;
+    margin-left: 300px;
+    margin-top: 70px;
+}
+
+.show-brief-container {
+    position: absolute;
+    color: #fff;
+    font-size: 14px;
+    z-index: 1;
+}
+
+.action-buyBtn {
+    position: absolute;
+    bottom: -10px;
+}
+
+.avatar-shadow {
+    position: relative;
+    margin: 0 30px;
+    width: 240px;
+    height: 330px;
+    padding-bottom: 40px;
+    background: url(imgs/posterbg.png) no-repeat bottom;
+}
+
+.avatar {
+    border: 4px solid #fff;
+    height: 322px;
+    width: 232px;
+}
+
+.show-ver {
+    position: absolute;
+    top: 4px;
+    left: -2px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.name {
+    width: 900px;
+    margin-top: 0;
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 700;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 64px;
+}
+
+.show-brief-container ul {
+    width: 250px;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.action-buyBtn .action a {
+    cursor: pointer;
+    float: left;
+    display: block;
+    width: 250px;
+    height: 40px;
+    background-color: #756189;
+    margin-right: 10px;
+    padding-top: 11px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    border-radius: 2px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.action-buyBtn .action .wish i.wish-icon {
+    background: url(imgs/wishicon.png);
+}
+
+.action-buyBtn .action i.icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 2px;
+    width: 16px;
+    height: 16px;
+}
+
+.action-buyBtn .btn.buy {
+    margin-top: 10px;
+    width: 250px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 2px;
+    padding: 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 2px 15px;
+    line-height: 25px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #df2d2d;
+}
+
+i, cite, em, var, address, dfn {
+    font-style: italic;
+}
+
+.show-stats-back {
+    position: absolute;
+    top: 228px;
+    left: 442px;
+}
+
+.back-btn {
+    float: right;
+    width: 80px;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 36px;
+}
+
+.back-btn a {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    color: #fff;
+    background-color: #f03d37;
+    font-size: 14px;
+    line-height: 30px;
+    border-radius: 100px;
+    text-align: center;
+    -webkit-box-shadow: 0 2px 10px -2px #f03d37;
+    box-shadow: 0 2px 10px -2px #f03d37;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.main-content-container {
+    margin-top: 80px;
+}
+
+.main-content {
+    width: 730px;
+    float: left;
+}
+
+.tab-container .tab-title-container {
+    border-bottom: 2px solid #eee;
+    font-size: 30px;
+    color: #999999;
+}
+
+.tab-container .tab-content-container .tab-content.active {
+    display: block;
+}
+
+.tab-desc {
+    margin-top: 40px;
+}
+
+.module {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.module .mod-title h3 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 18px;
+    color: #333;
+    line-height: 18px;
+}
+
+.module .mod-title h3:before {
+    float: left;
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    margin-right: 6px;
+    background-color: #ef4238;
+}
+
+.module .mod-content {
+    margin-top: 20px;
+    color: #333;
+}
+
+.tab-desc .dra {
+    font-size: 14px;
+    line-height: 26px;
+}
+
+.module .mod-content {
+    margin-top: 20px;
+    color: #333;
+}
+
+.related {
+    margin-left: 740px;
+    width: 360px;
+}
+
+.related-shows .show-list {
+    margin: -19px 0 20px -18px;
+}
+
+dl {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.related .show-list dd {
+    margin-left: 20px;
+    margin: 20px 0 0 20px;
+}
+
+.show-list dd {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+.show-item {
+    position: relative;
+    border: 1px solid #efefef;
+    margin: -1px;
+}
+
+.related .show-list .show-item .show-poster {
+    width: 106px;
+    height: 145px;
+    background-color: #fcfcfc;
+    overflow: hidden;
+    position: relative;
+}
+
+.show-poster .poster-default {
+    top: 50%;
+    left: 50%;
+    width: 68px;
+    height: 62px;
+    margin-top: -31px;
+    margin-left: -34px;
+}
+
+.show-poster img {
+    position: absolute;
+    border-style: none;
+}
+
+.show-ver {
+    display: none;
+    position: absolute;
+    top: 4px;
+    left: -2px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.related .show-list .channel-detail {
+    width: 106px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    color: #333;
+    margin-top: 10px;
+}
+
+.related-shows .show-item-title {
+    font-size: 14px;
+}
