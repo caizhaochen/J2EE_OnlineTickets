@@ -57,7 +57,7 @@ function myOrders() {
             hasPay:[],
             hasBack:[],
 
-            isAll:false,
+            isAll:true,
             isFuture:true,
             isPast:false,
             isOverDue:false,
@@ -127,6 +127,9 @@ function myOrders() {
                 this.isHasBack=true;
                 this.isFuture=false;
                 this.isPast=false;
+            },
+            deleteOrder:function (id) {
+                toastr.error("目前还不支持删除");
             }
         },
         mounted:function (){
@@ -140,6 +143,7 @@ function myOrders() {
                 var orders=orderResponse.data;
                 this.allOrders=orders;
                 if(orders.length>0){
+                    this.allLen=true;
                     var nowTime=new Date();
                     nowTime=nowTime.getTime();
                     for(var i=0;i<orders.length;i++){

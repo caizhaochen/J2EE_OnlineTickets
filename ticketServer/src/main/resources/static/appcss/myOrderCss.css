@@ -83,7 +83,7 @@ a:active{
 }
 
 /*a:visited{*/
-    /*color: #2F96B4;*/
+/*color: #2F96B4;*/
 /*}*/
 
 .menuA{
@@ -174,7 +174,7 @@ a:active{
 }
 
 .favoriteOption{
-    text-align: right;
+    text-align: center;
     padding-top: 80px;
     /*border:2px solid yellow ;*/
 }
@@ -187,6 +187,16 @@ a:active{
     padding-left: 20px;
     border-radius: 35px;
     border: 1px solid #E5E5E5;
+}
+
+.favoriteOptionDetailNoBorder{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 35px;
+    border: 1px solid transparent;
+    font-size: 1.2em;
 }
 .favoriteOption2{
     text-align: right;
@@ -203,7 +213,7 @@ a:active{
 
 .showTitle:hover{
     color: #BD362F;
-    font-size: 1.1em;
+    font-size: 1em;
     text-decoration: none;
 }
 
