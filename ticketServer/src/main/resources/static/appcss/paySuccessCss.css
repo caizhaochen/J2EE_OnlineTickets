@@ -131,3 +131,31 @@ body{
     line-height: 40px;
     margin-right: 20px;
 }
+.btn {
+    background-color: #f90;
+    border-radius: 100px;
+    background-image: linear-gradient(180deg,#ffa114,#f59300);
+}
+.btn, .btn-primary {
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 2px;
+    padding: 5px 12px 4px;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: #f09000;
+    background-image: linear-gradient(180deg,#ff9d0a,#eb8d00);
+}
+
+a:active, a:hover {
+    outline: 0;
+}

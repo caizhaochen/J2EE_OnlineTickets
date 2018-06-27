@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>支付</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
@@ -13,7 +13,7 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
-    <script src="/appjs/orders/payOrder.js"></script>
+    <script src="/appjs/orders/paySuccess.js"></script>
 
     <link rel="stylesheet" href="/css/toastr.min.css"/>
     <script src="/js/toastr.min.js"></script>
@@ -66,30 +66,35 @@
                 </ul>
             </div>
         </nav>
-        <div class="cd"><i class="icon icon-sand"></i><span class="cd-text">请在 <span class="cd-time">06:35</span> 内完成支付, 超时订单会自动取消</span></div>
-        <div class="right right-widen">
-            <div class="order clear-fix">
-                <span class="block-left">
-                <div class="order-name">订单编号:</div>
-                </span>
-                <span class="block-right">
-                    <div class="amount">应付金额 ¥ <span class="amount-price">33.00</span></div></span>
-            </div>
-        </div>
+        <div class="cd"><i class="icon icon-sand"></i><span class="cd-text">请在 <span class="cd-time"><span id="minute"></span>:<span class="second" id="second"></span></span> 内完成支付, 超时订单会自动取消</span></div>
+
 
         <div class="payment-container">
+            <div >
+                <form  role="form">
+                    <fieldset>
+
+
+                        <div >
+                            <div >
+                                <div >
+                                    <input type="text" placeholder="账户"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div >
+                            <div >
+                                <div >
+                                    <input type="password" placeholder="密码"/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
             <div class="payment payment-0">
-                <div class="payment-type">
-                    <div class="payment-list payment-list-0">
-                        <ul class="clear-fix">
-                            <li><input type="radio" name="thirdpart_pay" id="thirdpart_pay_wxqrpay" data-type="wxqrpay"
-                                       data-banktypeid="" data-bankcode="" checked=""><label class="payment-icon"
-                                                                                             for="thirdpart_pay_wxqrpay"><img
-                                    src="https://p1.meituan.net/pay/pc_wxqrpay.png" disabled="" alt="微信"></label><span
-                                    class="payment-weak-tip" style="visibility:visible;"></span></li>
-                        </ul>
-                    </div>
-                </div>
+
                 <div class="payment-submit-area clear-fix">
                     <div class="amount">支付 ¥ <span class="amount-price">33.00</span></div>
                     <div class="payment-submit"><a class="btn">确认付款</a></div>

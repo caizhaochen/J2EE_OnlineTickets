@@ -37,12 +37,66 @@ body{
     background-position-y: 2px;
     margin-bottom: 8px;
 }
+.order-table thead {
+    background-color: #ecebeb;
+}
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+th {
+    font-weight: bold;
+    text-align: -internal-center;
+}
 
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
 .order-table {
     width: 100%;
     border: 1px solid #e5e5e5;
     border-spacing: 0;
     margin-bottom: 60px;
+}
+
+.order-table thead th {
+    font-size: 16px;
+    color: #333;
+    width: 25%;
+    padding: 14px 0;
+    font-weight: 400;
+}
+.order-table td {
+    text-align: center;
+    padding: 20px 0;
+    color: #333;
+}
+.order-table .showtime {
+    font-size: 14px;
+    color: #f03d37;
+}
+.order-table .cinema-name {
+    font-size: 14px;
+}
+.order-table .hall {
+    display: inline-block;
+    font-size: 14px;
+    color: #424242;
+    font-weight: 700;
+    margin-right: 10px;
+    vertical-align: top;
+}
+.order-table .seats {
+    display: inline-block;
+    text-align: left;
 }
 .right {
     text-align: right;
@@ -69,4 +123,10 @@ body{
     border-radius: 100px;
     -webkit-box-shadow: 0 2px 10px -2px #f03d37;
     box-shadow: 0 2px 10px -2px #f03d37;
+}
+
+.count-down-wrapper .time-left .minute, .count-down-wrapper .time-left .second {
+    font-size: 32px;
+    color: #f03d37;
+    margin: 0 5px;
 }

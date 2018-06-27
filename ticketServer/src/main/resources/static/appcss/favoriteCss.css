@@ -215,3 +215,13 @@ a:active{
     height: 5px;
     width:100%;
 }
+
+.lineTitle {
+    width: 100%;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    white-space: normal;
+    word-break:break-all;
+    font-size: 1.2em;
+    color: #2F96B4;
+}

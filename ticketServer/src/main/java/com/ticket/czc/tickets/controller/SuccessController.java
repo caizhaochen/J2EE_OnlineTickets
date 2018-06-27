@@ -23,7 +23,7 @@ public class SuccessController {
 
     @RequestMapping("/order/paySuccess")
     public String paySuccess(){
-        return "/order/paySuccess";
+        return "user/paySuccess";
     }
 
     @RequestMapping("/order/backSuccess")

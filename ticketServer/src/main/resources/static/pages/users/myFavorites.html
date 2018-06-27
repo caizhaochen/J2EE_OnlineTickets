@@ -121,10 +121,11 @@
                                 <div class="col-xs-3">
                                     <img id="favoriteImg" v-bind:src=" '/showImages/'+item.showid+'.jpg'" alt="" style="width: 133px;height: 176px;"/>
                                 </div>
-                                <div class="col-xs-6 showDetail">
-                                    <h2>{{item.showname}}</h2>
+                                <div class="col-xs-5 showDetail">
+                                    <li class="lineTitle list-inline">{{item.showname}}</li>
+                                    <div class="blankHeight"></div>
                                     <ul class="list-group">
-                                        <li class="list-inline">描述：{{item.showdescribe}}</li>
+                                        <!--<li class="list-inline">描述：{{item.showdescribe}}</li>-->
                                         <li class="list-inline">类型：{{item.showtype}}</li>
                                         <li class="list-inline">时间：{{item.showtime |time}}</li>
                                         <li class="list-inline">余票：{{item.restseats}}</li>
@@ -171,9 +172,10 @@
                                     <img src="/images/show1.jpg" alt="" style="width: 133px;height: 176px;"/>
                                 </div>
                                 <div class="col-xs-6 showDetail">
-                                    <h2>{{item.showname}}</h2>
+                                    <li class="lineTitle list-inline">{{item.showname}}</li>
+                                    <div class="blankHeight"></div>
                                     <ul class="list-group">
-                                        <li class="list-inline">描述：{{item.showdescribe}}</li>
+                                        <!--<li class="list-inline">描述：{{item.showdescribe}}</li>-->
                                         <li class="list-inline">类型：{{item.showtype}}</li>
                                         <li class="list-inline">时间：{{item.showtime |time}}</li>
                                     </ul>

@@ -6,7 +6,7 @@
     <title>支付订单</title>
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>-->
     <link rel="stylesheet" type="text/css" href="/appcss/payCss.css"/>
 
     <script src="/js/vue.min.js"></script>
@@ -33,6 +33,7 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
+
     </script>
 </head>
 <body>
@@ -71,12 +72,12 @@
     <!--<div class="alert alert-danger" role="alert" style="display: none" id="payOrderError">{{errorMsg}}</div>-->
     <div class="container" id="app">
         <div class="count-down-wrapper">
-        <div class="count-down" data-payleftseconds="839">
+        <div class="count-down" data-payleftseconds="900">
             <p class="time-left">
                 请在
-                <span class="minute">12</span>
+                <span class="minute" id="minute"></span>
                 分钟
-                <span class="second">47</span>秒内完成支付
+                <span class="second" id="second"></span>秒内完成支付
             </p>
             <p class="tip">超时订单会自动取消，如遇支付问题，就当做慈善吧</p>
         </div>
@@ -114,7 +115,7 @@
             <span>实际支付 :</span>
             <span class="price">33</span>
         </div>
-        <div><div class="pay-btn" data-order-id="3202568955" data-act="pay-click" data-bid="b_u30afks6" href="/user/paySuccess.html">确认支付</div></div>
+        <div><a class="pay-btn" data-order-id="3202568955" data-act="pay-click" data-bid="b_u30afks6" href="/order/paySuccess">确认支付</a></div>
     </div>
     </div>
 
