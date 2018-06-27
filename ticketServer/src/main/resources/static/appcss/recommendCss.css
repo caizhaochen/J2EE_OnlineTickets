@@ -1,3 +1,143 @@
+body{
+    width: 1400px;
+}
+
+.showsContainer{
+    padding-left: 20px;
+    margin-right: 20px;
+}
+
+.recommendPart{
+    width: 330px;
+    float: left;
+    padding-left: 20px;
+}
+
+.searchPart{
+    /*padding-bottom: 20px;*/
+}
+
+.showPart{
+    /*width: 1200px;*/
+    padding-left: 110px;
+    padding-right: 50px;
+    /*float: left;*/
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    min-height: 250px;
+}
+
+.searchInput{
+    margin-left: 8%;
+    height: 40px;
+    width: 70%;
+    float: left;
+    border-radius: 0px;
+}
+
+.searchButton{
+    height: 40px;
+    width: 10%;
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    color:#6a6f77;
+    background-color:#5bc0de;
+    border-radius: 0px;
+    border: 1px solid #5bc0de;
+    outline: none;
+}
+.searchButton:hover,
+.searchButton:active{
+    height: 40px;
+    width: 10%;
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    color:#6a6f77;
+    background-color:#2aabd2;
+    border-radius: 0px;
+    border: 1px solid #5bc0de;
+    outline: none;
+}
+
+
+.showPicInfo{
+    width: 400px;
+    color: black;
+    float: left;
+    /*margin-bottom: 20px;*/
+    height: 210px;
+}
+
+.showImages{
+    width:134px;
+    height: 180px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.showImages:hover{
+    width:147px;
+    height: 198px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.showTitle{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    height: 20px;
+    text-decoration: none;
+}
+
+.showTitle:hover{
+    color: #BD362F;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+
+.blankHeight{
+    height: 10px;
+    width:100%;
+}
+.blankShortHeight{
+    height: 5px;
+    width:100%;
+}
+
+.showInfoDes{
+    height: 190px;
+    width: 200px;
+    float: left;
+    margin-right: 20px;
+}
+
+.line-limit-length {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.lineTitle {
+    width: 100%;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    white-space: normal;
+    word-break:break-all;
+}
+
+.pageRow{
+    align-items: center;
+    text-align: center;
+    /*padding-left: 30%;*/
+    padding-top: 10px;
+    margin-top: 20px;
+    min-width: 95%;
+}
+
+
 .recommendtitle p:first-child {
     text-align: left;
     font-size: 30px;

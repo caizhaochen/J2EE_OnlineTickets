@@ -51,6 +51,9 @@ $(document).ready(function () {
         data: {
             username:'您还没有登录',
             userlevel:'',
+
+            showPageDivider:false,
+
             //总项目数
             totalCount: 200,
 
@@ -60,8 +63,8 @@ $(document).ready(function () {
             //当前页面
             pageCurrent: 1,
 
-            //分页大小
-            pagesize: 2,
+            //分页大小,每页数据
+            pagesize: 6,
 
             //显示分页按钮数
             showPages: 11,
@@ -169,6 +172,11 @@ $(document).ready(function () {
                 if (searchText==""){
                     this.arrayData=this.arrayDateAll;
                     this.totalCount = this.arrayData.length;
+                    if(this.arrayData.length>=6){
+                        this.showPageDivider=true;
+                    }else {
+                        this.showPageDivider=false;
+                    }
                     this.pageCount = parseInt((this.totalCount - 1) / this.pagesize) + 1;
                     this.showPage(vue.pageCurrent, null, true);
                 }
@@ -191,6 +199,11 @@ $(document).ready(function () {
                         toastr.error("没有符合要求的搜索信息");
                     }
                     // this.arrayData=arr;
+                    if (this.arrayData.length<=6){
+                        this.showPageDivider=false;
+                    }else{
+                        this.showPageDivider=true;
+                    }
                     return this.arrayData;
                 }
             }
@@ -205,6 +218,9 @@ $(document).ready(function () {
                 this.pageCount = parseInt((this.totalCount - 1) / this.pagesize) + 1;
                 console.log(this.arrayData);
                 console.log(this.pageCount);
+                if (this.arrayData.length>=6){
+                    this.showPageDivider=true;
+                }
                 this.showPage(vue.pageCurrent, null, true);
             });
             this.$http.get("http://localhost:8080/tickets/getUserInfo").then(function (response) {
