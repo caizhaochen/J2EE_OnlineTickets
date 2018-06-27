@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/appcss/mainCSS.css"/>
 
+    <link rel="stylesheet" type="text/css" href="/appcss/recommendCss.css"/>
+
     <!--<link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css"/>-->
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <!--<script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>-->
@@ -18,12 +20,10 @@
     <script type="text/javascript" src="/appjs/users/bookTickets.js"></script>
 
     <link rel="stylesheet" href="/css/toastr.min.css"/>
+
     <script src="/js/toastr.min.js"></script>
     <script>
-        laydate.render({
-            elem: '#birth' //指定元素
-            , type: 'date'
-        });
+
         toastr.options = {
             "closeButton": false,
             "debug": false,
@@ -97,7 +97,7 @@
                 </div>
 
                 <div>
-                    <div class="col-lg-8 col-md-8">
+                    <div class="col-lg-9 col-md-9">
                         <div v-for="item in arrayData">
                             <!--<div class="col-xs-12 col-lg-12">-->
                             <!--<p></p>-->
@@ -142,17 +142,152 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-3 col-md-3">
+                        <!--<div>-->
+                            <!--这是固定的推荐列表-->
+                        <!--</div>-->
                         <div>
-                            这是固定的推荐列表
+                            <!--<div class="recommendtitle">-->
+                                <!--<p><span>今日推荐</span></p>-->
+                            <!--</div>-->
+                            <div>
+                                <span class="textcolor_grey">
+                                    今日推荐
+                                </span>
+                                <p>
+                                </p>
+                            </div>
+                            <div>
+                                <li class="ranking-item">
+                                    <!--<span>1</span>-->
+                                    <!--<span>侏罗纪世界2</span>-->
+                                    <div class="recommenditemtop">
+                                        <p>
+                                            <span style="font-style: oblique;font-weight: bold">1&numsp;</span>
+                                            <span>侏罗纪世界2</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemtop">
+                                        <p>
+                                            <span style="font-style: oblique;font-weight: bold">2&numsp;</span>
+                                            <span>超人总动员2</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemtop">
+                                        <p>
+                                            <span style="font-style: oblique;font-weight: bold">3&numsp;</span>
+                                            <span>龙虾刑警</span>
+                                            <span>
+                                                <p></p>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <!--<br/>-->
+                                </li>
+                                <!--<li class="ranking-item">-->
+                                    <!--<div class="recommenditemdown">-->
+                                        <!--<p>-->
+                                            <!--<span style="color: #FFFFFF;font-size: 2px">我是占位置的想不到吧</span>-->
+                                            <!--&lt;!&ndash;<span>猛虫过江</span>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;武汉</span>&ndash;&gt;-->
+                                        <!--</p>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>猛虫过江</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;武汉</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>阿飞正传</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;南京</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>生存家族</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;杭州</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>泄密者</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;黑龙江</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>超时空同居</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;南京</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>复仇者联盟3：无限战争</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;上海</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>青年马克思</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;北京</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>动物世界</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;湖北</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>金蝉脱壳</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;南京</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="ranking-item">
+                                    <div class="recommenditemdown">
+                                        <p>
+                                            <span>我不是药神</span>
+                                            <span style="color: #999999">&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;南京</span>
+                                        </p>
+                                    </div>
+                                </li>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
 
                 <!--<div class="page-header">分页</div>-->
                 <div class="pager col-lg-12 col-md-12 col-sm-12" id="pager">
                     <span class="form-inline">
-                        <select class="form-control" v-model="pagesize" v-on:change="showPage(pageCurrent,$event,true)">
+                        <select class="form-control" v-model="pagesize" v-on:change="showPage(pageCurrent,$event,true)" disabled="true">
                             <option value="2">2</option>
                             <option value="4">4</option>
                             <option value="6">6</option>

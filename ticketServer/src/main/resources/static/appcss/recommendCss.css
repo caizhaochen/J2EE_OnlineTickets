@@ -1,0 +1,100 @@
+.recommendtitle p:first-child {
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    color: #fff;
+}
+
+.recommendtitle p:first-child span {
+    cursor: pointer;
+    text-shadow: 0px 0px 2px #686868,
+    0px 1px 1px #ddd,
+    0px 2px 1px #d6d6d6,
+    0px 3px 1px #ccc,
+    0px 4px 1px #c5c5c5,
+    0px 5px 1px #c1c1c1,
+    0px 6px 1px #bbb,
+    0px 7px 1px #777,
+    0px 8px 3px rgba(100, 100, 100, 0.4),
+    0px 9px 5px rgba(100, 100, 100, 0.1),
+    0px 10px 7px rgba(100, 100, 100, 0.15),
+    0px 11px 9px rgba(100, 100, 100, 0.2),
+    0px 12px 11px rgba(100, 100, 100, 0.25),
+    0px 13px 15px rgba(100, 100, 100, 0.3);
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.recommendtitle p:first-child span:hover {
+    text-shadow: 0px 0px 2px #686868,
+    0px 1px 1px #fff,
+    0px 2px 1px #fff,
+    0px 3px 1px #fff,
+    0px 4px 1px #fff,
+    0px 5px 1px #fff,
+    0px 6px 1px #fff,
+    0px 7px 1px #777,
+    0px 8px 3px #fff,
+    0px 9px 5px #fff,
+    0px 10px 7px #fff,
+    0px 11px 9px #fff,
+    0px 12px 11px #fff,
+    0px 13px 15px #fff;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+
+.ranking-item {
+    list-style-type: none;
+    margin: 0px;
+}
+
+.recommenditem p:first-child{
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    color: #ef4238!important;
+}
+
+.recommenditem p:first-child span {
+    cursor: pointer;
+    text-shadow: 0px 0px 1px #b92c28,
+    0px 1px 1px #e8e8e8,
+    0px 2px 1px #e7e7e7,
+    0px 3px 1px#e7c3c3,
+    0px 4px 1px #E6CAC4,
+    0px 5px 1px #e4b9c0,
+    0px 6px 1px #e4b9b9,
+    0px 7px 1px #dca7a7,
+    0px 8px 3px rgba(100, 100, 100, 0.4),
+    0px 9px 5px rgba(100, 100, 100, 0.1),
+    0px 10px 7px rgba(100, 100, 100, 0.15),
+    0px 11px 9px rgba(100, 100, 100, 0.2),
+    0px 12px 11px rgba(100, 100, 100, 0.25),
+    0px 13px 15px rgba(100, 100, 100, 0.3);
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.textcolor_red {
+    font-size: 30px;
+    color: #ef4238!important;
+}
+
+.recommenditemdown p:first-child {
+    font-size: 15px;
+    color: #000000;
+}
+
+.recommenditemtop {
+    font-size: 25px;
+    color:#ef4238!important;
+}
+
+.textcolor_grey{
+    font-size: 20px;
+    color: #999999;
+}
