@@ -37,21 +37,41 @@ function showDetailVue() {
         data:{
             username:'您还没有登录',
             userlevel:0,
-            errorMsg:'error',
-            showname:'',
-            showtime:'',
-            showId:'',
+            userEmail:'',
+            item:'',
+
         },
         methods:{
 
+            bookShow:function (showid) {
+                window.location.href="/bookSeats/"+showid;
+            },
+            addFavorite:function (showId) {
+                var favoriteInfo=[this.userEmail,showId];
+                this.$http.get("http://localhost:8080/user/addFavorite/"+favoriteInfo).then(function (response) {
+                    toastr.success("收藏成功")
+                })
+            }
         },
 
         mounted:function () {
-            this.$http.get("http://localhost:8080/show/viewShowDetail").then(function (response) {
+            this.$http.get("http://localhost:8080/tickets/getUserInfo").then(function (response) {
                 var userInfo=response.data;
                 console.log(response.data)
-            })
+                this.username=userInfo.username;
+                this.userlevel=userInfo.userlevel;
+                this.userEmail=userInfo.email;
+            });
+            this.$http.get("http://localhost:8080/show/viewShowDetail").then(function (response) {
+                console.log(response.data)
+                this.item=response.data;
+            });
+
         }
         }
     )
+}
+
+window.onload=function () {
+    showDetailVue();
 }

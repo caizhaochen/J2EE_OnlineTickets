@@ -243,7 +243,7 @@ public class UsersController {
     @ResponseBody
     public String addFavorite(@PathVariable("favorite")List favorite){
         String userEmail=(String) favorite.get(0);
-        int showId=(int)favorite.get(1);
+        int showId=Integer.parseInt((String)favorite.get(1));
         favoriteService.addFavorite(userEmail,showId);
         return "success";
     }

@@ -41,7 +41,7 @@
     </script>
 </head>
 <body>
-<div id="bookSeatsVue">
+<div id="showDetailVue">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
             <div class="navbar-brand"><span>REDBUD在线购票</span></div>
@@ -73,28 +73,9 @@
         </div>
     </nav>
 
-    <div class="alert alert-danger" role="alert" style="display: none" id="bookSeatsError">{{errorMsg}}</div>
 
     <div class="wrapper">
         <div class="container">
-            <!--<h2>{{showname}}</h2>-->
-            <!--<div class="well">-->
-                <!--<div class="row">-->
-                    <!--&lt;!&ndash;<div class="col-xs-1">时间</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="col-xs-3">{{showtime |time}}</div>&ndash;&gt;-->
-                    <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
-                    <!--<div class="col-lg-8 col-md-8 col-sm-10">-->
-                        <!--REDBUD > 菜菜影院 > 《好一朵美丽的茉莉花》Zhaochen Thai > 2018-09-05 周三 19:30-->
-                    <!--</div>-->
-                    <!--<div class="col-lg-2 col-md-2 col-sm-1"></div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="row">-->
-                <!--<p>-->
-
-                <!--</p>-->
-            <!--</div>-->
             <div class="banner">
                 <div class="wrapping clearfix">
                     <div class="celeInfo-left">
@@ -106,33 +87,33 @@
 
                     <div class="celeInfo-right clearfix">
                         <div class="show-brief-container">
-                            <h3 class="name">{{showname}}</h3>
+                            <h3 class="name">{{item[0].showname}}</h3>
                             <ul>
                                 <li class="ellipsis">描述：{{item[0].showdescribe}}</li>
                                 <li class="ellipsis">类型：{{item[0].showtype}}</li>
                                 <li class="ellipsis">时间：{{item[0].showtime |time}}</li>
-                                <li class="ellipsis">地点：{{item[2]}}</li>
+                                <li class="ellipsis">地点：{{item[1].venuename}}——{{item[1].venuelocation}}</li>
                                 <li class="ellipsis">余票：{{item[0].restseats}}</li>
                             </ul>
                         </div>
 
                         <div class="action-buyBtn">
-                            <div class="action clearfix">
-                                <a class="wish ">
+                            <div class="clearfix">
+                                <a class="wish" v-on:click="addFavorite(item[0].showid)">
                                     <div>
                                         <i class="icon wish-icon"></i>
                                         <span>喜欢</span>
                                     </div>
                                 </a>
                             </div>
-                            <a class="btn buy" href="/cinemas?movieId=1197181" target="_blank">选座购票</a>
+                            <a class="btn buy" v-on:click="bookShow(item[0].showid)" target="_blank">选座购票</a>
                         </div>
 
-                        <div class="show-stats-back">
-                            <div class="back-btn">
-                                <a href="/cinema/13915?poi=65769234&amp;movieId=1198178" data-act="buy-btn-click" data-val="{city_id: 55, cinema_id: 13915}" data-bid="b_wek7vrx9">返回上级</a>
-                            </div>
-                        </div>
+                        <!--<div class="show-stats-back">-->
+                            <!--<div class="back-btn">-->
+                                <!--<a href="/cinema/13915?poi=65769234&amp;movieId=1198178" data-act="buy-btn-click" data-val="{city_id: 55, cinema_id: 13915}" data-bid="b_wek7vrx9">返回上级</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </div>
@@ -171,7 +152,7 @@
                                     <dl class="show-list">
                                         <dd>
                                             <div class="show-item">
-                                                <a href="" target="_blank" data-act="" data-val="">
+                                                <a href=""  data-act="" data-val="">
                                                     <div class="show-poster">
                                                         <img class="poster-default" src="/images/defaultshow.jpg"/>
                                                         <img src="/images/recommendedshow1.png"/>
@@ -180,14 +161,14 @@
                                                 <div class="show-ver"></div>
                                             </div>
                                             <div class="channel-detail show-item-title" title="">
-                                                <a href="" target="_blank" data-act="" data-val="">金蝉脱壳</a>
+                                                <a href=""  data-act="" data-val="">金蝉脱壳</a>
                                             </div>
 
                                         </dd>
 
                                         <dd>
                                             <div class="show-item">
-                                                <a href="" target="_blank" data-act="" data-val="">
+                                                <a href=""  data-act="" data-val="">
                                                     <div class="show-poster">
                                                         <img class="poster-default" src="/images/defaultshow.jpg"/>
                                                         <img src="/images/recommendedshow2.png"/>
@@ -196,14 +177,14 @@
                                                 <div class="show-ver"></div>
                                             </div>
                                             <div class="channel-detail show-item-title" title="">
-                                                <a href="" target="_blank" data-act="" data-val="">边境杀手2</a>
+                                                <a href=""  data-act="" data-val="">边境杀手2</a>
                                             </div>
 
                                         </dd>
 
                                         <dd>
                                             <div class="show-item">
-                                                <a href="" target="_blank" data-act="" data-val="">
+                                                <a href=""  data-act="" data-val="">
                                                     <div class="show-poster">
                                                         <img class="poster-default" src="/images/defaultshow.jpg"/>
                                                         <img src="/images/recommendedshow3.png"/>
@@ -212,14 +193,14 @@
                                                 <div class="show-ver"></div>
                                             </div>
                                             <div class="channel-detail show-item-title" title="">
-                                                <a href="" target="_blank" data-act="" data-val="">冰海沉落</a>
+                                                <a href=""  data-act="" data-val="">冰海沉落</a>
                                             </div>
 
                                         </dd>
 
                                         <dd>
                                             <div class="show-item">
-                                                <a href="" target="_blank" data-act="" data-val="">
+                                                <a href=""  data-act="" data-val="">
                                                     <div class="show-poster">
                                                         <img class="poster-default" src="/images/defaultshow.jpg"/>
                                                         <img src="/images/recommendedshow4.png"/>
@@ -228,7 +209,7 @@
                                                 <div class="show-ver"></div>
                                             </div>
                                             <div class="channel-detail show-item-title" title="">
-                                                <a href="" target="_blank" data-act="" data-val="">死侍2</a>
+                                                <a href=""  data-act="" data-val="">死侍2</a>
                                             </div>
 
                                         </dd>
