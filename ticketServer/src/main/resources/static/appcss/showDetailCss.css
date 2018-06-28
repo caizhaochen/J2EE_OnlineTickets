@@ -28,6 +28,9 @@
 }
 
 .show-brief-container {
+    width: 650px;
+    word-wrap: break-word;
+    word-break: break-all;
     position: absolute;
     color: #fff;
     font-size: 14px;
@@ -63,7 +66,7 @@
 }
 
 .name {
-    width: 900px;
+    width: 650px;
     margin-top: 0;
     font-size: 26px;
     line-height: 32px;
@@ -75,13 +78,19 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     max-height: 64px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .show-brief-container ul {
-    width: 250px;
+    width: 650px;
     list-style: none;
     padding-left: 0;
     margin-bottom: 20px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+
 }
 
 .ellipsis {
