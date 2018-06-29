@@ -119,8 +119,12 @@ a {
     text-decoration: none;
 }
 
-.action-buyBtn .action .wish i.wish-icon {
+.wish-icon {
     background: url(imgs/wishicon.png);
+}
+
+.hasSelectIcon{
+    background: url(imgs/loveicon.png);
 }
 
 .action-buyBtn .action i.icon {

@@ -132,12 +132,19 @@ function loadSeats() {
             username:'您还没有登录',
             userlevel:0,
             errorMsg:'error',
+            showid:'',
             showname:'',
+            showdescribe:'',
+            showtype:'',
             showtime:'',
+            venuename:'',
+            location:'',
+            restseats:'',
             showId:'',
             seats:[],
             selected:[],
             totalPrice:0,
+            item:'',
         },
         methods:{
             fetchTickets:function () {
@@ -191,11 +198,21 @@ function loadSeats() {
                 }
                 this.$http.get("http://localhost:8080/show/getCurrentShow").then(function (showResponse) {
                     console.log(showResponse.data);
-                    var showInfo=showResponse.data;
+
+                    var showInfo=showResponse.data[0];
+                    var venueInfo=showResponse.data[1];
                     var line=showInfo.showline;
                     var row=showInfo.showrow;
                     vue.showname=showInfo.showname;
+                    vue.showid=showInfo.showid;
+                    vue.showdescribe=showInfo.showdescribe;
                     vue.showtime=showInfo.showtime;
+                    vue.showtype=showInfo.showtype;
+                    vue.restseats=showInfo.restseats;
+                    vue.venuename=venueInfo.venuename;
+                    vue.location=venueInfo.location;
+                    // vue.showname=showInfo.showname;
+                    // vue.showtime=showInfo.showtime;
                     // registSeat(line,row);
                     var x = parseInt(line);
                     var y = parseInt(row);
@@ -208,7 +225,7 @@ function loadSeats() {
                     }
                     firstSeatId = 1;
                     firstSeatLabel = 0;
-                    sc =$('#seat-maps').seatCharts({
+                    sc =$("#seat-maps").seatCharts({
                         map: map,
                         naming: {
                             top: true, //不显示顶部横坐标（行）
@@ -268,16 +285,6 @@ function loadSeats() {
 
 }
 
-function hideError() {
-    var alertBox=document.getElementById("bookSeatsError");
-    alertBox.style.display="none";
-}
-
-function showError() {
-    var alertBox=document.getElementById("bookSeatsError");
-    alertBox.style.display="block";
-
-}
 
 window.onload = function () {
     loadSeats();

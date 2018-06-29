@@ -92,7 +92,7 @@
                                 <li class="ellipsis">描述：{{item[0].showdescribe}}</li>
                                 <li class="ellipsis">类型：{{item[0].showtype}}</li>
                                 <li class="ellipsis">时间：{{item[0].showtime |time}}</li>
-                                <li class="ellipsis">地点：{{item[1].venuename}}——{{item[1].venuelocation}}</li>
+                                <li class="ellipsis">地点：{{item[1].venuename}}——{{item[1].location}}</li>
                                 <li class="ellipsis">余票：{{item[0].restseats}}</li>
                             </ul>
                         </div>
@@ -101,7 +101,7 @@
                             <div class="action clearfix">
                                 <a class="wish" v-on:click="addFavorite(item[0].showid)">
                                     <div>
-                                        <i class="icon wish-icon"></i>
+                                        <i class="icon wish-icon" id="loveIcon"></i>
                                         <span>喜欢</span>
                                     </div>
                                 </a>

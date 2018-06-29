@@ -191,11 +191,16 @@ public class ShowController {
 
     @RequestMapping("/getCurrentShow")
     @ResponseBody
-    public ShowsEntity getCurrentShow(HttpServletRequest request)throws IOException{
+    public List getCurrentShow(HttpServletRequest request)throws IOException{
+        List result=new ArrayList();
         HttpSession session=request.getSession();
         int showId=(Integer)session.getAttribute("showId");
         ShowsEntity show=showManageService.getShowById(showId);
-        return show;
+        int venueId=show.getVenueid();
+        VenuesEntity venue=venueManageService.getVenueInfo(venueId);
+        result.add(show);
+        result.add(venue);
+        return result;
     }
 
     @RequestMapping("/getFutureShowByVenue")

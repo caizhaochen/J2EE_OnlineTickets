@@ -12,12 +12,11 @@
     <link rel="stylesheet" type="text/css" href="/appcss/bookseatsCss.css"/>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/jquery.seat-charts.min.js"></script>
-    <script type="text/javascript" src="/laydate/laydate.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/vue.min.js"></script>
     <script type="text/javascript" src="/js/vue-resource.js"></script>
     <script type="text/javascript" src="/appjs/shows/bookSeats.js"></script>
-    <script type="text/javascript" src="/appjs/shows/showDetail.js"></script>
+
 
     <link rel="stylesheet" href="/css/toastr.min.css"/>
     <script src="/js/toastr.min.js"></script>
@@ -71,7 +70,6 @@
         </div>
     </nav>
 
-    <div class="alert alert-danger" role="alert" style="display: none" id="bookSeatsError">{{errorMsg}}</div>
 
     <div class="wrapper">
         <div class="container">
@@ -79,7 +77,7 @@
                 <div class="wrapping clearfix">
                     <div class="celeInfo-left">
                         <div class="avatar-shadow">
-                            <img class="avatar" v-bind:src=" '/showImages/'+item[0].showid+'.jpg' " />
+                            <img class="avatar" v-bind:src=" '/showImages/'+showid+'.jpg' " />
                             <div class="show-ver"></div>
                         </div>
                     </div>
@@ -88,11 +86,11 @@
                         <div class="show-brief-container">
                             <h3 class="name">{{showname}}</h3>
                             <ul>
-                                <li class="ellipsis">描述：{{item[0].showdescribe}}</li>
-                                <li class="ellipsis">类型：{{item[0].showtype}}</li>
-                                <li class="ellipsis">时间：{{item[0].showtime |time}}</li>
-                                <li class="ellipsis">地点：{{item[2]}}</li>
-                                <li class="ellipsis">余票：{{item[0].restseats}}</li>
+                                <li class="ellipsis">描述：{{showdescribe}}</li>
+                                <li class="ellipsis">类型：{{showtype}}</li>
+                                <li class="ellipsis">时间：{{showtime |time}}</li>
+                                <li class="ellipsis">地点：{{venuename}}——{{location}}</li>
+                                <li class="ellipsis">余票：{{restseats}}</li>
                             </ul>
                         </div>
 
@@ -105,12 +103,13 @@
                                     </div>
                                 </a>
                             </div>
-                            <a class="btn buy" href="/cinemas?movieId=1197181" target="_blank">选座购票</a>
+                            <a class="btn buy" href="" >选座购票</a>
                         </div>
 
                     </div>
                 </div>
             </div>
+
 
             <div class="container">
                 <div class="main-content-container clearfix">
