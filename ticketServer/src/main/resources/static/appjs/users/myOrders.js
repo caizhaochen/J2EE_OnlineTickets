@@ -57,13 +57,9 @@ function myOrders() {
             hasPay:[],
             hasBack:[],
 
-            isAll:true,
-            isFuture:true,
-            isPast:false,
-            isOverDue:false,
-            isNotPay:false,
-            isHasPay:false,
-            isHasBack:false,
+            showFuture:true,
+            showAll:false,
+            showNotPaid:false,
 
             allLen:false,
             futureLen:false,
@@ -74,62 +70,35 @@ function myOrders() {
             backLen:false,
         },
         methods:{
-            showFuture:function () {
-                this.listName='即将到来';
-                this.isHasPay=false;
-                this.isOverDue=false;
-                this.isNotPay=false;
-                this.isHasBack=false;
-                this.isFuture=true;
-                this.isPast=false;
+            futureClick:function () {
+                // $("#normalA").css("color","#31BBAC");
+                // $("#pastA").css("color","#666");
+                $("#future").attr("class","favoriteMenuTitleActive");
+                $("#all").attr("class","favoriteMenuTitle");
+                $("#notPaid").attr("class","favoriteMenuTitle");
+                this.showFuture=true;
+                this.showNotPaid=false;
+                this.showAll=false;
             },
-            showPast:function () {
-                this.listName='已过去';
-                this.isHasPay=false;
-                this.isOverDue=false;
-                this.isNotPay=false;
-                this.isHasBack=false;
-                this.isFuture=false;
-                this.isPast=true;
+            allClick:function () {
+                // $("#normalA").css("color","#31BBAC");
+                // $("#pastA").css("color","#666");
+                $("#future").attr("class","favoriteMenuTitle");
+                $("#all").attr("class","favoriteMenuTitleActive");
+                $("#notPaid").attr("class","favoriteMenuTitle");
+                this.showFuture=false;
+                this.showNotPaid=false;
+                this.showAll=true;
             },
-            showPay:function () {
-                this.listName='已付款';
-                this.isHasPay=true;
-                this.isOverDue=false;
-                this.isNotPay=false;
-                this.isHasBack=false;
-                this.isFuture=false;
-                this.isPast=false;
-            },
-            showNot:function () {
-                this.listName='未付款';
-                this.isHasPay=false;
-                this.isOverDue=false;
-                this.isNotPay=true;
-                this.isHasBack=false;
-                this.isFuture=false;
-                this.isPast=false;
-            },
-            showOver:function () {
-                this.listName='已失效';
-                this.isHasPay=false;
-                this.isOverDue=true;
-                this.isNotPay=false;
-                this.isHasBack=false;
-                this.isFuture=false;
-                this.isPast=false;
-            },
-            showBack:function () {
-                this.listName='已撤回';
-                this.isHasPay=false;
-                this.isOverDue=false;
-                this.isNotPay=false;
-                this.isHasBack=true;
-                this.isFuture=false;
-                this.isPast=false;
-            },
-            deleteOrder:function (id) {
-                toastr.error("目前还不支持删除");
+            notPaidClick:function () {
+                // $("#normalA").css("color","#31BBAC");
+                // $("#pastA").css("color","#666");
+                $("#future").attr("class","favoriteMenuTitle");
+                $("#all").attr("class","favoriteMenuTitle");
+                $("#notPaid").attr("class","favoriteMenuTitleActive");
+                this.showFuture=false;
+                this.showNotPaid=true;
+                this.showAll=false;
             }
         },
         mounted:function (){
