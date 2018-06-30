@@ -183,7 +183,14 @@ function loadSeats() {
                 var userInfo=response.data;
                 this.username=userInfo.username;
                 this.userlevel=userInfo.level;
-            })
+            });
+            this.$http.get("http://localhost:8080/show/getCurrentShowIsFav").then(function (response) {
+                if (response.bodyText=="true"){
+                    $("#loveIcon").attr("class","icon hasSelectIcon");
+                }else {
+                    $("#loveIcon").attr("class","icon wish-icon");
+                }
+            });
 
             this.$http.get("http://localhost:8080/chooseSeats").then(function (response) {
                 console.log(response.data);

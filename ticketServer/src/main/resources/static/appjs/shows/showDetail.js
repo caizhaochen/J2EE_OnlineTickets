@@ -40,6 +40,9 @@ function showDetailVue() {
             userEmail:'',
             item:'',
 
+            notLove:true,
+            loved:false,
+
         },
         methods:{
 
@@ -65,6 +68,27 @@ function showDetailVue() {
             this.$http.get("http://localhost:8080/show/viewShowDetail").then(function (response) {
                 console.log(response.data)
                 this.item=response.data;
+            });
+            this.$http.get("http://localhost:8080/show/getDetailShowIsFav").then(function (response) {
+                console.log(response);
+                if (response.bodyText=="true"){
+                    toastr.success("已关注")
+                    // $("#loveIcon").attr("class","icon hasSelectIcon");
+                    // $("#loveIcon").prop("class","icon hasSelectIcon");
+                    // $("#loveIcon").css('display','block');
+                    // $("#notLoveIcon").css('display','none');
+                    // $("#loveSpan").style.display = 'block';
+                    // $("#notLoveIcon").style.display = 'none';
+                    // $("#loveSpan").html("已关注")
+
+                    this.notLove=false;
+                    this.loved=true;
+                }else {
+                    // $("#loveIcon").css('display','none');
+                    // $("#notLoveIcon").css('display','block');
+                    this.notLove=true;
+                    this.loved=false;
+                }
             });
 
         }

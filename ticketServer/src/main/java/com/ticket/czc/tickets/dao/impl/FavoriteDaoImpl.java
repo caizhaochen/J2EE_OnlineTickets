@@ -76,7 +76,26 @@ public class FavoriteDaoImpl extends BaseDaoImpl implements FavoriteDao {
         return favorites;
     }
 
-//    public static void main(String[] args){
+    @Override
+    public ArrayList<FavoritesEntity> getFavoriteByEmailShow(int showId, String userEmail) {
+        ArrayList<FavoritesEntity> favorites=new ArrayList<>();
+        try {
+            Session session = HibernateUtil.getSession() ;
+            Transaction tx=session.beginTransaction();
+
+            String hql = "from com.ticket.czc.tickets.model.FavoritesEntity f where f.userEmail= :u and f.showId= :s";
+            Query query = session.createQuery(hql);
+            query.setString("u",userEmail);
+            query.setInteger("s",showId);
+            favorites =(ArrayList<FavoritesEntity>) query.list();
+            tx.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return favorites;
+    }
+
+    //    public static void main(String[] args){
 //        new FavoriteDaoImpl().deleteFavorite("731744067@qq.com",100086);
 //    }
 }

@@ -44,4 +44,15 @@ public class FavoriteServiceImpl implements FavoriteService {
         }
         return showDao.getShowsByIds(showIds);
     }
+
+    @Override
+    public boolean hasFavorite(int showId, String userEmail) {
+        ArrayList<FavoritesEntity> favoritesEntities=favoriteDao.getFavoriteByEmailShow(showId,userEmail);
+        if (favoritesEntities==null||favoritesEntities.size()==0){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }

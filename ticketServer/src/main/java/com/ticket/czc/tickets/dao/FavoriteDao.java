@@ -11,4 +11,6 @@ public interface FavoriteDao {
     public void deleteFavorite(String userEmail,int showId);
 
     public ArrayList<FavoritesEntity> getFavoritesByEmail(String userEmail);
+
+    public ArrayList<FavoritesEntity> getFavoriteByEmailShow(int showId,String userEmail);
 }

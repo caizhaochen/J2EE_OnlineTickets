@@ -4,6 +4,7 @@ import com.ticket.czc.tickets.factory.ServiceFactory;
 import com.ticket.czc.tickets.model.SeatsEntity;
 import com.ticket.czc.tickets.model.ShowsEntity;
 import com.ticket.czc.tickets.model.VenuesEntity;
+import com.ticket.czc.tickets.service.FavoriteService;
 import com.ticket.czc.tickets.service.SeatsManageService;
 import com.ticket.czc.tickets.service.ShowManageService;
 import com.ticket.czc.tickets.service.VenueManageService;
@@ -42,6 +43,7 @@ public class ShowController {
     private ShowManageService showManageService= ServiceFactory.getShowManageService();
     private SeatsManageService seatsManageService=ServiceFactory.getSeatsManageService();
     private VenueManageService venueManageService=ServiceFactory.getVenueManageService();
+    private FavoriteService favoriteService=ServiceFactory.getFavoriteService();
 //    @Autowired
 //    private ShowManageService showManageService;
 //    @Autowired
@@ -66,6 +68,15 @@ public class ShowController {
         result.add(show);
         result.add(venue);
         return result;
+    }
+
+    @RequestMapping("/getDetailShowIsFav")
+    @ResponseBody
+    public String getDetailShowIsFav(HttpServletRequest request){
+        HttpSession session=request.getSession();
+        String userEamil=(String) session.getAttribute("userId");
+        int showId=(Integer)session.getAttribute("viewShowId");
+        return String.valueOf(favoriteService.hasFavorite(showId,userEamil));
     }
 
     @RequestMapping("/register/{showInfo}")
@@ -201,6 +212,15 @@ public class ShowController {
         result.add(show);
         result.add(venue);
         return result;
+    }
+
+    @RequestMapping("/getCurrentShowIsFav")
+    @ResponseBody
+    public String getCurrentShowIsFav(HttpServletRequest request){
+        HttpSession session=request.getSession();
+        String userEamil=(String) session.getAttribute("userId");
+        int showId=(Integer)session.getAttribute("showId");
+        return String.valueOf(favoriteService.hasFavorite(showId,userEamil));
     }
 
     @RequestMapping("/getFutureShowByVenue")
