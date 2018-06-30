@@ -113,6 +113,7 @@
     line-height: 16px;
     color: #fff;
     border-radius: 2px;
+    text-decoration: none;
 }
 
 a {
@@ -120,7 +121,7 @@ a {
 }
 
 .wish-icon {
-    background: url(imgs/wishicon.png);
+    background: url(imgs/wishicon1.png);
 }
 
 .hasSelectIcon{
