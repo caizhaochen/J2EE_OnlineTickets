@@ -95,11 +95,19 @@
                         </div>
 
                         <div class="action-buyBtn">
-                            <div class="action clearfix">
-                                <a class="wish ">
+                            <div class="action clearfix" id="notLoveIcon" v-show="notLove">
+                                <a class="wish" v-on:click="addFavorite()">
                                     <div>
-                                        <i class="icon wish-icon" id="loveIcon"></i>
+                                        <i class="icon wish-icon"  ></i>
                                         <span>喜欢</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="action clearfix" id="loveIcon" v-show="loved">
+                                <a class="wish" v-on:click="addFavorite()">
+                                    <div>
+                                        <i class="icon hasSelectIcon"  ></i>
+                                        <span>取消收藏</span>
                                     </div>
                                 </a>
                             </div>

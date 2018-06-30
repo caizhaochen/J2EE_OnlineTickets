@@ -130,6 +130,7 @@ function loadSeats() {
         el: '#bookSeatsVue',
         data: {
             username:'您还没有登录',
+            userEmail:'',
             userlevel:0,
             errorMsg:'error',
             showid:'',
@@ -145,8 +146,24 @@ function loadSeats() {
             selected:[],
             totalPrice:0,
             item:'',
+
+            notLove:true,
+            loved:false,
         },
         methods:{
+            addFavorite:function () {
+                var favoriteInfo=[this.userEmail,this.showid];
+                this.$http.get("http://localhost:8080/user/addFavorite/"+favoriteInfo).then(function (response) {
+                    // toastr.success("收藏成功")
+                    if (this.loved==true){
+                        this.notLove=true;
+                        this.loved=false;
+                    }else{
+                        this.loved=true;
+                        this.notLove=false;
+                    }
+                })
+            },
             fetchTickets:function () {
                 if(this.selected.length==0){
                     toastr.error("请至少选择一张票！");
@@ -182,13 +199,17 @@ function loadSeats() {
             this.$http.get("http://localhost:8080/tickets/getUserInfo").then(function (response) {
                 var userInfo=response.data;
                 this.username=userInfo.username;
+                this.userEmail=userInfo.email;
                 this.userlevel=userInfo.level;
             });
             this.$http.get("http://localhost:8080/show/getCurrentShowIsFav").then(function (response) {
                 if (response.bodyText=="true"){
-                    $("#loveIcon").attr("class","icon hasSelectIcon");
+                    this.notLove=false;
+                    this.loved=true;
                 }else {
-                    $("#loveIcon").attr("class","icon wish-icon");
+
+                    this.notLove=true;
+                    this.loved=false;
                 }
             });
 
