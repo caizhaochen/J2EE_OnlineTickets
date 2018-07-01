@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <!--<link rel="stylesheet" type="text/css" href="/appcss/mainCss.css"/>-->
     <link rel="stylesheet" type="text/css" href="/appcss/payCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/appcss/paySuccessCss.css"/>
 
     <script src="/js/vue.min.js"></script>
     <script src="/js/vue-resource.js"></script>
@@ -33,7 +34,6 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
-
     </script>
 </head>
 <body>
@@ -115,12 +115,55 @@
             <span>实际支付 :</span>
             <span class="price">33</span>
         </div>
-        <div><a class="pay-btn" data-order-id="3202568955" data-act="pay-click" data-bid="b_u30afks6" href="/order/paySuccess">确认支付</a></div>
+        <div><a class="pay-btn" data-order-id="3202568955" data-act="pay-click" data-bid="b_u30afks6" v-on:click="showPay" >确认支付</a></div>
+
     </div>
     </div>
 
 
 </div>
+<div v-show="pay">
+    <div class="g-bd" >
+        <div id="pay">
+            <div class="payment-container">
+                <div >
+                    <form  role="form">
+                        <fieldset>
+
+
+                            <div >
+                                <div >
+                                    <div >
+                                        <span><input class="inputClass" type="text" placeholder="账户"/></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div >
+                                <div >
+                                    <div >
+                                        <span><input class="inputClass" type="password" placeholder="密码"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="payment payment-0">
+
+                    <div class="payment-submit-area clear-fix">
+                        <div class="amount">支付 ¥ <span class="amount-price">33.00</span></div>
+                        <div class="payment-submit"><a class="btn">确认付款</a></div>
+                        <div class="payment-back"><a>取消</a></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
 
 </body>
 </html>

@@ -159,3 +159,52 @@ body{
 a:active, a:hover {
     outline: 0;
 }
+
+/*另外一个*/
+.g-bd {
+    position:absolute;
+    top:30%;
+    left:30%;
+    width: 420px;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #fff;
+}
+.m-cnt {
+    padding: 0 50px;
+    -webkit-user-select: none;
+}
+.inputClass{
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    font-size:1.4em;
+    height:2.3em;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+
+    width: 300px;
+    margin-top: 20px;
+    margin-left: 70px;
+    padding-left: 5px;
+
+}
+.m-cnt .inputbox {
+    z-index: 19;
+    position: relative;
+    height: 44px;
+    margin-bottom: 0px;
+    border: 1px solid #c5cddb;
+    background: #fff;
+    font-size: 12px;
+    line-height: 44px;
+}
+.m-cnt .u-logo .u-logo-img1 {
+    background-position: -251px -86px;
+}
+.m-cnt .u-logo div {
+    display: inline-block;
+    width: 22px;
+    height: 24px;
+    margin-top: 10px;
+}

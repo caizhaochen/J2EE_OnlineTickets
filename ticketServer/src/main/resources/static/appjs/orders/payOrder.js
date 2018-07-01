@@ -65,7 +65,12 @@ function payOrder() {
             showName:'',
             showTime:'',
             venueName:'',
-            venueLocation:''
+            venueLocation:'',
+
+            pay: false
+
+
+
         },
         methods:{
             pay:function () {
@@ -99,7 +104,11 @@ function payOrder() {
                         }
                     })
                 }
+            },
+            showPay:function () {
+                this.pay = true;
             }
+
         },
         mounted:function () {
             this.$http.get("http://localhost:8080/tickets/getUserInfo").then(function (response) {
