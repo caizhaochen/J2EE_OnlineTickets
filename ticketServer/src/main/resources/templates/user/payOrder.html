@@ -94,14 +94,14 @@
         </thead>
         <tbody>
         <tr>
-            <td class="movie-name">《侏罗纪世界2》</td>
-            <td class="showtime">今天 6月24日 14:05</td>
-            <td class="cinema-name">中宁国际影城(京新广场店)</td>
+            <td class="movie-name">《{{showName}}》</td>
+            <td class="showtime">{{showTime | time}}</td>
+            <td class="cinema-name">{{venueName}}</td>
             <td>
-                <span class="hall">4号DTS厅</span>
+                <span class="hall">座位号</span>
                 <div class="seats">
                     <div>
-                        <span class=""><i>6</i>排<i>3</i>座</span>
+                        <span class=""><i>{{seats}}</i></span>
                     </div>
                     <div>
                     </div>
@@ -113,53 +113,51 @@
         <div class="right">
         <div class="price-wrapper">
             <span>实际支付 :</span>
-            <span class="price">33</span>
+            <span class="price">{{orderPrice | currency}}</span>
         </div>
         <div><a class="pay-btn" data-order-id="3202568955" data-act="pay-click" data-bid="b_u30afks6" v-on:click="showPay" >确认支付</a></div>
 
     </div>
     </div>
 
-
-</div>
-<div v-show="pay">
-    <div class="g-bd" >
-        <div id="pay">
-            <div class="payment-container">
-                <div >
-                    <form  role="form">
-                        <fieldset>
-
-
-                            <div >
+    <div v-show="payDiv">
+        <div class="g-bd" >
+            <div id="pay">
+                <div class="payment-container">
+                    <div >
+                        <form  role="form">
+                            <fieldset>
                                 <div >
                                     <div >
-                                        <span><input class="inputClass" type="text" placeholder="账户"/></span>
+                                        <div >
+                                            <span><input class="inputClass" type="text" placeholder="账户" v-model="accountId"/></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div >
                                 <div >
                                     <div >
-                                        <span><input class="inputClass" type="password" placeholder="密码"/></span>
+                                        <div >
+                                            <span><input class="inputClass" type="password" placeholder="密码" v-model="accountPass"/></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="payment payment-0">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="payment payment-0">
 
-                    <div class="payment-submit-area clear-fix">
-                        <div class="amount">支付 ¥ <span class="amount-price">33.00</span></div>
-                        <div class="payment-submit"><a class="btn">确认付款</a></div>
-                        <div class="payment-back"><a>取消</a></div>
+                        <div class="payment-submit-area clear-fix">
+                            <div class="amount">支付 ¥ <span class="amount-price">{{orderPrice | currency}}</span></div>
+                            <div class="payment-submit"><a class="btn" type="button" v-on:click="pay">确认付款</a></div>
+                            <div class="payment-back" ><a type="button" v-on:click="cancelPay">取消</a></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
+
     </div>
 
 </div>

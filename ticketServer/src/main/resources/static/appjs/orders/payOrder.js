@@ -67,7 +67,7 @@ function payOrder() {
             venueName:'',
             venueLocation:'',
 
-            pay: false
+            payDiv: false
 
 
 
@@ -106,7 +106,10 @@ function payOrder() {
                 }
             },
             showPay:function () {
-                this.pay = true;
+                this.payDiv = true;
+            },
+            cancelPay:function () {
+                this.payDiv=false;
             }
 
         },
