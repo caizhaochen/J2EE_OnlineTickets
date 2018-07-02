@@ -213,6 +213,8 @@ function loadSeats() {
                 }
             });
 
+
+
             this.$http.get("http://localhost:8080/chooseSeats").then(function (response) {
                 console.log(response.data);
                 var seatsInfo=response.data;

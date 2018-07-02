@@ -121,11 +121,11 @@ a {
 }
 
 .wish-icon {
-    background: url(imgs/wishicon1.png);
+    background: url(imgs/initialicon.png);
 }
 
 .hasSelectIcon{
-    background: url(imgs/loveicon.png);
+    background: url(imgs/wishicon.png);
 }
 
 .action-buyBtn .action i.icon {
