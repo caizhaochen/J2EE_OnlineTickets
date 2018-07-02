@@ -183,3 +183,8 @@ span.seatCharts-legendDescription {
 .payShowName{
     font-size: 1.5em;
 }
+
+.navIcon{
+    height: 150px;
+    margin-top: -55px;
+}
