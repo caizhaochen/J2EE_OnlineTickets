@@ -99,6 +99,9 @@ function myOrders() {
                 this.showFuture=false;
                 this.showNotPaid=true;
                 this.showAll=false;
+            },
+            deleteOrder:function (id) {
+                toastr.warning("请耐心等待该功能上线");
             }
         },
         mounted:function (){
