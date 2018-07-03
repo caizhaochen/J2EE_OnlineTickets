@@ -74,6 +74,9 @@ function payOrder() {
         },
         methods:{
             pay:function () {
+                function jump() {
+                    window.location.href="/showTickets";
+                }
                 var id=this.accountId;
                 var pass=this.accountPass;
                 if(id==""||pass==""){
@@ -100,7 +103,9 @@ function payOrder() {
                             toastr.error("账户余额不足");
                         }
                         else{
-                            window.location.href="/order/paySuccess";
+                            toastr.error("支付成功！");
+                            setTimeout(jump,2000);
+
                         }
                     })
                 }

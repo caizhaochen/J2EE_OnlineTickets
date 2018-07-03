@@ -130,7 +130,7 @@
                                 <div >
                                     <div >
                                         <div >
-                                            <span><input class="inputClass" type="text" placeholder="账户" v-model="accountId"/></span>
+                                            <span><input class="input_control" type="text" placeholder="账户" v-model="accountId"/></span>
                                         </div>
                                     </div>
                                 </div>
@@ -138,18 +138,18 @@
                                 <div >
                                     <div >
                                         <div >
-                                            <span><input class="inputClass" type="password" placeholder="密码" v-model="accountPass"/></span>
+                                            <span><input class="input_control" type="password" placeholder="密码" v-model="accountPass"/></span>
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
                     </div>
-                    <div class="payment payment-0">
+                    <div >
 
-                        <div class="payment-submit-area clear-fix">
+                        <div >
                             <div class="amount">支付 ¥ <span class="amount-price">{{orderPrice | currency}}</span></div>
-                            <div class="payment-submit"><a class="btn" type="button" v-on:click="pay">确认付款</a></div>
+                            <div class="payment-submit"><a class="pay-btn" type="button" v-on:click="pay">确认付款</a></div>
                             <div class="payment-back" ><a type="button" v-on:click="cancelPay">取消</a></div>
                         </div>
                     </div>
