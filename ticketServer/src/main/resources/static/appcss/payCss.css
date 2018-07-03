@@ -124,6 +124,11 @@ td, th {
     -webkit-box-shadow: 0 2px 10px -2px #f03d37;
     box-shadow: 0 2px 10px -2px #f03d37;
 }
+a:hover{text-decoration:none;}
+
+.btn .pay-btn:hover{
+    text-decoration: none;
+}
 
 .count-down-wrapper .time-left .minute, .count-down-wrapper .time-left .second {
     font-size: 32px;

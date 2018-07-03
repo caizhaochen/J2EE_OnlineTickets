@@ -75,7 +75,7 @@ function payOrder() {
         methods:{
             pay:function () {
                 function jump() {
-                    window.location.href="/showTickets";
+                    window.location.href="/pages/users/myOrders.html";
                 }
                 var id=this.accountId;
                 var pass=this.accountPass;
