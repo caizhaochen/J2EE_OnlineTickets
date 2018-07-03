@@ -41,7 +41,7 @@
 <div id="bookSeatsVue">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
-            <div class="navbar-brand"><span>REDBUD在线购票</span></div>
+            <div class="navbar-brand"><img src="/images/weblogo.png" alt="" class="navIcon"/></div>
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#login-collapse">
                 <span class="sr-only">登录选项</span>
@@ -134,49 +134,52 @@
 
                                         <div class="mod-content">
                                             <div>
-                                                <div class="col-lg-2 col-md-2 col-sm-1">
+                                                <div class="col-lg-1 col-md-1 col-sm-1">
                                                     <!--<div id="legend"></div>-->
                                                 </div>
-                                                <div id="seat-map" class="col-lg-8 col-md-8 col-sm-10">
+                                                <div id="seat-map" class="col-lg-9 col-md-8 col-sm-10">
                                                     <div id="seat-maps"></div>
-                                                    <!--<span>票价总计：￥{{totalPrice | currency }}</span>-->
-                                                    <!--<p></p>-->
-                                                    <!--<button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button>-->
-                                                    <!--<p></p>-->
                                                 </div>
-                                                <div class="col-lg-2 col-md-2 col-sm-1">
+                                                <div class="col-lg-2 col-md-3 col-sm-1">
                                                     <div class="mod-title">
                                                         <h3>座位示例</h3>
                                                         <p></p>
                                                         <br/>
                                                     </div>
                                                     <div id="legend"></div>
+                                                    <br/>
+                                                    <div class="mod-title">
+                                                        <h3>票价信息</h3>
+                                                        <p></p>
+                                                        <br/>
+                                                    </div>
+                                                    <div style="text-align: left">
+                                                        <span style="color: #ef4238;font-size: 30px;font-weight: bold">￥{{totalPrice | currency }}</span>
+                                                        <p></p>
+                                                        <button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button>
+                                                        <p></p>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="booking-details">
                                                 <ul id="selected-seats">
                                                 </ul>
-                                                <div class="mod-title">
-                                                    <h3>票价信息</h3>
-                                                    <br/>
-                                                </div>
-                                                <div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-1"></div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-10" style="text-align: right">
-                                                        <span>票价总计：￥{{totalPrice | currency }}</span>
-                                                        <p></p>
-                                                        <button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button>
-                                                        <p></p>
-                                                        <!--<div id="legend"></div>-->
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-1"></div>
-                                                    <!--<div style="text-align: right">-->
+                                                <!--<div class="mod-title">-->
+                                                    <!--<h3>票价信息</h3>-->
+                                                    <!--<br/>-->
+                                                <!--</div>-->
+                                                <!--<div>-->
+                                                    <!--<div class="col-lg-3 col-md-3 col-sm-1"></div>-->
+                                                    <!--<div class="col-lg-6 col-md-6 col-sm-10" style="text-align: right">-->
                                                         <!--<span>票价总计：￥{{totalPrice | currency }}</span>-->
                                                         <!--<p></p>-->
                                                         <!--<button class=" btn btn-success" type="button"  v-on:click="fetchTickets">确认购票</button>-->
                                                         <!--<p></p>-->
+                                                        <!--&lt;!&ndash;<div id="legend"></div>&ndash;&gt;-->
                                                     <!--</div>-->
-                                                </div>
+                                                    <!--<div class="col-lg-3 col-md-3 col-sm-1"></div>-->
+                                                <!--</div>-->
                                             </div>
 
 

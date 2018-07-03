@@ -1,6 +1,6 @@
-body{
-    width: 1400px;
-}
+/*body{*/
+    /*width: 1400px;*/
+/*}*/
 
 .showsContainer{
     padding-left: 20px;
@@ -32,8 +32,9 @@ body{
 }
 
 #myCarousel{
-    margin-left: 50px;
-    width: 1000px;
+    margin-left: -130px;
+    width: 1506px;
+    margin-top: -20px;
 }
 
 .carousel-control {

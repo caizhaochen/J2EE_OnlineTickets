@@ -49,9 +49,9 @@
 </head>
 <body>
 <div id="showTickets">
-    <nav class="navbar navbar-default" style="width: 100%;padding-left: 0px;margin-right: 50px">
+    <nav class="navbar navbar-default">
         <div class="navbar-header">
-            <div class="navbar-brand"><img src="/images/logo1.png" alt="" class="navIcon"/></div>
+            <div class="navbar-brand"><img src="/images/weblogo.png" alt="" class="navIcon"/></div>
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#login-collapse">
                 <span class="sr-only">登录选项</span>
@@ -60,7 +60,7 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse navbar-right" id="login-collapse" >
+        <div class="collapse navbar-collapse navbar-right" id="login-collapse" style="padding-right:30px">
             <ul class="nav navbar-nav">
                 <li><a href="/showTickets"><span>订票业务</span></a></li>
                 <li><a href="/pages/users/myOrders.html"><span>我的订单</span></a></li>
@@ -70,8 +70,7 @@
                     <ul class="dropdown-menu">
                         <li><a>会员等级:{{userlevel}}</a></li>
                         <li><a href="/tickets/home">个人信息</a></li>
-                        <li><a href="/pages/users/creditShop.html">积分商城</a></li>
-                        <li><a href="/pages/users/myFavorites.html">我的收藏</a></li>
+                        <li><a href="/pages/users/creditShop.html">积分商城</a></li><li><a href="/pages/users/myFavorites.html">我的收藏</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/">退出登录</a></li>
 
@@ -83,11 +82,11 @@
 
 
     <div class="showsContainer">
-        <div class="searchPart">
-            <input id="searchInput" type="text" class="form-control searchInput" placeholder="请输入演出名称/日期/地点..."/>
-            <input class="searchButton" type="button" v-on:click="searchShow" value="搜索"></input>
-        </div>
-        <div class="page-header"></div>
+        <!--<div class="searchPart">-->
+            <!--<input id="searchInput" type="text" class="form-control searchInput" placeholder="请输入演出名称/日期/地点..."/>-->
+            <!--<input class="searchButton" type="button" v-on:click="searchShow" value="搜索"></input>-->
+        <!--</div>-->
+        <!--<div class="page-header"></div>-->
         <div class="showPart">
             <div id="myCarousel" class="carousel slide">
                 <!-- 轮播（Carousel）指标 -->
@@ -100,17 +99,17 @@
                 <!-- 轮播（Carousel）项目 -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <a v-bind:href=" '/show/viewShowDetail/100097'">
+                        <a v-bind:href=" '/show/viewShowDetail/100097'" target="_blank">
                             <img src="/images/100097big.jpg" alt="First slide" style="height: 400px"/>
                         </a>
                     </div>
                     <div class="item">
-                        <a v-bind:href=" '/show/viewShowDetail/100095'">
+                        <a v-bind:href=" '/show/viewShowDetail/100095'" target="_blank">
                             <img src="/images/100095big.jpg" alt="First slide" style="height: 400px"/>
                         </a>
                     </div>
                     <div class="item">
-                        <a v-bind:href=" '/show/viewShowDetail/100096'">
+                        <a v-bind:href=" '/show/viewShowDetail/100096'" target="_blank">
                             <img src="/images/100096big.jpg" alt="First slide" style="height: 400px"/>
                         </a>
                     </div>
@@ -131,15 +130,21 @@
 
         </div>
 
+        <div class="searchPart">
+            <input id="searchInput" type="text" class="form-control searchInput" placeholder="请输入演出名称/日期/地点..."/>
+            <input class="searchButton" type="button" v-on:click="searchShow" value="搜索"></input>
+        </div>
+        <div class="page-header"></div>
+
         <div class="showPart">
             <div v-for="item in arrayData">
                 <div class="showPicInfo">
-                    <a class="showImages" v-bind:href=" '/show/viewShowDetail/'+item[0].showid">
+                    <a class="showImages" v-bind:href=" '/show/viewShowDetail/'+item[0].showid" target="_blank">
                         <img class="showImages" v-bind:src=" '/showImages/'+item[0].showid+'.jpg' " alt=""/>
                     </a>
                     <div class="showInfoDes">
                         <ul class="list-group">
-                            <a class="showTitle" v-bind:href=" '/show/viewShowDetail/'+item[0].showid">
+                            <a class="showTitle" v-bind:href=" '/show/viewShowDetail/'+item[0].showid" target="_blank">
                                 <li class="lineTitle list-inline">{{item[0].showname}}</li>
                             </a>
                             <div class="blankHeight"></div>
