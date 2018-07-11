@@ -101,6 +101,9 @@ body{
     background: #fff;
     border-radius: 4px;
     padding: 0 20px 50px;
+    height: 380px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 .payment {
     margin-top: 30px;
@@ -156,7 +159,7 @@ body{
 }
 
 a:active, a:hover {
-    outline: 0;
+
 }
 
 /*另外一个*/
