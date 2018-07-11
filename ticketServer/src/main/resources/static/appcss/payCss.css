@@ -53,7 +53,7 @@ table {
 }
 th {
     font-weight: bold;
-    text-align: -internal-center;
+    /*text-align: -internal-center;*/
 }
 
 td, th {
