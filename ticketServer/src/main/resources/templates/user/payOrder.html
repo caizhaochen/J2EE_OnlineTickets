@@ -122,6 +122,7 @@
 
     <div v-show="payDiv">
         <div class="g-bd" >
+            <div class="controls" style="text-align: center;margin-top: -10px;font-size: 1.5em;"></div>
             <div id="pay">
                 <div class="payment-container">
                     <div class="controls" style="text-align: center;padding-top:20px;font-size: 1.5em;">银行账户</div>
@@ -150,7 +151,7 @@
                     </div>
                     <div >
 
-                        <div style="padding-bottom: 20px;">
+                        <div style="padding-bottom: 30px;">
                             <div class="amount">支付 ¥ <span class="amount-price">{{orderPrice | currency}}</span></div>
                             <div class="payment-submit"><a class="pay-btn" type="button" v-on:click="pay">确认付款</a></div>
                             <div class="payment-back" ><a type="button" v-on:click="cancelPay">取消</a></div>
